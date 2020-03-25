@@ -10,7 +10,25 @@ class HomePage extends React.Component {
             <Siteframe {...{
                 headerProps: {
                     className: 'bg-light-gray paxl',
-                    companyName: <span style={{ color: 'black' }}>RetroShop</span>,
+                    companyName:
+                        <span style={{ color: 'black' }}>RetroShop</span>,
+                    cols: [
+                        <Grid
+                            className="grid-show position-fixed type-black em-alt"
+                            {...{style: { right: '0' }}}
+                            flexDirection="row"
+                            justifyContent="space-between">
+                            <FlexCol fixed>
+                                <span>Accessories</span>
+                            </FlexCol>
+                            <FlexCol fixed>
+                                <span>Clothes</span>
+                            </FlexCol>
+                            <FlexCol fixed>
+                                <span>Brands</span>
+                            </FlexCol>
+                        </Grid>
+                    ]
                 },
                 sidebarProps: {
                     className: 'bg-decorative-yellow',
@@ -23,17 +41,18 @@ class HomePage extends React.Component {
                         { text: 'Jeans' },
                     ],
                     secondaryLinks: [{ text: 'Checkout' }, { text: 'Contact' }],
-                    renderLink: ({ text }) => <a className="underline" style={{ color: 'unset' }} href="#">{text}</a>
+                    renderLink: ({ text }: any) => <a className="underline" style={{ color: 'unset' }} href="#">{text}</a>
                 }
             }}>
-                <div className="bg-light-green paxl" style={{ height: '100%', overflow: 'scroll' }}>
+                <div className="bg-light-green paxl" style={{ height: '100%', width: 'auto' }}>
                     <Panel {...{
                         header: <h3 className="mam">All products</h3>,
-                        className: 'width-product', panelClassName: 'width-product'
+                        className: 'scroll display-flex',
+                        style: { minWidth: 'fit-content', width: 'auto', height: 'auto' }
                     }}>
-                        <Grid className="grid-show type-sm pbxl">
+                        <Grid className="grid-show type-sm pbxl scroll" justifyContent="space-evenly">
                             <FlexCol col={8} className="width-product pan mbxxxl">
-                                <Image className="pal" src="http://source.unsplash.com/user/malvestida/Rp-viEAP8Bo" />
+                                <Image respnsive={ true } className="pal" src="http://source.unsplash.com/user/malvestida/Rp-viEAP8Bo" />
                                 <p className="pll prl mbxl man display-flex space-between">
                                     <span>Nike Air</span>
                                     <span>599SEK</span>

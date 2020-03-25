@@ -7,6 +7,8 @@ import 'pivotal-ui/css/panels';
 import 'pivotal-ui/css/whitespace';
 import 'pivotal-ui/css/border';
 import 'pivotal-ui/css/typography';
+import 'pivotal-ui/css/vertical-alignment';
+import 'pivotal-ui/css/positioning';
 import './styles/main.css'
 
 function App() {
