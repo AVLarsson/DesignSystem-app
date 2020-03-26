@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import CartAnimation from './CartAnimation';
+// import App from './App';
+import AddItemButton from './AddItemButton';
 
-ReactDOM.render(<CartAnimation />, document.getElementById('root'));
+ReactDOM.render(<AddItemButton />, document.getElementById('root'));
