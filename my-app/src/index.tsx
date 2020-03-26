@@ -4,8 +4,9 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import ProdPage from './prodPage';
+import CartAnimation from './CartAnimation';
 
-ReactDOM.render(<ProdPage />, document.getElementById('root'));
+ReactDOM.render(<CartAnimation />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

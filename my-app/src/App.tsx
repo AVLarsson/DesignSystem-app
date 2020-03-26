@@ -1,6 +1,9 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import CartAnimation from './CartAnimation';
+import 'pivotal-ui/css/modal';
+import 'pivotal-ui/css/colors';
 
 function App() {
   return (
@@ -10,6 +13,7 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
+        <CartAnimation />
         <a
           className="App-link"
           href="https://reactjs.org"
