@@ -1,29 +1,19 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import CartAnimation from './CartAnimation';
-import 'pivotal-ui/css/modal';
+import HomePage from './HomePage';
+import 'pivotal-ui/css/flex-grids';
 import 'pivotal-ui/css/colors';
+import 'pivotal-ui/css/images';
+import 'pivotal-ui/css/panels';
+import 'pivotal-ui/css/whitespace';
+import 'pivotal-ui/css/border';
+import 'pivotal-ui/css/typography';
+import 'pivotal-ui/css/vertical-alignment';
+import 'pivotal-ui/css/positioning';
+import './styles/main.css'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <CartAnimation />
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <HomePage />
   );
 }
 
