@@ -1,6 +1,10 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import 'pivotal-ui/css/panels';
+import 'pivotal-ui/css/colors';
+import 'pivotal-ui/react/iconography';
+
 
 function App() {
   return (
