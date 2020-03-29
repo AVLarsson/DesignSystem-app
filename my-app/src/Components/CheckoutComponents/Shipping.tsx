@@ -1,24 +1,26 @@
 import * as React from 'react';
 
-export default class Shipping extends React.Component {
+
+export default class Shipping extends React.Component  {
+
     render() {
         return (
             <div  style={{display:"flex",flexDirection: "row", alignItems: "center", justifyContent: "center"}}>
-            <div className="txt-c" style={this.shippingPaymentBox}>
+            <div className="theDiv" style={this.shippingPaymentBox}>
               <div style={this.shippingPaymentBoxInside}>
                 DHL
               </div>
               <p>24h</p>
               <p>99kr</p>
             </div>
-            <div className="txt-c" style={this.shippingPaymentBox}>
+            <div className="theDiv" style={this.shippingPaymentBox}>
               <div style={this.shippingPaymentBoxInside}>
                 Shenker
               </div>
               <p>48h</p>
               <p>49kr</p>
             </div>
-            <div className="txt-c" style={this.shippingPaymentBox}>
+            <div className="theDiv" style={this.shippingPaymentBox}>
               <div style={this.shippingPaymentBoxInside}>
                 Postnord
               </div>
@@ -28,6 +30,7 @@ export default class Shipping extends React.Component {
           </div>
         )
     }
+
     shippingPaymentBox: React.CSSProperties = {
         width: "150px",
         height: "150px",
@@ -36,7 +39,13 @@ export default class Shipping extends React.Component {
         alignItems: "center",
         justifyContent: "center",
         flexDirection: "column",
-        margin: "10px"
+        margin: "10px",
+
+        border: "2px solid black",
+        borderRadius: "16px",
+        fontStyle: "italic",
+        fontSize: "16px",
+        fontWeight: "bold"
       }
       shippingPaymentBoxInside: React.CSSProperties = {
         width: "100px",
@@ -46,5 +55,8 @@ export default class Shipping extends React.Component {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+
+        border: "2px solid black",
+        borderRadius: "16px"
       }
 }

@@ -9,9 +9,20 @@ import 'pivotal-ui/css/positioning';
 import ShoppingBag from "./CheckoutComponents/ShoppingBag";
 import CheckoutInfo from "./CheckoutComponents/CheckoutInfo";
 import Shipping from "./CheckoutComponents/Shipping";
-import Payment from "./CheckoutComponents/Payment"
+import PaymentDivs from "./CheckoutComponents/PaymentDivs";
+import PaymentInfo from "./CheckoutComponents/PaymentInfo";
 
-export default class Checkout extends Component {
+interface State {
+  hidePayment: boolean
+}
+
+export default class Checkout extends Component <{}, State> {
+
+  state = {
+    hidePayment: true
+  }
+
+
   render() {
     return (
       <div style={{position: 'relative', height: '100vh'}}>
@@ -33,7 +44,9 @@ export default class Checkout extends Component {
             <Shipping />
           </Panel >
           <Panel className="txt-c" {...{title: 'Payment'}}>
-            <Payment />
+          <PaymentDivs displayPayment={this.displayPayment} /> 
+            {!this.state.hidePayment ?
+              <PaymentInfo /> : null}
           </Panel>
           <Panel className="txt-c" {...{title: 'Confirmation'}}>
             <button>Send</button>
@@ -42,5 +55,8 @@ export default class Checkout extends Component {
         </Siteframe>
       </div>
     )
+  }
+  displayPayment = () => {
+  this.setState({hidePayment: false})
   }
 }
