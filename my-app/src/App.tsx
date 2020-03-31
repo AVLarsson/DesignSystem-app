@@ -12,11 +12,12 @@ import 'pivotal-ui/css/positioning';
 import './styles/main.css'
 import CartProduct from './CartProduct'
 import Firebase, { FirebaseContext } from './Firebase';
+import HomePage from './HomePage'
 
 function App() {
   return (
     <FirebaseContext.Provider value={new Firebase()}>
-       <CartProduct />
+       <HomePage />
     </FirebaseContext.Provider>
 
   );
