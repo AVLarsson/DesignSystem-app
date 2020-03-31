@@ -60,48 +60,47 @@ class Firebase extends React.Component<{}, FirebaseState> {
         console.log(error, errorInfo)
     }
 
+    /** 
+     * Sign in user anonymously on Firebase.
+     * User is assigned a randomized ID without needing credentials (email, password)
+     */
     doSignInAnonymously = () => {
         let newOrderId = this.getOrderId();
         this.state.auth.signInAnonymously()
-            .then(authUser => { this.saveOrderData(authUser, JSON.stringify(newOrderId)) })
-            .catch(error => {
-                console.log(error.code, error.message)
-            });
+            .then(authUser => this.saveOrderData(authUser, JSON.stringify(newOrderId)) )
+            .catch(error => this.errorMessage(error) );
     }
 
+    errorMessage = (error: firebase.auth.Error) => {
+        return <p>Sign in failed. Error code: {JSON.stringify(error.code)}. Error message: {JSON.stringify(error.message)}.</p>
+    }
+
+    /**
+     * Save order to database.
+     * @param authUser authorized user.
+     * @param newOrderId random order id.
+     */
     saveOrderData(authUser: app.auth.UserCredential, newOrderId: string) {
-
-        // Object.keys(this.state.order).flatMap((item, index) => {
-        //     Object.keys(item[index]).map((c, i) => {
-        //         console.log('c', c, 'i', i)
-        //         let ee = Object.keys(c)
-        //         console.log(ee, ee[i])
-        //     })
-        // })
-
-        // this.state.db.ref(`/test/${authUser.user?.uid}/${newOrderId}`).
+        // if user has signed in (anonymously)
         if (authUser.user !== null) {
-            for (const order in this.state.order) {
-                const keyName = this.state.order[order];
-                this.state.db.ref(`/test/${authUser.user?.uid}/${newOrderId}`).set(order);
-                    // Object.keys(keyName).map((key, i) =>
-                        // this.state.db.ref(`/test/${authUser.user?.uid}/${newOrderId}`).update({ key: { i: keyName[key] }})
-    
-                    
-                
-            }
+            // iterate through each product in order
+            Object.keys(this.state.order).forEach(productID => {
+                // create database ref for each product in order
+                const firebaseRef = this.state.db.ref(`/test/${authUser.user?.uid}/${newOrderId}/${productID}`);
+                // loop through key-value pairs in each product in order
+                Object.entries(this.state.order[productID]).forEach(orderValue => {
+                    // update (add) each key-value pair to product
+                    firebaseRef.update({
+                        [orderValue[0]]: orderValue[1]
+                    })
+                })
+            })
         }
-    }
-    // console.log(key, this.state.order[order][key]);
-
-    writeUserData() {
-        this.state.db.ref('/id').set('hi');
-        console.log('data saved')
     }
 
     /**
      * Generates random integer between 10000-99999.
-     * @returns {string} random integer.
+     * @returns {string} random integer as string.
      */
     getOrderId(): string {
         return JSON.stringify(Math.floor(Math.random() * 89998) + 10000);

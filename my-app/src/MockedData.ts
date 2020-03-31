@@ -1,7 +1,7 @@
 import { Products } from './ProductItems/ProductItemss'
-import 
+import React from 'react'
 
-export const mockedProducts: Products [] = [
+const mockedProducts: Products [] = [ 
 {
     id: 1,
     name: 'Byxor',
