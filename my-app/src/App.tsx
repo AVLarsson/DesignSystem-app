@@ -10,7 +10,6 @@ import 'pivotal-ui/css/typography';
 import 'pivotal-ui/css/vertical-alignment';
 import 'pivotal-ui/css/positioning';
 import './styles/main.css'
-import CartProduct from './CartProduct'
 import Firebase, { FirebaseContext } from './Firebase';
 import HomePage from './HomePage'
 
@@ -22,6 +21,5 @@ function App() {
 
   );
 }
-/* <ShoppingCart firebase={firebase}/> */
 
 export default App;
