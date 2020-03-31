@@ -1,5 +1,5 @@
 import React from 'react';
-import Firebase, { FirebaseContext } from './Firebase';
+import { FirebaseContext } from './Firebase';
 import { PrimaryButton } from 'pivotal-ui/react/buttons';
 import QuantitySelector from './Firebase/QuantitySelector';
 
@@ -26,19 +26,14 @@ class CartProduct extends React.Component<{}, ShoppingCartState> {
     render() {
         return (
             <FirebaseContext.Consumer>
-                {firebase =>
-                    <>
-                        <QuantitySelector quantityCallback={this.quantityCallback} quantity={this.state.quantity} />
-                        <p className="type-sm">Continue as guest and</p>
-                        <PrimaryButton className="auth" id="anon"
-                            onClick={() => { this.handleClick(firebase) }}>
-                            Confirm order
-                        </PrimaryButton>
-                        {firebase.getUserData((ret: any) => console.log(ret))}
-                        {console.log(firebase.state.db.ref('/id'))}
-                        
-                    </>
-                }
+                {firebase => <>
+                    <QuantitySelector quantityCallback={this.quantityCallback} quantity={this.state.quantity} />
+                    <p className="type-sm">Continue as guest and</p>
+                    <PrimaryButton className="auth" id="anon"
+                        onClick={() => { this.handleClick(firebase) }}>
+                        Confirm order
+                    </PrimaryButton>
+                </>}
             </FirebaseContext.Consumer>
         )
     }
@@ -50,7 +45,7 @@ class CartProduct extends React.Component<{}, ShoppingCartState> {
         })
     }
 
-    handleClick = (firebase: Firebase) => {
+    handleClick = (firebase: any) => {
         firebase.doSignInAnonymously();
     }
 }
