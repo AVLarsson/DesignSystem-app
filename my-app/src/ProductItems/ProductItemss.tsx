@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Modal } from 'pivotal-ui/react/modal';
 import { mockedProducts } from '../MockedData'
+import AddItemButton from 'src/AddItemButton';
 // Importera från alla sidorna (skulle jag tro!)
 
 
@@ -16,16 +17,16 @@ export let cartItems: Object[] = []
 
 interface Props {
     product: Products
-    handleAdd: (product: Products) => void
+    // handleClick: (product: Products) => void
 }
 
-function ProductItem(props: Props) {
+export function ProductItem(props: Props) {
     const [show, setShow] = useState(false)
-
+/*
     const addToCart = () => {
-        props.handleAdd(props.product)
-    }
+        props.handleClick(props.product)
 
+    }*/
 
     const { name, description, price, image } = props.product
     return (
@@ -35,9 +36,11 @@ function ProductItem(props: Props) {
             <p className='productTitle'>{name}</p>
             <p className='prodictDescription'>{description}</p>
             <p className='productPrice'>{price}</p>
-            <button id='addToCart' onClick={addToCart}>Köp</button>
+            {/** lägg till onClick={addToCart} i knappen nedan */}
+            <AddItemButton />
+            {/* <button id='addToCart' >Köp</button> */}
 
-            <Modal show={show} setShow={setShow}>
+            <Modal onHide={() => {}} show={show} setShow={setShow}>
                 <img alt='' src={image} className='product-modal-image' />
                 <p className='productTitle'>{name}</p>
             </Modal>
