@@ -1,7 +1,7 @@
 import { Products } from './ProductItems/ProductItemss'
 import brallorPic from './ProductItems/ProductImage/byxorPlaceholder.jpg'
 
-const mockedProducts: Products [] = [ 
+export const mockedProducts: Products [] = [ 
 {
     id: 1,
     name: 'Byxor',

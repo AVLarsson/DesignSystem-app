@@ -46,4 +46,3 @@ function ProductItem(props: Props) {
 
     )
 }
-}

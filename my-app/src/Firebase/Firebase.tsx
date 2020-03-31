@@ -2,7 +2,6 @@ import React from 'react';
 import app from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
-import { FirebaseContext } from '.';
 
 // Firebase configuration
 const firebaseConfig = {
@@ -23,12 +22,11 @@ export interface FirebaseState {
     order: { [key: string]: { [key: string]: number } };
 }
 
+app.initializeApp(firebaseConfig);
 
 class Firebase extends React.Component<{}, FirebaseState> {
-    
     constructor(props?: any) {
         super(props);
-        app.initializeApp(firebaseConfig);
         
         this.state = {
             db: app.database(),
@@ -44,10 +42,7 @@ class Firebase extends React.Component<{}, FirebaseState> {
                     price: 399
                 }
             }
-            
         }
-        
-        this.getUserData()
 
         /** Check if user is signed in already, from previous session. */
         app.auth().onAuthStateChanged(authUser => {
@@ -57,6 +52,7 @@ class Firebase extends React.Component<{}, FirebaseState> {
                 console.log('no user')
             }
         });
+
         this.setState = this.setState.bind(this);
         this.getOrderId = this.getOrderId.bind(this);
     }
@@ -130,12 +126,9 @@ class Firebase extends React.Component<{}, FirebaseState> {
                         })
                     });
                 })
-            } else {
-
             }
         });
     }
 }
 
-export { FirebaseContext };
 export default Firebase;
