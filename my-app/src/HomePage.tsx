@@ -52,7 +52,7 @@ class HomePage extends React.Component {
                     }}>
                         <Grid className="grid-show type-sm pbxl scroll" justifyContent="space-evenly">
                             <FlexCol col={8} className="width-product pan mbxxxl">
-                                <Image responsive={ true } className="pal" src="http://source.unsplash.com/user/malvestida/Rp-viEAP8Bo" />
+                                <Image className="pal" src="http://source.unsplash.com/user/malvestida/Rp-viEAP8Bo" />
                                 <p className="pll prl mbxl man display-flex space-between">
                                     <span>Nike Air</span>
                                     <span>599SEK</span>
