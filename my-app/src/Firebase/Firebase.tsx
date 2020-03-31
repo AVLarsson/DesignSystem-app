@@ -14,7 +14,7 @@ const firebaseConfig = {
     messagingSenderId: "584912358716",
     appId: "1:584912358716:web:f28876b182d1cd29e7a239",
     measurementId: "G-4ELWFERPBF"
-};
+}
 
 export interface FirebaseState {
     db: app.database.Database;
@@ -23,12 +23,13 @@ export interface FirebaseState {
     order: { [key: string]: { [key: string]: number } };
 }
 
-app.initializeApp(firebaseConfig);
 
 class Firebase extends React.Component<{}, FirebaseState> {
+    
     constructor(props?: any) {
         super(props);
-
+        app.initializeApp(firebaseConfig);
+        
         this.state = {
             db: app.database(),
             auth: app.auth(),
@@ -43,21 +44,25 @@ class Firebase extends React.Component<{}, FirebaseState> {
                     price: 399
                 }
             }
+            
         }
+        
+        this.getUserData()
 
-        app.auth().onAuthStateChanged(function (user) {
-            if (user) {
-                console.log('signed in', user.uid)
+        /** Check if user is signed in already, from previous session. */
+        app.auth().onAuthStateChanged(authUser => {
+            if (authUser) {
+                console.log('signed in', authUser.uid)
             } else {
                 console.log('no user')
             }
         });
-        this.setState = this.setState.bind(this)
-        this.getOrderId = this.getOrderId.bind(this)
+        this.setState = this.setState.bind(this);
+        this.getOrderId = this.getOrderId.bind(this);
     }
 
     componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-        console.log(error, errorInfo)
+        return <p>An error occured. Error: {JSON.stringify(error)}. ErrorInfo: {JSON.stringify(errorInfo)}.</p>
     }
 
     /** 
@@ -67,10 +72,13 @@ class Firebase extends React.Component<{}, FirebaseState> {
     doSignInAnonymously = () => {
         let newOrderId = this.getOrderId();
         this.state.auth.signInAnonymously()
-            .then(authUser => this.saveOrderData(authUser, JSON.stringify(newOrderId)) )
-            .catch(error => this.errorMessage(error) );
+            .then(authUser => this.saveOrderData(authUser, JSON.stringify(newOrderId)))
+            .catch(error => this.errorMessage(error));
     }
 
+    /**
+     * Return error message.
+     */
     errorMessage = (error: firebase.auth.Error) => {
         return <p>Sign in failed. Error code: {JSON.stringify(error.code)}. Error message: {JSON.stringify(error.message)}.</p>
     }
@@ -99,32 +107,32 @@ class Firebase extends React.Component<{}, FirebaseState> {
     }
 
     /**
-     * Generates random integer between 10000-99999.
+     * Generates random integer between 10000-99999 as order ID.
      * @returns {string} random integer as string.
      */
     getOrderId(): string {
         return JSON.stringify(Math.floor(Math.random() * 89998) + 10000);
     }
 
+    /**
+     * Recieve all data on currently signed in user.
+     * Data is of all confirmed orders.
+     */
     getUserData() {
-        // this.db.ref('/' + this.firebaseAuth.currentUser)
-        // this.state.db.ref('/' + this.generateOrderId()).set('hej')
-    }
-
-    componentDidMount() {
         this.state.auth.onAuthStateChanged(authUser => {
-            console.log('hell');
-
             if (authUser) {
-                console.log(authUser.isAnonymous);
-                console.log(authUser.uid);
-                console.log(authUser);
+                this.state.db.ref(`/test/${authUser?.uid}`)
+                .once('value').then(snapshot => {
+                    snapshot.forEach(order => {
+                        const value = order.val()
+                        Object.keys(value).forEach(hell => {
+                            console.log(Object.entries(Object.keys(value)))
+                        })
+                    });
+                })
             } else {
-                //signed out
+
             }
-            // authUser
-            //     ? this.setState({ authUser })
-            //     : this.setState({ authUser: null });
         });
     }
 }
