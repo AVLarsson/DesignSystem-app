@@ -1,5 +1,5 @@
 import { Products } from './ProductItems/ProductItemss'
-import React from 'react'
+import brallorPic from './ProductItems/ProductImage/byxorPlaceholder.jpg'
 
 const mockedProducts: Products [] = [ 
 {
