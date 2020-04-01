@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {Form} from 'pivotal-ui/react/forms';
 import {Grid, FlexCol} from 'pivotal-ui/react/flex-grids';
-import {Input} from 'pivotal-ui/react/inputs';
 import "../Imports.css";
 
 export default class SwishInfo extends React.Component {
@@ -9,18 +8,33 @@ export default class SwishInfo extends React.Component {
       return (
         <div className="fadeInInfo">
             <h2>Please Enter Your Info</h2>
-            <Form style={{ display: "flex", justifyContent: "center", margin: "50px" }}>
-            {() => {
-            return (<div>
-                <Grid className="grid-show mbxl">
+            <Form style={{display: "flex", justifyContent: "center"}} {...{
+                fields: {
+                  firstName: {
+                    inline: true,
+                    label: 'First Name'
+                  },
+                  lastName: {
+                    inline: true,
+                    label: 'Last Name',
+                  },
+                  phoneNumber: {
+                      inline: true,
+                      label: "Phone Number"
+                  }
+                }
+              }}>
+                {({fields} : {fields:any} ) => { 
+            return (<div style={{width: "80vw"}}>
+                <Grid className="grid-show mbxl" style={this.centerStyle}>
   
-                    <FlexCol><Input placeholder="First Name" type="text" /></FlexCol>
-                    <FlexCol><Input placeholder="Last Name" type="text" /></FlexCol>
+                    <FlexCol col={5}>{fields.firstName}</FlexCol>
+                    <FlexCol col={5}>{fields.lastName}</FlexCol>
   
                 </Grid>
-                <Grid className="grid-show mbxl">
+                <Grid className="grid-show mbxl" style={this.centerStyle}>
   
-                    <FlexCol col={10}><Input placeholder="PhoneNumber" type="text" /></FlexCol>
+                    <FlexCol col={5}>{fields.phoneNumber}</FlexCol>
   
                  </Grid>
             </div>)
@@ -28,5 +42,10 @@ export default class SwishInfo extends React.Component {
             </Form>
         </div>
     )
+    }
+    centerStyle: React.CSSProperties = {
+      display: "flex",
+      justifyContent: "center",
+      paddingTop: "20px"
     }
 }

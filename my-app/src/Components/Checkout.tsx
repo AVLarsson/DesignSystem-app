@@ -35,7 +35,7 @@ export default class Checkout extends Component <{}, State> {
     hideSwish: true,
     hideKlarna: true,
     counters: [
-        { id: "vegetables", value: 1},
+        { id: "Potato", value: 1,}
     ]
   }
 
@@ -127,17 +127,21 @@ incrementProduct = (id: string) => {
 }
 
 minusProduct = (id:string) => {
-    let productList = this.state.counters
+  let productList = this.state.counters
 
-    productList.forEach((product: theShoppingCart) => {
-        if(product.id === id) {
-            product.value--
-        }
-    })
-    
-    this.setState({
-        counters: productList
-    })
+  productList.forEach((product: theShoppingCart) => {
+    if(product.id === id) {
+      if(product.value <= 1) {
+        this.deleteProduct(id)
+      }
+      else{
+        product.value--
+        this.setState({
+          counters: productList
+        })
+      }
+    }
+  })
 }
 
 deleteProduct = (id:string) => {

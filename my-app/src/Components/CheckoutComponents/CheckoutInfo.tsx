@@ -1,36 +1,66 @@
 import * as React from 'react';
 import {Form} from 'pivotal-ui/react/forms';
 import {Grid, FlexCol} from 'pivotal-ui/react/flex-grids';
-import {Input} from 'pivotal-ui/react/inputs';
 
 export default class CheckoutInfo extends React.Component {
     render() {
         return (
-            <Form  style={{display: "flex", justifyContent: "center"}}>
-                {() => {
+            <Form style={{display: "flex", justifyContent: "center"}} {...{
+                fields: {
+                  firstName: {
+                    inline: true,
+                    label: 'First Name'
+                  },
+                  lastName: {
+                    inline: true,
+                    label: 'Last Name',
+                  },
+                  email: {
+                      inline: true,
+                      label: "Email"
+                  },
+                  phoneNumber: {
+                      inline: true,
+                      label: "Phone Number"
+                  },
+                  adress: {
+                      inline: true,
+                      label: "Adress",
+                  },
+                  zipcode: {
+                      inline: true,
+                      label: "Zipcode",
+                  },
+                  country: {
+                      inline: true,
+                      label: "Country",
+                  }
+                }
+              }}>
+                {({fields} : {fields:any} ) => { 
                 return (
-                    <div>
-                        <Grid className="grid-show mbxl">
+                    <div style={{width: "80vw"}}>
+                        <Grid className="grid-show mbxl" style={this.centerStyle}>
                           
-                        <FlexCol><Input placeholder="First Name" type="text"/></FlexCol>
-                        <FlexCol><Input placeholder="Last Name" type="text"/></FlexCol>
+                        <FlexCol col={5}>{fields.firstName}</FlexCol>
+                        <FlexCol col={5}>{fields.lastName}</FlexCol>
                             
                         </Grid>
-                        <Grid className="grid-show mbxl">
+                        <Grid className="grid-show mbxl" style={this.centerStyle}>
                           
-                        <FlexCol col={10}><Input placeholder="Email" type="text"/></FlexCol>
-                        <FlexCol col={10}><Input placeholder="Phone Number" type="text"/></FlexCol>
+                        <FlexCol col={5}>{fields.email}</FlexCol>
+                        <FlexCol col={5}>{fields.phoneNumber}</FlexCol>
 
                         </Grid>
-                        <Grid className="grid-show mbxl">
+                        <Grid className="grid-show mbxl" style={this.centerStyle}>
 
-                        <FlexCol col={15}><Input placeholder="Adress" type="text"/></FlexCol>
+                        <FlexCol col={10}>{fields.adress}</FlexCol>
 
                         </Grid>
-                        <Grid className="grid-show mbxl">
+                        <Grid className="grid-show mbxl" style={this.centerStyle}>
 
-                        <FlexCol col={10}><Input placeholder="Zipcode" type="text"/></FlexCol>
-                        <FlexCol col={10}><Input placeholder="Country" type="text"/></FlexCol>
+                        <FlexCol col={3}>{fields.zipcode}</FlexCol>
+                        <FlexCol  col={5}>{fields.country}</FlexCol>
 
                         </Grid>
                     </div>
@@ -39,4 +69,11 @@ export default class CheckoutInfo extends React.Component {
             </Form>
         )
     }
+
+    centerStyle: React.CSSProperties = {
+        paddingTop: "20px",
+        display: "flex", 
+        justifyContent: "center", 
+        alignItems: "center",
+      }
 }

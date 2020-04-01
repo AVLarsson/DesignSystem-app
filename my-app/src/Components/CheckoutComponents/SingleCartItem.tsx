@@ -10,7 +10,7 @@ export default class SingleCartItem extends React.Component<{ counter:any, onDel
                 <img style={this.centeringStyleImage} src="https://picsum.photos/200" alt=""/>
                 <p style={this.centeringStyle}>{this.props.counter.id}</p>
                 <p style={this.centeringStyle}>Price</p>
-                <p style={this.centeringStyle}>{this.formatCount()}</p>
+                <p style={this.centeringStyle}>{this.props.counter.value}</p>
                 <Icon onClick={() => this.props.onAdd(this.props.counter)} src="add_circle"/>
                 <Icon onClick={() => this.props.onMinus(this.props.counter, this.props.counter.id)} src="cancel"/>
                 <button onClick={() => this.props.onDelete(this.props.counter.id)}>Delete</button>
@@ -32,10 +32,4 @@ export default class SingleCartItem extends React.Component<{ counter:any, onDel
         justifyContent: "center",
         marginRight: "40px"
       }
-    
-    //If the count is zero then it will display an h1 saying so, otherwise it will just display the count number
-    private formatCount() {
-        const {value: count} = this.props.counter;
-        return <React.Fragment>{count}</React.Fragment>
-    }
 };
