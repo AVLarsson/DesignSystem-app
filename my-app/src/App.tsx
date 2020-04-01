@@ -1,5 +1,5 @@
 import React from 'react';
-// import HomePage from './HomePage';
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import 'pivotal-ui/css/flex-grids';
 import 'pivotal-ui/css/colors';
 import 'pivotal-ui/css/images';
@@ -11,12 +11,30 @@ import 'pivotal-ui/css/vertical-alignment';
 import 'pivotal-ui/css/positioning';
 import './styles/main.css'
 import Firebase, { FirebaseContext } from './Firebase';
-import HomePage from './HomePage'
+import HomePage from './HomePage';
+import { mockedProducts } from './MockedData';
 
 function App() {
   return (
     <FirebaseContext.Provider value={new Firebase()}>
-       <HomePage />
+      <Router>
+        <Switch>
+          <Route path="/">
+            <HomePage />
+          </Route>
+          {mockedProducts.map(product => {
+            const component = `product${product.id}`
+            return (
+              <Route key={product.id} path={`/product${product.id}`}>
+                {`<${component} />`}
+              </Route>
+            )
+          })}
+          <Route path="/product">
+            <HomePage />
+          </Route>
+        </Switch>
+      </Router>
     </FirebaseContext.Provider>
 
   );
