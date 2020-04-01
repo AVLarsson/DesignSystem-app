@@ -1,23 +1,41 @@
 import * as React from 'react';
+import 'pivotal-ui/css/selection';
 
-export default class PaymentDivs extends React.Component <{displayPayment: () => void}> {
+export default class PaymentDivs extends React.Component <{displayBankCard: () => void, displaySwish: () => void, displayKlarna: () => void}> {
+    constructor(props:any) {
+        super(props);
+        this.state = {date: new Date()};
+      }
+    
+      componentDidMount() {
+          console.log("hello")
+
+          let paymentDiv = document.getElementsByClassName("paymentDiv")
+
+          for (let i = 0; i < paymentDiv.length; i++) {
+              paymentDiv[i].addEventListener("click", this.handleDivSelect)
+              
+          }
+      }
+
+
     render() {
         return (
-            <div onClick={() => this.props.displayPayment()} >
-                <div style={{display:"flex",flexDirection: "row", alignItems: "center", justifyContent: "center"}}>
-                  <div className="txt-c" style={this.shippingPaymentBox}>
+            <div>
+                <div className="pui-no-select" style={{display:"flex",flexDirection: "row", alignItems: "center", justifyContent: "center"}}>
+                  <div  onClick={() => this.props.displayBankCard()} className="paymentDiv" style={this.shippingPaymentBox}>
                     <div style={this.shippingPaymentBoxInside}>
                     Bank Card
                     </div>
                     <p>Mastercard</p>
                     <p>Visa</p>
                 </div>
-                <div className="txt-c" style={this.shippingPaymentBox}>
+                <div  onClick={() => this.props.displaySwish()} className="paymentDiv" style={this.shippingPaymentBox}>
                 <div style={this.shippingPaymentBoxInside}>
                     Swish
                 </div>
                 </div>
-                <div className="txt-c" style={this.shippingPaymentBox}>
+                <div  onClick={() => this.props.displayKlarna()} className="paymentDiv" style={this.shippingPaymentBox}>
                 <div style={this.shippingPaymentBoxInside}>
                     Klarna
                 </div>
@@ -27,6 +45,17 @@ export default class PaymentDivs extends React.Component <{displayPayment: () =>
             </div>
         )
     }
+
+    handleDivSelect(event:any) {
+        let paymentDiv = document.getElementsByClassName("paymentDiv") as HTMLCollectionOf<HTMLElement>
+
+        for (let i = 0; i < paymentDiv.length; i++) {
+            paymentDiv[i].style.backgroundColor = "lightgray"
+        }
+        event.currentTarget.style.backgroundColor = "red"
+    }
+
+
     shippingPaymentBox: React.CSSProperties = {
         width: "150px",
         height: "150px",
@@ -41,7 +70,7 @@ export default class PaymentDivs extends React.Component <{displayPayment: () =>
         borderRadius: "16px",
         fontStyle: "italic",
         fontSize: "16px",
-        fontWeight: "bold"
+        fontWeight: "bold",
       }
       shippingPaymentBoxInside: React.CSSProperties = {
         width: "100px",
@@ -53,6 +82,6 @@ export default class PaymentDivs extends React.Component <{displayPayment: () =>
         justifyContent: "center",
 
         border: "2px solid black",
-        borderRadius: "16px"
+        borderRadius: "16px",
       }
 }

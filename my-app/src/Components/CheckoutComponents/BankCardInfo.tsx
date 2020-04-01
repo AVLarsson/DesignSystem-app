@@ -2,11 +2,12 @@ import * as React from 'react';
 import {Form} from 'pivotal-ui/react/forms';
 import {Grid, FlexCol} from 'pivotal-ui/react/flex-grids';
 import {Input} from 'pivotal-ui/react/inputs';
+import "../Imports.css";
 
-export default class PaymentInfo extends React.Component {
+export default class BankCardInfo extends React.Component {
     render() {
       return (
-        <div>
+        <div className="fadeInInfo">
             <h2>Please Enter Your Info</h2>
             <Form style={{ display: "flex", justifyContent: "center", margin: "50px" }}>
             {() => {

@@ -10,16 +10,33 @@ import ShoppingBag from "./CheckoutComponents/ShoppingBag";
 import CheckoutInfo from "./CheckoutComponents/CheckoutInfo";
 import Shipping from "./CheckoutComponents/Shipping";
 import PaymentDivs from "./CheckoutComponents/PaymentDivs";
-import PaymentInfo from "./CheckoutComponents/PaymentInfo";
+import BankCardInfo from "./CheckoutComponents/BankCardInfo";
+import KlarnaInfo from "./CheckoutComponents/KlarnaInfo";
+import SwishInfo from "./CheckoutComponents/SwishInfo";
 
 interface State {
-  hidePayment: boolean
+  hideBankCard: boolean
+  hideSwish: boolean
+  hideKlarna: boolean
+}
+export interface theShoppingCart {
+  id: string,
+  value: number
+}
+
+interface State {
+  counters: Array<theShoppingCart>
 }
 
 export default class Checkout extends Component <{}, State> {
 
   state = {
-    hidePayment: true
+    hideBankCard: true,
+    hideSwish: true,
+    hideKlarna: true,
+    counters: [
+        { id: "vegetables", value: 1},
+    ]
   }
 
 
@@ -35,7 +52,10 @@ export default class Checkout extends Component <{}, State> {
         }}>
         <div className="bg-light-gray pal" style={{height: '100%', overflow: "scroll" }}>
           <Panel className="txt-c" {...{title: 'Shopping Bag'}}>
-          <ShoppingBag />
+          <ShoppingBag products={this.state.counters}
+                    incrementProduct={this.incrementProduct}
+                    minusProduct={this.minusProduct}
+                    deleteProduct={this.deleteProduct} />
             </Panel>
           <Panel className="txt-c" {...{title: 'Your Information'}}>
             <CheckoutInfo />
@@ -44,9 +64,19 @@ export default class Checkout extends Component <{}, State> {
             <Shipping />
           </Panel >
           <Panel className="txt-c" {...{title: 'Payment'}}>
-          <PaymentDivs displayPayment={this.displayPayment} /> 
-            {!this.state.hidePayment ?
-              <PaymentInfo /> : null}
+          <PaymentDivs displayBankCard={this.displayBankCard} displayKlarna={this.displayKlarna} displaySwish={this.displaySwish} /> 
+            {!this.state.hideBankCard ?
+              <BankCardInfo /> 
+            : null}
+
+            {!this.state.hideKlarna ?
+              <KlarnaInfo /> 
+            : null}
+
+            {!this.state.hideSwish ?
+              <SwishInfo /> 
+            : null}
+
           </Panel>
           <Panel className="txt-c" {...{title: 'Confirmation'}}>
             <button>Send</button>
@@ -56,7 +86,81 @@ export default class Checkout extends Component <{}, State> {
       </div>
     )
   }
-  displayPayment = () => {
-  this.setState({hidePayment: false})
+
+  addToTheCart = (addMeat:string) => {
+        
+    let productList = this.state.counters
+    let number = 0;
+    
+    productList.forEach((product: theShoppingCart) => {
+
+        if(product.id === addMeat) {
+            product.value++
+            console.log("two")
+        }
+        if(product.id !== addMeat) {
+            number++
+        }
+        if (number === this.state.counters.length) {                
+            this.state.counters.push({id: addMeat, value: 1})
+            console.log("one")
+        }
+    })
+    this.setState({
+        counters: productList
+    })
+}
+
+incrementProduct = (id: string) => {
+
+    let productList = this.state.counters
+
+    productList.forEach((product: theShoppingCart) => {
+        if(product.id === id) {
+            product.value++
+        }
+    })
+
+    this.setState({
+        counters: productList
+    })
+}
+
+minusProduct = (id:string) => {
+    let productList = this.state.counters
+
+    productList.forEach((product: theShoppingCart) => {
+        if(product.id === id) {
+            product.value--
+        }
+    })
+    
+    this.setState({
+        counters: productList
+    })
+}
+
+deleteProduct = (id:string) => {
+    const counters = this.state.counters.filter(c => c.id !== id);
+    this.setState({counters});
+}
+
+
+
+  
+  displayBankCard = () => {
+    this.setState({hideBankCard: false})
+    this.setState({hideSwish: true})
+    this.setState({hideKlarna: true})
+  }
+  displaySwish = () => {
+    this.setState({hideBankCard: true})
+    this.setState({hideSwish: false})
+    this.setState({hideKlarna: true})
+  }
+  displayKlarna = () => {
+    this.setState({hideBankCard: true})
+    this.setState({hideSwish: true})
+    this.setState({hideKlarna: false})
   }
 }

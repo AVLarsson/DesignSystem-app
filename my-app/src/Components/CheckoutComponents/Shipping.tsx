@@ -1,35 +1,66 @@
 import * as React from 'react';
-
+import 'pivotal-ui/css/selection';
 
 export default class Shipping extends React.Component  {
+  constructor(props:any) {
+    super(props);
+    this.state = {date: new Date()};
+  }
+
+  componentDidMount() {
+      console.log("hello")
+
+      let shippingDiv = document.getElementsByClassName("shippingDiv")
+
+      for (let i = 0; i < shippingDiv.length; i++) {
+        shippingDiv[i].addEventListener("click", this.handleDivSelect)
+          
+      }
+  }
+
 
     render() {
         return (
-            <div  style={{display:"flex",flexDirection: "row", alignItems: "center", justifyContent: "center"}}>
-            <div className="theDiv" style={this.shippingPaymentBox}>
+            <div className="pui-no-select"  style={{display:"flex",flexDirection: "row", alignItems: "center", justifyContent: "center"}}>
+            <div className="shippingDiv" style={this.shippingPaymentBox}>
               <div style={this.shippingPaymentBoxInside}>
                 DHL
               </div>
               <p>24h</p>
-              <p>99kr</p>
+              <p className="amountForShipping">99kr</p>
             </div>
-            <div className="theDiv" style={this.shippingPaymentBox}>
+            <div className="shippingDiv" style={this.shippingPaymentBox}>
               <div style={this.shippingPaymentBoxInside}>
                 Shenker
               </div>
               <p>48h</p>
-              <p>49kr</p>
+              <p className="amountForShipping">49kr</p>
             </div>
-            <div className="theDiv" style={this.shippingPaymentBox}>
+            <div className="shippingDiv" style={this.shippingPaymentBox}>
               <div style={this.shippingPaymentBoxInside}>
                 Postnord
               </div>
               <p>72h</p>
-              <p>free</p>
+              <p className="amountForShipping">free</p>
             </div>
           </div>
         )
     }
+    
+    handleDivSelect(event:any) {
+      let paymentDiv = document.getElementsByClassName("shippingDiv") as HTMLCollectionOf<HTMLElement>
+
+      for (let i = 0; i < paymentDiv.length; i++) {
+          paymentDiv[i].style.backgroundColor = "lightgray"
+
+          if (event.currentTarget.querySelectorAll(".amountForShipping")[i]) {
+            
+            console.log(event.currentTarget.querySelectorAll(".amountForShipping")[i].textContent)
+          }
+      }
+      event.currentTarget.style.backgroundColor = "red"
+  }
+
 
     shippingPaymentBox: React.CSSProperties = {
         width: "150px",
