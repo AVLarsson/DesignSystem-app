@@ -42,10 +42,10 @@ export function ProductItem(props: Props) {
             <AddItemButton />
             {/* <button id='addToCart' >Köp</button> */}
 
-            <Modal onHide={() => { }} show={show} setShow={setShow}>
+            {/* <Modal onHide={() => { }} show={show} setShow={setShow}>
                 <img alt='' src={image} className='product-modal-image' />
                 <p className='productTitle'>{name}</p>
-            </Modal>
+            </Modal> */}
 
         </div>
 
