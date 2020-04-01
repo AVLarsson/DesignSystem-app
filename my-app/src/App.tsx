@@ -33,6 +33,9 @@ function App() {
           <Route path="/product">
             <HomePage />
           </Route>
+          <Route path="/checkout">
+            {/* <CheckoutPage /> */}
+          </Route>
         </Switch>
       </Router>
     </FirebaseContext.Provider>
