@@ -7,11 +7,21 @@
     overflow-y: scroll;
 }
 
+.Products p {
+    padding: unset;
+    margin: unset;
+    height: 100%;
+    padding: .3rem;
+    z-index: 5;
+}
 .col > p {
     display: flex;
 }
 
 .width-product>img {
+.productTitle, .productDescription, .productPrice {
+    z-index: 3;
+}
     object-fit: cover;
     height: 100%;
     max-height: 30rem;
