@@ -13,6 +13,7 @@ import PaymentDivs from "./CheckoutComponents/PaymentDivs";
 import BankCardInfo from "./CheckoutComponents/BankCardInfo";
 import KlarnaInfo from "./CheckoutComponents/KlarnaInfo";
 import SwishInfo from "./CheckoutComponents/SwishInfo";
+import { Products } from 'src/ProductItems/ProductItemss';
 
 interface State {
   hideBankCard: boolean
@@ -22,22 +23,27 @@ interface State {
   lastName: boolean,
   email: boolean,
   adress: boolean,
+  cart: Products[]
 }
 export interface theShoppingCart {
   id: string,
   value: number
 }
 
-interface State {
-  counters: Array<theShoppingCart>
-}
+// interface State {
+//   counters: Array<Products>
+// }
 
-export default class Checkout extends Component <{status?:any}, State> {
+export default class Checkout extends Component <{status?:any; cart?: any}, State> {
 
   state = {
     hideBankCard: true,
     hideSwish: true,
     hideKlarna: true,
+    firstName: true,
+    lastName: false,
+    email: true,
+    adress: false,
     counters: [
         { id: "Potato", value: 1,}
     ],
@@ -113,7 +119,7 @@ export default class Checkout extends Component <{status?:any}, State> {
     let productList = this.state.counters
     let number = 0;
     
-    productList.forEach((product: theShoppingCart) => {
+    productList.forEach((product: Products) => {
 
         if(product.id === addMeat) {
             product.value++
@@ -136,7 +142,7 @@ incrementProduct = (id: string) => {
 
     let productList = this.state.counters
 
-    productList.forEach((product: theShoppingCart) => {
+    productList.forEach((product: Products) => {
         if(product.id === id) {
             product.value++
         }
@@ -150,7 +156,7 @@ incrementProduct = (id: string) => {
 minusProduct = (id:string) => {
   let productList = this.state.counters
 
-  productList.forEach((product: theShoppingCart) => {
+  productList.forEach((product: Products) => {
     if(product.id === id) {
       if(product.value <= 1) {
         this.deleteProduct(id)

@@ -15,17 +15,16 @@ import HomePage from './HomePage';
 import Checkout from './Checkout';
 import { mockedProducts } from '../MockedData';
 import Cart from './Cart';
+import { CartContext } from './CartContext';
 
 export default class App extends React.Component {
   render() {
+    const { cart } = React.useContext(CartContext);
     return (
       <Cart>
         <FirebaseContext.Provider value={new Firebase()}>
           <Router>
             <Switch>
-              <Route path="/">
-                <HomePage />
-              </Route>
               {mockedProducts.map(product => {
                 const component = `product${product.id}`
                 return (
@@ -35,7 +34,10 @@ export default class App extends React.Component {
                 )
               })}
               <Route path="/checkout">
-                <Checkout />
+                <Checkout cart={cart} />
+              </Route>
+              <Route path="/">
+                <HomePage />
               </Route>
             </Switch>
           </Router>
