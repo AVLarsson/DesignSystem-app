@@ -6,3 +6,5 @@ declare module 'pivotal-ui/css/images';
 declare module 'pivotal-ui/react/images';
 declare module 'pivotal-ui/react/grids';
 // declare module 'pivotal-ui/css/iconography';
+// declare module 'pivotal-ui/react/iconography';
+declare module 'pictures/header-retro-shop.png';
