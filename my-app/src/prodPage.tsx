@@ -9,7 +9,8 @@ import 'pivotal-ui/css/colors';
 import {Image} from 'pivotal-ui/react/images';
 import 'pivotal-ui/css/images';
 import {Row, Col} from 'pivotal-ui/react/grids';
-import 'pivotal-ui/react/iconography';
+// import {Icon} from 'pivotal-ui/react/iconography';
+// import 'pivotal-ui/css/iconography';
 
 
 class ProdPage extends React.Component {
@@ -17,8 +18,6 @@ class ProdPage extends React.Component {
     render() {
         return (
             <>
-                {/* <div className='bg-light-green paxl' style={{position: 'relative', height: window.outerHeight}}> */}
-            
 <Siteframe {...{
     headerProps: {
       companyName:'Retro Shop',
@@ -37,12 +36,12 @@ class ProdPage extends React.Component {
   </FlexCol>
   <FlexCol fixed>
     <span>Brands</span>
- {/* <div style={{fontSize: '48px'}}>
-  <Icon src="react"/>
-  <Icon src="account_circle"/>
-  <Icon src="add_circle"/>
-</div> */}
   </FlexCol>
+  {/* <FlexCol fixed>
+    <div style={{fontSize: '48px'}}>
+  <Icon src="react"/>
+</div>
+  </FlexCol> */}
  </Grid>
  ]},
     sidebarProps: {
@@ -62,9 +61,9 @@ class ProdPage extends React.Component {
     //   ]
     }
   }}>
-  <div className="bg-light-blue" style={{ height: '100%', width: 'auto', overflowX:'hidden'}}>
+  <div className="bg-light-green" style={{ height: '100%', width: 'auto', overflowX:'hidden'}}>
     <Panel {...{
-      className: 'bg-light-blue display-flex',
+      className: 'bg-light-green display-flex',
       style: { backgroundImage: 'url("https://i.imgur.com/MGlC0Hj.png")', minWidth: 'fit-content', width: 'auto', height: '20%', overflow: 'auto', padding: '0' }
     }}>      
     </Panel>
