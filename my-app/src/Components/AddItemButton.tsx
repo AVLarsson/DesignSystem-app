@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Modal } from 'pivotal-ui/react/modal';
 import { DefaultButton } from 'pivotal-ui/react/buttons';
-import './styles/addItemButton.css';
+import '../styles/addItemButton.css';
 import { Icon } from 'pivotal-ui/react/iconography';
 import { CartContext } from './CartContext';
 

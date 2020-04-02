@@ -5,7 +5,7 @@ import { Grid, FlexCol } from 'pivotal-ui/react/flex-grids';
 import { ProductItem } from '../ProductItems/ProductItemss';
 import { mockedProducts } from '../MockedData';
 import { Link } from 'react-router-dom';
-import { CartContext } from '../CartContext';
+import { CartContext } from './CartContext';
 import { DefaultButton } from 'pivotal-ui/react/buttons';
 
 const HomePage = () => {

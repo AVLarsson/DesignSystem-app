@@ -1,9 +1,9 @@
 import React from 'react';
 import { CartContext } from './CartContext';
 import { Modal } from 'pivotal-ui/react/modal';
-import { ProductItem } from './ProductItems/ProductItemss';
-import { Products } from './ProductItems/ProductItemss';
-import { mockedProducts } from './MockedData';
+import { ProductItem } from '../ProductItems/ProductItemss';
+import { Products } from '../ProductItems/ProductItemss';
+import { mockedProducts } from '../MockedData';
 
 interface CartState {
     cart: Products[];

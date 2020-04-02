@@ -14,7 +14,7 @@ import Firebase, { FirebaseContext } from '../Firebase';
 import HomePage from './HomePage';
 import Checkout from './Checkout';
 import { mockedProducts } from '../MockedData';
-import Cart from '../Cart';
+import Cart from './Cart';
 
 export default class App extends React.Component {
   render() {
