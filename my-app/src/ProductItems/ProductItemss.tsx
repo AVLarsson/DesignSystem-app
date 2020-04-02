@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { Modal } from 'pivotal-ui/react/modal';
 import { mockedProducts } from '../MockedData'
 import AddItemButton from 'src/AddItemButton';
+import {Grid, FlexCol} from 'pivotal-ui/react/flex-grids';
 // Importera från alla sidorna (skulle jag tro!)
 
 
 export interface Products {
-    id: number;
+    id?: number;
     name: string;
     description: string;
     price: string;
@@ -15,7 +16,8 @@ export interface Products {
 
 export let cartItems: Object[] = []
 
-interface Props {
+export interface Props {
+    id?: number;
     product: Products
     // handleClick: (product: Products) => void
 }
@@ -27,9 +29,11 @@ export function ProductItem(props: Props) {
             props.handleClick(props.product)
     
         }*/
-
+    console.log('wlh = ' + window.location.pathname);
+    
     const { name, description, price, image } = props.product
-    return (
+    if (window.location.pathname === '/') {
+        return (
         <div className={`Products img${props.product.id}`}>
             <span className="productImage mtxxl">
                 <img alt='' src={image} onClick={() =>
@@ -48,6 +52,35 @@ export function ProductItem(props: Props) {
             </Modal> */}
 
         </div>
+        )
+    } else {
+        return (
+            <Grid className="grid-show mbxl" justifyContent='space-evenly'>
+             <FlexCol {...{style: {maxWidth: '30rem', height: '37rem'}, contentAlignment: 'middle', breakpoint: 'sm', col: '16'}}>
+      
+        
+        <div style={{width: '100%', backgroundColor: 'black', height: '80%'}}> 
+                <img alt='' src={image} style={{maxHeight: '45rem', maxWidth:'100%', objectFit: 'cover'}} onClick={() =>
+                    setShow(true)} />
+        </div>
+        
+      </FlexCol>
 
-    )
+      <FlexCol {...{style: {maxWidth: '30rem', height: '35rem', marginTop:'4rem'}, breakpoint: 'sm', col: '6'}}>
+        <div style={{width: '100%'}}>
+          <span className="pll display-flex em-high h1">{name}</span>
+          <span className="pll display-flex h3">Text text.</span>
+            <br/>
+            <br/>
+          <span className="pll display-flex h2">{price}kr</span>
+          <AddItemButton />
+            <br/>
+            <br/>
+          <span className="pll display-flex">{description}</span>
+        </div>
+      </FlexCol>     
+      </Grid>       
+        )
+    }
+    
 }

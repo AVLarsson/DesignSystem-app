@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import 'pivotal-ui/css/flex-grids';
 import 'pivotal-ui/css/colors';
@@ -13,28 +13,33 @@ import './styles/main.css'
 import Firebase, { FirebaseContext } from './Firebase';
 import HomePage from './HomePage';
 import { mockedProducts } from './MockedData';
+import ProdPage from './prodPage';
 
-function App() {
+function App () {
   return (
     <FirebaseContext.Provider value={new Firebase()}>
       <Router>
         <Switch>
-          <Route path="/">
-            <HomePage />
-          </Route>
+        {/* <Route path="/product1">
+            {/* <ProdPage id={1} product={mockedProducts} /> 
+          </Route> */}
           {mockedProducts.map(product => {
             const component = `product${product.id}`
             return (
               <Route key={product.id} path={`/product${product.id}`}>
-                {`<${component} />`}
+              <ProdPage id={product.id} product={product} />
               </Route>
             )
           })}
           <Route path="/product">
             <HomePage />
-          </Route>
+          </Route> */}
+          
           <Route path="/checkout">
             {/* <CheckoutPage /> */}
+          </Route>
+          <Route path="/">
+            <HomePage />
           </Route>
         </Switch>
       </Router>

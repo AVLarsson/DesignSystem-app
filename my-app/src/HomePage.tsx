@@ -5,7 +5,8 @@ import { Grid, FlexCol } from 'pivotal-ui/react/flex-grids';
 import { Image } from 'pivotal-ui/react/images';
 import { ProductItem } from './ProductItems/ProductItemss';
 import { mockedProducts } from './MockedData';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 class HomePage extends React.Component {
     render() {
@@ -46,7 +47,7 @@ class HomePage extends React.Component {
                     secondaryLinks: [{ text: 'Checkout' }, { text: 'Contact' }],
                     renderLink: ({ text, path, id }: any) =>
                     <>
-                            <Link to={`${path}${id}`} key={id} href={path} className="underline" style={{ color: 'unset' }}>
+                            <Link to={`${path}${id}`} key={id} href={path} className="underline-hover" style={{ color: 'unset' }}>
                                 {text}
                             </Link>
                             </>
