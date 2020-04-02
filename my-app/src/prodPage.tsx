@@ -49,16 +49,10 @@ class ProdPage extends React.Component<Props, {}> {
   <FlexCol fixed>
     <span>Brands</span>
   </FlexCol>
-  {/* <FlexCol fixed>
-    <div style={{fontSize: '48px'}}>
-  <Icon src="react"/>
-</div>
-  </FlexCol> */}
  </Grid>
  ]},
     sidebarProps: {
       className: 'bg-decorative-yellow', 
-            // primaryLinks: [ {cols:[<Grid className="grid-show"><FlexCol {...{alignment:'top'}}><div style={{backgroundColor:'black', height:'4rem', margin:'auto'}}><img src='https://i.imgur.com/ANCnCV1.png'/></div></FlexCol></Grid>]}, {text: 'Product1'}, {text: 'Product2'}, {text: 'Product3'}, {text: 'Product4'}, {text: 'Product5'},{text: 'Product6'},{text: 'All products'}],
       primaryLinks: [{text:[ <img style={{width:'100%'}} src='https://i.imgur.com/ANCnCV1.png'/>]}, 
                         { text: 'Coat', path: '/product', id: '1' },
                         { text: 'Sunglasses', path: '/product', id: '2' },
@@ -95,9 +89,5 @@ class ProdPage extends React.Component<Props, {}> {
     }
 };
 
-// ReactDOM.render(
-//   <ProdPage />,
-//   document.getElementById('root')
-// );
 
 export default ProdPage;

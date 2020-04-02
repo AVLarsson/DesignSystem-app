@@ -69,8 +69,6 @@ export function ProductItem(props: Props) {
       <FlexCol {...{style: {maxWidth: '30rem', height: '35rem', marginTop:'4rem'}, breakpoint: 'sm', col: '6'}}>
         <div style={{width: '100%'}}>
           <span className="pll display-flex em-high h1">{name}</span>
-          <span className="pll display-flex h3">Text text.</span>
-            <br/>
             <br/>
           <span className="pll display-flex h2">{price}kr</span>
           <AddItemButton />
