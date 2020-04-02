@@ -12,34 +12,42 @@ import 'pivotal-ui/css/positioning';
 import '../styles/main.css'
 import Firebase, { FirebaseContext } from '../Firebase';
 import HomePage from './HomePage';
-import Checkout from './Checkout';
+// import Checkout from './Checkout';
 import { mockedProducts } from '../MockedData';
+import ProdPage from './prodPage';
 import Cart from './Cart';
 
 export default class App extends React.Component {
   render() {
     return (
       <Cart>
-        <FirebaseContext.Provider value={new Firebase()}>
-          <Router>
-            <Switch>
-              <Route path="/">
-                <HomePage />
+       <FirebaseContext.Provider value={new Firebase()}>
+      <Router>
+        <Switch>
+        {/* <Route path="/product1">
+            {/* <ProdPage id={1} product={mockedProducts} /> 
+          </Route> */}
+          {mockedProducts.map(product => {
+            const component = `product${product.id}`
+            return (
+              <Route key={product.id} path={`/product${product.id}`}>
+              <ProdPage id={product.id} product={product} />
               </Route>
-              {mockedProducts.map(product => {
-                const component = `product${product.id}`
-                return (
-                  <Route key={product.id} path={`/product${product.id}`}>
-                    {`<${component} />`}
-                  </Route>
-                )
-              })}
-              <Route path="/checkout">
-                <Checkout />
-              </Route>
-            </Switch>
-          </Router>
-        </FirebaseContext.Provider>
+            )
+          })}
+          <Route path="/product">
+            <HomePage />
+          </Route> */}
+          
+          <Route path="/checkout">
+            {/* <CheckoutPage /> */}
+          </Route>
+          <Route path="/">
+            <HomePage />
+          </Route>
+        </Switch>
+      </Router>
+    </FirebaseContext.Provider>
       </Cart>
 
     );
