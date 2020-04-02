@@ -18,6 +18,10 @@ interface State {
   hideBankCard: boolean
   hideSwish: boolean
   hideKlarna: boolean
+  firstName: boolean,
+  lastName: boolean,
+  email: boolean,
+  adress: boolean,
 }
 export interface theShoppingCart {
   id: string,
@@ -28,7 +32,7 @@ interface State {
   counters: Array<theShoppingCart>
 }
 
-export default class Checkout extends Component <{}, State> {
+export default class Checkout extends Component <{status?:any}, State> {
 
   state = {
     hideBankCard: true,
@@ -36,9 +40,25 @@ export default class Checkout extends Component <{}, State> {
     hideKlarna: true,
     counters: [
         { id: "Potato", value: 1,}
-    ]
+    ],
+
+
+    firstName: false,
+    lastName: false,
+    email: false,
+    adress: false,
   }
 
+  componentDidMount() {
+    if (localStorage.firstName) {
+      this.state.firstName = true;
+      console.log(this.state.firstName)
+    }
+  }
+
+  onUpdate = () => {
+    console.log("hello")
+  };
 
   render() {
     return (
@@ -58,7 +78,7 @@ export default class Checkout extends Component <{}, State> {
                     deleteProduct={this.deleteProduct} />
             </Panel>
           <Panel className="txt-c" {...{title: 'Your Information'}}>
-            <CheckoutInfo />
+            <CheckoutInfo status={this.state} />
           </Panel>
           <Panel className="txt-c" {...{title: 'Shipping'}}>
             <Shipping />
@@ -79,13 +99,14 @@ export default class Checkout extends Component <{}, State> {
 
           </Panel>
           <Panel className="txt-c" {...{title: 'Confirmation'}}>
-            <button>Send</button>
+            <button onClick={this.checkIfInfoFilledOut}>Send</button>
           </Panel>
           </div>
         </Siteframe>
       </div>
     )
   }
+
 
   addToTheCart = (addMeat:string) => {
         
@@ -149,8 +170,6 @@ deleteProduct = (id:string) => {
     this.setState({counters});
 }
 
-
-
   
   displayBankCard = () => {
     this.setState({hideBankCard: false})
@@ -166,5 +185,16 @@ deleteProduct = (id:string) => {
     this.setState({hideBankCard: true})
     this.setState({hideSwish: true})
     this.setState({hideKlarna: false})
+  }
+
+
+  checkIfInfoFilledOut = () => {
+    if (this.state.hideBankCard === false || this.state.hideKlarna === false || this.state.hideSwish === false) {
+      console.log("Payment has been selected")
+
+    }
+    else{
+      alert("Please select a payment option!")
+    }
   }
 }

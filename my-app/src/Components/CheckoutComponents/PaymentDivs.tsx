@@ -2,11 +2,7 @@ import * as React from 'react';
 import 'pivotal-ui/css/selection';
 
 export default class PaymentDivs extends React.Component <{displayBankCard: () => void, displaySwish: () => void, displayKlarna: () => void}> {
-    constructor(props:any) {
-        super(props);
-        this.state = {date: new Date()};
-      }
-    
+
       componentDidMount() {
           console.log("hello")
 

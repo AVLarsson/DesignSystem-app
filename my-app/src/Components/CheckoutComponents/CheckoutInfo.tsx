@@ -1,39 +1,99 @@
 import * as React from 'react';
 import {Form} from 'pivotal-ui/react/forms';
 import {Grid, FlexCol} from 'pivotal-ui/react/flex-grids';
+import {Input} from 'pivotal-ui/react/inputs';
 
-export default class CheckoutInfo extends React.Component {
+
+interface Props {
+    status: any
+}
+
+export default class CheckoutInfo extends React.Component <Props, {}> {
+
+    state = { updateBool: false }
+
+      componentDidMount = () => {
+
+        console.log(this.state.updateBool)
+          
+          if (this.props.status.firstName === false) {
+        }
+        
+        let theName = (document.getElementById("userFirstName") as unknown as HTMLInputElement);
+        if (localStorage.firstName){
+            
+            theName.value = JSON.parse(localStorage.firstName);
+            
+            console.log(theName.value)
+        }
+        else {
+            // this.forceUpdate(this.componentDidMount)  
+        }
+    }
+    
+    componentDidUpdate() {
+        let theName = (document.getElementById("userFirstName") as unknown as HTMLInputElement);
+        if (localStorage.firstName){
+            
+            theName.value = JSON.parse(localStorage.firstName);
+        }
+    }
+    
+    bananarama() {
+        console.log(this.state.updateBool);
+    }
+
+    handleInputChange(event:any) {
+        const targetValue = event.target.value;
+        const targetName = event.target.name
+        const valueString = JSON.stringify(targetValue);
+
+        localStorage.setItem(targetName, valueString)
+    
+            
+    }
+
+
     render() {
         return (
             <Form style={{display: "flex", justifyContent: "center"}} {...{
                 fields: {
                   firstName: {
                     inline: true,
-                    label: 'First Name'
+                    label: 'First Name',
+                    initialValue: "hello",
+                    children: <Input id="userFirstName" onKeyUp={this.handleInputChange} />,
                   },
                   lastName: {
                     inline: true,
                     label: 'Last Name',
+                    initialValue: "hello",
+                    children: <Input onKeyUp={this.handleInputChange}/>
                   },
                   email: {
                       inline: true,
-                      label: "Email"
+                      label: "Email",
+                      children: <Input onKeyUp={this.handleInputChange}/>
                   },
                   phoneNumber: {
                       inline: true,
-                      label: "Phone Number"
+                      label: "Phone Number",
+                      children: <Input onKeyUp={this.handleInputChange}/>
                   },
                   adress: {
                       inline: true,
                       label: "Adress",
+                      children: <Input onKeyUp={this.handleInputChange}/>
                   },
                   zipcode: {
                       inline: true,
                       label: "Zipcode",
+                      children: <Input onKeyUp={this.handleInputChange}/>
                   },
                   country: {
                       inline: true,
                       label: "Country",
+                      children: <Input onKeyUp={this.handleInputChange}/>
                   }
                 }
               }}>
