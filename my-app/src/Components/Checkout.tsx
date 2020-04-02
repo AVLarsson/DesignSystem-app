@@ -204,3 +204,4 @@ deleteProduct = (id:string) => {
     }
   }
 }
+}
