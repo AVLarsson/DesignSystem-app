@@ -11,9 +11,9 @@ import 'pivotal-ui/css/colors';
 import {Image} from 'pivotal-ui/react/images';
 import 'pivotal-ui/css/images';
 import {Row, Col} from 'pivotal-ui/react/grids';
-import AddItemButton from 'src/AddItemButton';
-import { ProductItem } from './ProductItems/ProductItemss';
-import {Products} from './ProductItems/ProductItemss';
+import AddItemButton from './AddItemButton';
+import { ProductItem } from '../ProductItems/ProductItemss';
+import {Products} from '../ProductItems/ProductItemss';
 
 // import {Icon} from 'pivotal-ui/react/iconography';
 // import 'pivotal-ui/css/iconography';

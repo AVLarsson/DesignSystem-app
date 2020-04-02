@@ -12,7 +12,7 @@ import 'pivotal-ui/css/positioning';
 import '../styles/main.css'
 import Firebase, { FirebaseContext } from '../Firebase';
 import HomePage from './HomePage';
-import Checkout from './Checkout';
+// import Checkout from './Checkout';
 import { mockedProducts } from '../MockedData';
 import ProdPage from './prodPage';
 import Cart from './Cart';
