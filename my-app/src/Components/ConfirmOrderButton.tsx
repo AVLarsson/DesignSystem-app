@@ -1,4 +1,4 @@
-import { FirebaseContext } from './Firebase';
+import { FirebaseContext } from '../Firebase';
 import React, { ReactInstance } from 'react';
 import { PrimaryButton } from 'pivotal-ui/react/buttons'
 
