@@ -1,9 +1,11 @@
 declare module 'pivotal-ui/react/flex-grids';
 declare module 'pivotal-ui/react/siteframe';
 declare module 'pivotal-ui/react/panels';
-declare module 'pivotal-ui/react/modal';
-declare module 'pivotal-ui/react/buttons';
 declare module 'pivotal-ui/react/iconography';
+declare module "pivotal-ui/react/forms";
+declare module 'pivotal-ui/react/inputs';
+declare module 'pivotal-ui/react/buttons';
+declare module 'pivotal-ui/css/selection';
 declare module 'pivotal-ui/react/images';
 declare module 'pivotal-ui/css/panels';
 declare module 'pivotal-ui/css/images';
@@ -13,3 +15,4 @@ declare module 'pivotal-ui/react/grids';
 declare module 'pictures/header-retro-shop.png';
 // declare module 'pivotal-ui/css/iconography';
 // declare module 'pivotal-ui/css/iconography';
+declare module 'pivotal-ui/react/modal';
