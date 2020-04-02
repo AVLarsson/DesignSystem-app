@@ -1,8 +1,8 @@
 import * as React from 'react';
-import {Component} from 'react';
-import {Panel} from 'pivotal-ui/react/panels';
-import {Siteframe} from 'pivotal-ui/react/siteframe';
-import {Icon} from 'pivotal-ui/react/iconography';
+import { Component } from 'react';
+import { Panel } from 'pivotal-ui/react/panels';
+import { Siteframe } from 'pivotal-ui/react/siteframe';
+import { Icon } from 'pivotal-ui/react/iconography';
 import 'pivotal-ui/css/alignment';
 import 'pivotal-ui/css/positioning';
 
@@ -13,12 +13,14 @@ import PaymentDivs from "./CheckoutComponents/PaymentDivs";
 import BankCardInfo from "./CheckoutComponents/BankCardInfo";
 import KlarnaInfo from "./CheckoutComponents/KlarnaInfo";
 import SwishInfo from "./CheckoutComponents/SwishInfo";
+import { Products } from '../ProductItems/ProductItemss'
 
 interface State {
   hideBankCard: boolean
   hideSwish: boolean
   hideKlarna: boolean
 }
+
 export interface theShoppingCart {
   id: string,
   value: number
@@ -28,14 +30,14 @@ interface State {
   counters: Array<theShoppingCart>
 }
 
-export default class Checkout extends Component <{}, State> {
+export default class Checkout extends Component<{}, State> {
 
   state = {
     hideBankCard: true,
     hideSwish: true,
     hideKlarna: true,
     counters: [
-        { id: "vegetables", value: 1},
+      { id: "1", value: 0 }
     ]
   }
 
@@ -87,80 +89,80 @@ export default class Checkout extends Component <{}, State> {
     )
   }
 
-  addToTheCart = (addMeat:string) => {
-        
+  addToTheCart = (addMeat: string) => {
+
     let productList = this.state.counters
     let number = 0;
-    
+
     productList.forEach((product: theShoppingCart) => {
 
-        if(product.id === addMeat) {
-            product.value++
-            console.log("two")
-        }
-        if(product.id !== addMeat) {
-            number++
-        }
-        if (number === this.state.counters.length) {                
-            this.state.counters.push({id: addMeat, value: 1})
-            console.log("one")
-        }
+      if (product.id === addMeat) {
+        product.value++
+        console.log("two")
+      }
+      if (product.id !== addMeat) {
+        number++
+      }
+      if (number === this.state.counters.length) {
+        this.state.counters.push({ id: addMeat, value: 1 })
+        console.log("one")
+      }
     })
     this.setState({
-        counters: productList
+      counters: productList
     })
-}
+  }
 
-incrementProduct = (id: string) => {
+  incrementProduct = (id: string) => {
 
     let productList = this.state.counters
 
     productList.forEach((product: theShoppingCart) => {
-        if(product.id === id) {
-            product.value++
-        }
+      if (product.id === id) {
+        product.value++
+      }
     })
 
     this.setState({
-        counters: productList
+      counters: productList
     })
-}
+  }
 
-minusProduct = (id:string) => {
+  minusProduct = (id: string) => {
     let productList = this.state.counters
 
     productList.forEach((product: theShoppingCart) => {
-        if(product.id === id) {
-            product.value--
-        }
+      if (product.id === id) {
+        product.value--
+      }
     })
-    
-    this.setState({
-        counters: productList
-    })
-}
 
-deleteProduct = (id:string) => {
+    this.setState({
+      counters: productList
+    })
+  }
+
+  deleteProduct = (id: string) => {
     const counters = this.state.counters.filter(c => c.id !== id);
-    this.setState({counters});
-}
+    this.setState({ counters });
+  }
 
 
 
-  
+
   displayBankCard = () => {
-    this.setState({hideBankCard: false})
-    this.setState({hideSwish: true})
-    this.setState({hideKlarna: true})
+    this.setState({ hideBankCard: false })
+    this.setState({ hideSwish: true })
+    this.setState({ hideKlarna: true })
   }
   displaySwish = () => {
-    this.setState({hideBankCard: true})
-    this.setState({hideSwish: false})
-    this.setState({hideKlarna: true})
+    this.setState({ hideBankCard: true })
+    this.setState({ hideSwish: false })
+    this.setState({ hideKlarna: true })
   }
   displayKlarna = () => {
-    this.setState({hideBankCard: true})
-    this.setState({hideSwish: true})
-    this.setState({hideKlarna: false})
+    this.setState({ hideBankCard: true })
+    this.setState({ hideSwish: true })
+    this.setState({ hideKlarna: false })
   }
 }
