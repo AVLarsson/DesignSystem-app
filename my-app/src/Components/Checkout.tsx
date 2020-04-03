@@ -186,31 +186,28 @@ export default class Checkout extends Component<{}, State> {
     this.setState({ hideSwish: true })
     this.setState({ hideKlarna: false })
   }
-
-
+  
+  
   checkIfInfoFilledOut = () => {
+    let dhl = {
+      cost: 99,
+      time: 1
+    };
+    let shenker = {
+      cost: 49,
+      time: 2
+    };
+    let postnord = {
+      cost: 0,
+      time: 3
+    };
+  
     /*If a payment has been selected*/
     if (window.location.pathname === '/checkout' || window.location.pathname === '/DesignSystem-app/checkout') {
       if (this.state.hideBankCard === false || this.state.hideKlarna === false || this.state.hideSwish === false) {
         if (this.context.cart.length >= 1) {
-          //If swish has been selected and filled out 
-          if (this.state.hideSwish === false && localStorage.firstName && localStorage.lastName && localStorage.phoneNumber) {
-            alert("Your order has been placed.")
-            return true;
-          }
-          //if klarna has been selected and filled out
-          else if (this.state.hideKlarna === false && localStorage.firstName && localStorage.lastName && localStorage.email) {
-            alert("Your order has been placed.")
-            return true;
-          }
-          else if (this.state.hideBankCard === false && localStorage.firstName && localStorage.lastName) {
-            alert("Your order has been placed.")
-            return true;
-          }
-          else {
-            alert("please fill out the payment")
-            return false;
-          }
+          /*If there is an item in the cart, and an shipping has been chosen, then we continue*/
+          this.checkShippingChosen(dhl, shenker, postnord)
         }
       } else {
         alert("Your shopping bag is empty. Please add items to your shopping bag before checkout.")
@@ -218,4 +215,140 @@ export default class Checkout extends Component<{}, State> {
       }
     } else {console.log('hello')}
   }
+  
+  /**
+   * 
+   * @param dhl Everything that contains inside dhl
+   * @param shenker  Everything that contains inside shenker
+   * @param postnord Everything that contains inside postnord
+   */
+  checkShippingChosen (dhl:any, shenker:any, postnord:any) {
+    let DHL = (document.getElementById("dhlShipping") as unknown as HTMLInputElement);
+    let postNord = (document.getElementById("postNordShipping") as unknown as HTMLInputElement);
+    let Shenker = (document.getElementById("shenkerShipping") as unknown as HTMLInputElement);
+  
+    console.log("hello")
+    if (DHL.style.backgroundColor === "red") {
+      console.log("DHL has been chosen")
+      this.checkPaymentChosen(dhl)
+    }
+    else if (postNord.style.backgroundColor === "red") {
+      console.log("Postnord has been chosen")
+      this.checkPaymentChosen(postnord)
+    }
+    else if (Shenker.style.backgroundColor === "red") {
+      console.log("Shenker has been chosen")
+      this.checkPaymentChosen(shenker)
+    }
+    else {
+      alert("please choose an shipping method")
+    }
+  }
+
+  checkPaymentChosen(shipping:any) {
+    if (this.state.hideBankCard === false) {
+      this.checkBankCardFilledOut(shipping)
+    } 
+    if (this.state.hideKlarna === false) {
+      this.checkKlarnaFilledOut(shipping)
+    } 
+    if (this.state.hideSwish === false) {
+      this.checkSwishFilledOut(shipping)
+    } 
+  }
+  
+  
+  /**
+   * This checks if Swish has been filled out
+   */
+  checkSwishFilledOut(shipping:any) {
+    let userFirstName = (document.getElementById("userFirstNameSwish") as unknown as HTMLInputElement);
+    let userLastName = (document.getElementById("userLastNameSwish") as unknown as HTMLInputElement);
+    let userPhoneNumber = (document.getElementById("userPhoneNumberSwish") as unknown as HTMLInputElement);
+
+    if (userFirstName.value !== "" && userFirstName.value !== null &&
+        userLastName.value !== "" && userLastName.value !== null &&
+        userPhoneNumber.value !== "" && userLastName.value !== null) {
+
+        this.orderHasBeenPlaced(shipping)
+      }
+      else {
+        alert("Please fill out the payment options")
+      }
+    }
+
+  /**
+ * This checks if Klarna has been filled out
+ */
+  checkKlarnaFilledOut(shipping:any) {
+    let userFirstName = (document.getElementById("userFirstNameKlarna") as unknown as HTMLInputElement);
+    let userLastName = (document.getElementById("userLastNameKlarna") as unknown as HTMLInputElement);
+    let userEmail = (document.getElementById("userEmailKlarna") as unknown as HTMLInputElement);
+
+    if (userFirstName.value !== "" && userFirstName.value !== null &&
+    userLastName.value !== "" && userLastName.value !== null &&
+    userEmail.value !== "" && userLastName.value !== null) {
+
+      this.orderHasBeenPlaced(shipping)
+
+    }
+    else {
+    alert("Please fill out the payment options")
+    }
+  }
+
+  /**
+ * This checks if BankCard has been filled out
+ */
+  checkBankCardFilledOut(shipping:any) {
+    let userFirstName = (document.getElementById("userFirstNameSwish") as unknown as HTMLInputElement);
+    let userLastName = (document.getElementById("userLastNameSwish") as unknown as HTMLInputElement);
+    let userCardNumber = (document.getElementById("userCardNumber") as unknown as HTMLInputElement);
+    let userCvc = (document.getElementById("userCvc") as unknown as HTMLInputElement);
+    let userMonth = (document.getElementById("userMonth") as unknown as HTMLInputElement);
+    let userYear = (document.getElementById("userYear") as unknown as HTMLInputElement);
+
+    if (userFirstName.value !== "" && userFirstName.value !== null &&
+    userLastName.value !== "" && userLastName.value !== null &&
+    userCardNumber.value !== "" && userLastName.value !== null &&
+    userCvc.value !== "" && userCvc.value !== null &&
+    userMonth.value !== "" && userMonth.value !== null &&
+    userYear.value !== "" && userYear.value !== null) {
+
+      this.orderHasBeenPlaced(shipping)
+
+    } 
+    else {
+      alert("Please fill out the payment options")
+    }
+  }
+
+  orderHasBeenPlaced(shipping:any) {
+    alert("Your order has been placed.")
+    alert ("it will cost " + shipping.cost + "kr, and it will take " + shipping.time + " days")
+  }
+
+
+
+
+
 }
+
+         // //If swish has been selected and filled out 
+          // if (this.state.hideSwish === false && localStorage.firstName && localStorage.lastName && localStorage.phoneNumber) {
+          //   alert("Your order has been placed.")
+          //   return true;
+          // }
+          // //if klarna has been selected and filled out
+          // else if (this.state.hideKlarna === false && localStorage.firstName && localStorage.lastName && localStorage.email) {
+          //   alert("Your order has been placed.")
+          //   return true;
+          // }
+          // else if (this.state.hideBankCard === false && localStorage.firstName && localStorage.lastName) {
+          //   alert("Your order has been placed.")
+          //   return true;
+          // }
+          // else {
+          //   alert("please fill out the payment")
+          //   return false;
+          // }

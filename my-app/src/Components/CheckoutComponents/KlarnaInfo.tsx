@@ -1,65 +1,58 @@
 import * as React from 'react';
-import {Form} from 'pivotal-ui/react/forms';
-import {Grid, FlexCol} from 'pivotal-ui/react/flex-grids';
 import "../Imports.css";
 import {Input} from 'pivotal-ui/react/inputs';
 
 export default class KlarnaInfo extends React.Component {
 
+  componentDidMount = () => {
+    let userFirstName = (document.getElementById("userFirstNameKlarna") as unknown as HTMLInputElement);
+    let userLastName = (document.getElementById("userLastNameKlarna") as unknown as HTMLInputElement);
+    let userEmail = (document.getElementById("userEmailKlarna") as unknown as HTMLInputElement);
 
-    handleInputChange(event:any) {
-        const targetValue = event.target.value;
-        console.log(targetValue)
+    
+    if (localStorage.firstName){
+        userFirstName.value = JSON.parse(localStorage.firstName);
     }
+    if (localStorage.lastName){
+        userLastName.value = JSON.parse(localStorage.lastName);
+    }
+    if (localStorage.phoneNumber){
+        userEmail.value = JSON.parse(localStorage.phoneNumber);
+    }
+  }
 
+  render() {
+    return (
 
-    render() {
-      return (
-        <div className="fadeInInfo">
-            <h2>Please Enter Your Info</h2>
-            <Form style={{display: "flex", justifyContent: "center"}} {...{
-                fields: {
-                  firstName: {
-                    inline: true,
-                    label: 'First Name',
-                    children: <Input onKeyUp={this.handleInputChange}/>
-                  },
-                  lastName: {
-                    inline: true,
-                    label: 'Last Name',
-                    children: <Input onKeyUp={this.handleInputChange}/>
-                  },
-                  email: {
-                      inline: true,
-                      label: "Email",
-                      children: <Input onKeyUp={this.handleInputChange}/>
-                  }
-                }
-              }}>
-                {({fields} : {fields:any} ) => { 
-            return (<div style={{width: "80vw"}}>
-                <Grid className="grid-show mbxl" style={this.centerStyle}>
-  
-                    <FlexCol col={5}>{fields.firstName}</FlexCol>
-                    <FlexCol col={5}>{fields.lastName}</FlexCol>
-  
-                </Grid>
-                <Grid className="grid-show mbxl" style={this.centerStyle}>
-  
-                    <FlexCol col={7}>{fields.email}</FlexCol>
-  
-                 </Grid>
-            </div>)
-            } }
-            </Form>
-        </div>
+      <div>
+        <form style={this.gridContainer}>
+          <div style={this.gridItem}>
+            <label htmlFor="userFirstNameKlarna">First Name</label>
+            <Input id="userFirstNameKlarna" />
+          </div>
+          <div style={this.gridItem}>
+            <label htmlFor="userLastNameKlarna">Last Name</label>
+            <Input id="userLastNameKlarna" />
+          </div>
+          <div style={this.gridItem}>
+            <label htmlFor="userEmailKlarna">Email</label>
+            <Input id="userEmailKlarna" />
+          </div>
+        </form>
+      </div>
     )
-}
+  }
 
-    centerStyle: React.CSSProperties = {
-        display: "flex",
-        justifyContent: "center",
-        paddingTop: "20px"
-    }
+  gridContainer: React.CSSProperties = {
+    display: "grid",
+    gridTemplateColumns: "auto auto",
+    gridColumnGap: "50px",
+    gridRowGap: "20px",
+    justifyContent: "center",
+  }
+  
+  gridItem: React.CSSProperties = {
+      fontSize: "16px"
+  }
 
 }
