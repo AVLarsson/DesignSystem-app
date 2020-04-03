@@ -46,7 +46,7 @@ export function ProductItem(props: Props) {
         //             <AddItemButton id={id} onClick={() => addToCart(id)} />}
 
 
-    if (window.location.pathname === '/') {
+    if (window.location.pathname === '/DesignSystem-app') {
         return (
             <div className={`${props.showCart ? 'showCart display-flex row' : '' } Products ${props.className ? props.className : ''}`}>
             <span className={`productImage mtl ${props.showCart ? 'mobile' : ''}`}>
