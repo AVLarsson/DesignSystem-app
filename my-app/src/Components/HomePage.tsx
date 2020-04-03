@@ -9,7 +9,7 @@ import { CartContext } from './CartContext';
 import { DefaultButton } from 'pivotal-ui/react/buttons';
 
 const HomePage = () => {
-    const { currentCart } = React.useContext(CartContext);
+    const { currentCart, cart } = React.useContext(CartContext);
 
     return (<Siteframe {...{
         headerProps: {
@@ -36,7 +36,7 @@ const HomePage = () => {
         },
         sidebarProps: {
             className: 'bg-decorative-yellow',
-            primaryLinks: [
+            primaryLinks: [{ text: [<img style={{ width: '100%' }} src='https://i.imgur.com/ANCnCV1.png' />], id: 'logo' },
                 { text: 'Coat', path: '/product1', id: '1' },
                 { text: 'Sunglasses', path: '/product2', id: '2' },
                 { text: 'Sneakers', path: '/product3', id: '3' },
@@ -47,12 +47,14 @@ const HomePage = () => {
             ],
             secondaryLinks: [{ text: 'Shopping Bag' }, { text: 'Checkout', path: '/checkout', id: '0' }],
             renderLink: ({ text, path, id }: any) =>
-                <>
-                    {path ? <Link to={`${path}`} key={id} href={path} style={{ color: 'unset', textDecoration: 'none' }}>
-                        <DefaultButton className={id === '0' ? '' : 'pui-btn--flat type-black'}>
-                            {text}</DefaultButton>
-                    </Link> : <DefaultButton className={'maxl'} onClick={currentCart}>{text}</DefaultButton>}
-                </>
+            <>
+            {id === 'logo' ? text : path ?
+              <Link to={`${path !== '/checkout' ? path : cart.length >= 1 ? path : '/'}`} key={id} href={path} style={{ padding: '3px', color: 'unset', textDecoration: 'none' }}>
+                <DefaultButton disabled={path === '/checkout' && cart.length === 0 ? true : false} className={id === '0' ? '' : 'mlxl pan pui-btn--flat type-black'}>
+                  {text}
+                </DefaultButton>
+              </Link> : <DefaultButton className={'mas'} onClick={currentCart}>{text}</DefaultButton>}
+          </>
         }
     }}>
         <div className="bg-light-green paxl scroll" style={{ height: '100%', width: 'auto' }}>

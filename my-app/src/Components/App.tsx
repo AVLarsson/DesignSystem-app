@@ -12,42 +12,41 @@ import 'pivotal-ui/css/positioning';
 import '../styles/main.css'
 import Firebase, { FirebaseContext } from '../Firebase';
 import HomePage from './HomePage';
-// import Checkout from './Checkout';
+import Checkout from './Checkout';
 import { mockedProducts } from '../MockedData';
 import ProdPage from './prodPage';
 import Cart from './Cart';
 import { CartContext } from './CartContext';
 
 export default class App extends React.Component {
-  render() {
-    const { cart } = React.useContext(CartContext);
-    return (
-      <Cart>
-       <FirebaseContext.Provider value={new Firebase()}>
-      <Router>
-        <Switch>
-        
-          {mockedProducts.map(product => {
-            const component = `product${product.id}`
-            return (
-              <Route key={product.id} path={`/product${product.id}`}>
-              <ProdPage id={product.id} product={product} />
-              </Route>
-            )
-          })}
-         
-          <Route path="/checkout">
-            <Checkout />
-          </Route>
-          <Route path="/">
-            <HomePage />
-          </Route>
-        </Switch>
-      </Router>
-    </FirebaseContext.Provider>
 
-      </Cart>
+
+  render() {
+    return (
+      <FirebaseContext.Provider value={new Firebase()}>
+        <Cart>
+          <Router>
+            <Switch>
+
+              {mockedProducts.map(product => {
+                return (
+                  <Route key={product.id} path={`/product${product.id}`}>
+                    <ProdPage id={product.id} product={product} />
+                  </Route>
+                )
+              })}
+
+              <Route path="/checkout" component={Checkout} />
+              <Route path="/">
+                <HomePage />
+              </Route>
+            </Switch>
+          </Router>
+        </Cart>
+      </FirebaseContext.Provider>
+
 
     );
   }
+  static contextType = CartContext;
 }
