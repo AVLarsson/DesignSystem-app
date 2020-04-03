@@ -9,10 +9,6 @@ interface Props {
 
 export default class Receipt extends React.Component <Props, {onAdd?:any}>  {
 
-    componentDidMount = () => {
-        console.log(this.props.status.shippingPrice)
-    }
-
     reloadWebsite() {
         window.location.reload()
     }
@@ -22,10 +18,10 @@ export default class Receipt extends React.Component <Props, {onAdd?:any}>  {
             <div id="receipt" style={this.receiptStyle}>
                 <h2>Receipt</h2>
                 <p>-----------------------------------------</p>
-                <h3>The products costs {""} ENTER PRICE</h3>
+                <h3>The products costs {""} {this.props.status.price}</h3>
                 <h3>The shipping costs {""} {this.props.status.shippingPrice}kr</h3>
                 <h3>The shipping will take {""} {this.props.status.shippingTime} {""} working days</h3>
-                <h3>Total price is TOTAL PRICE</h3>
+                <h3>Total price is {""} {this.props.status.totalPrice} kr</h3>
                 <button onClick={this.reloadWebsite}>Ok</button>
             </div>
         )
