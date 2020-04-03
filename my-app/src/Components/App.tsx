@@ -16,8 +16,11 @@ import Checkout from './Checkout';
 import { mockedProducts } from '../MockedData';
 import ProdPage from './prodPage';
 import Cart from './Cart';
+import { CartContext } from './CartContext';
 
 export default class App extends React.Component {
+
+
   render() {
     return (
       <FirebaseContext.Provider value={new Firebase()}>
@@ -43,4 +46,5 @@ export default class App extends React.Component {
       </FirebaseContext.Provider>
     );
   }
+  static contextType = CartContext;
 }
