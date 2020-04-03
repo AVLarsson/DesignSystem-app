@@ -70,6 +70,8 @@ export default class Checkout extends Component<{}, State> {
               }
             }}>
               <div className="bg-light-gray pal" style={{ height: '100%', overflow: "scroll" }}>
+                
+                  
                 {!this.state.hideReceipt ?
                 <Receipt status={this.state} />
                 : null}
@@ -361,8 +363,10 @@ export default class Checkout extends Component<{}, State> {
 
     this.setState({shippingPrice: shipping.cost})
     this.setState({shippingTime: shipping.time})
-    this.setState({hideReceipt: false})
-
+    setTimeout(() => {
+      this.setState({hideReceipt: false})
+    }, 2000);
+    return true;
   }
 
 

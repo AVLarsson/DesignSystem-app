@@ -32,10 +32,9 @@ const ConfirmOrderButton = (props: any) => {
         }, 1000);
         setTimeout(() => {
             setIsLoading(false);
-            alert("Your order has been placed.")
             cartContext.cart = [];
-            history.push('/');
-        }, 4000);
+            // history.push('/');
+        }, 2000);
     }
 
     return (<FirebaseContext.Consumer>
