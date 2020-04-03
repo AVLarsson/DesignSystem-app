@@ -20,9 +20,10 @@ import Cart from './Cart';
 export default class App extends React.Component {
   render() {
     return (
-      <Cart>
-       <FirebaseContext.Provider value={new Firebase()}>
-      <Router basename='/DesignSystem-app'>
+      
+      <FirebaseContext.Provider value={new Firebase()}>
+        <Cart>
+          <Router basename='/DesignSystem-app'>
         <Switch>
         {/* <Route path="/product1">
             {/* <ProdPage id={1} product={mockedProducts} /> 
@@ -37,31 +38,14 @@ export default class App extends React.Component {
           })}
           <Route path="/product">
             <HomePage />
-          </Route> */}
-          
+          </Route> 
+
           <Route path="/checkout">
-            {/* <CheckoutPage /> */}
+            <Checkout />
           </Route>
           <Route path="/">
             <HomePage />
           </Route>
-        </Switch>
-      </Router>
-    </FirebaseContext.Provider>
-      </Cart>
-      <FirebaseContext.Provider value={new Firebase()}>
-        <Cart>
-          <Router>
-            <Switch>
-
-              {mockedProducts.map(product => {
-                return (
-                  <Route key={product.id} path={`/product${product.id}`}>
-                    <ProdPage id={product.id} product={product} />
-                  </Route>
-                )
-              })}
-
               <Route path="/checkout" component={Checkout} />
               <Route path="/">
                 <HomePage />
