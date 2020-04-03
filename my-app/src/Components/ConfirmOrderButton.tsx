@@ -1,16 +1,25 @@
 import { FirebaseContext } from '../Firebase';
-import React, { ReactInstance } from 'react';
+import React, { ReactInstance, FC } from 'react';
 import { PrimaryButton } from 'pivotal-ui/react/buttons'
 import { CartContext } from './CartContext';
 import { Products } from 'src/ProductItems/ProductItemss';
-import { Redirect } from 'react-router-dom';
+import { Redirect, withRouter } from 'react-router-dom';
 
 interface Props {
     checkIfDone: () => boolean
 }
 
-export const ConfirmOrderButton = (props: Props) => {
-    const handleClick = async (firebase: any, cart: Products[]) => {
+const ConfirmOrderButton = (props: any) => {
+    const {
+        history,
+        location,
+        match,
+        staticContext,
+        onClick,
+        className,
+        ...rest
+      } = props
+    const handleClick = async (firebase: any) => {
         /* 
         UNCOMMENT THE LINE BELOW TO SAVE TO DATABASE
     
@@ -20,8 +29,7 @@ export const ConfirmOrderButton = (props: Props) => {
         try {
             await firebase.doSignInAnonymously();
             console.log("Your order has been placed.");
-            return (<Redirect to="/" />)
-            return;
+            return history.push('/');
         } catch (error) {
             console.log(error)
         }
@@ -35,7 +43,7 @@ export const ConfirmOrderButton = (props: Props) => {
                         <p className="type-sm">Continue as guest and</p>
                         <PrimaryButton className="auth" id="anon"
                             onClick={() => {
-                                props.checkIfDone() === true && handleClick(firebase, cartContext.cart);
+                                props.checkIfDone() === true && handleClick(firebase);
                             }}>
                             Confirm order
                         </PrimaryButton>
@@ -43,3 +51,5 @@ export const ConfirmOrderButton = (props: Props) => {
                 }</CartContext.Consumer>
         }</FirebaseContext.Consumer>
 }
+
+export default withRouter(ConfirmOrderButton);

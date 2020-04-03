@@ -15,7 +15,7 @@ import KlarnaInfo from "./CheckoutComponents/KlarnaInfo";
 import SwishInfo from "./CheckoutComponents/SwishInfo";
 import { Products } from 'src/ProductItems/ProductItemss';
 import { CartContext } from './CartContext';
-import { ConfirmOrderButton } from './ConfirmOrderButton';
+import ConfirmOrderButton from './ConfirmOrderButton';
 
 interface State {
   hideBankCard: boolean
@@ -36,7 +36,7 @@ export interface theShoppingCart {
 //   counters: Array<Products>
 // }
 
-export default class Checkout extends Component<{ status?: any }, State> {
+export default class Checkout extends Component<{}, State> {
   static contextType = CartContext;
 
   state = {
