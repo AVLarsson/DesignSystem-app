@@ -301,14 +301,15 @@ export default class Checkout extends Component<{}, State> {
     this.setState({shippingPrice: shipping.cost})
     this.setState({shippingTime: shipping.time})
     this.setState({price: thePrice})
+    let theTotalPrice = thePrice + shipping.cost;
+    
+    this.setState({totalPrice: theTotalPrice})
   setTimeout(() => {
       this.setState({hideReceipt: false})
     }, 2000);
     return true;
     
-    let theTotalPrice = thePrice + shipping.cost;
-    
-    this.setState({totalPrice: theTotalPrice})
+
     
 
   }
