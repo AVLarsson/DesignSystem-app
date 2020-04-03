@@ -20,21 +20,21 @@ export default class Shipping extends React.Component  {
     render() {
         return (
             <div className="pui-no-select"  style={{display:"flex",flexDirection: "row", alignItems: "center", justifyContent: "center"}}>
-            <div className="shippingDiv" style={this.shippingPaymentBox}>
+            <div id="dhlShipping" className="shippingDiv" style={this.shippingPaymentBox}>
               <div style={this.shippingPaymentBoxInside}>
                 DHL
               </div>
               <p>24h</p>
               <p className="amountForShipping">99kr</p>
             </div>
-            <div className="shippingDiv" style={this.shippingPaymentBox}>
+            <div id="shenkerShipping" className="shippingDiv" style={this.shippingPaymentBox}>
               <div style={this.shippingPaymentBoxInside}>
                 Shenker
               </div>
               <p>48h</p>
               <p className="amountForShipping">49kr</p>
             </div>
-            <div className="shippingDiv" style={this.shippingPaymentBox}>
+            <div id="postNordShipping" className="shippingDiv" style={this.shippingPaymentBox}>
               <div style={this.shippingPaymentBoxInside}>
                 Postnord
               </div>
