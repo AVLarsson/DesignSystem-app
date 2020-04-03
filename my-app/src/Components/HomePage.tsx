@@ -15,7 +15,7 @@ const HomePage = () => {
         headerProps: {
             className: 'bg-light-gray paxl',
             companyName:
-                <span style={{ color: 'black' }}>RetroShop</span>,
+                <span style={{ color: 'black', fontSize:"30px", fontStyle:"italic" }}>RetroShop</span>,
             cols: [
                 <Grid
                     className="grid-show position-fixed type-black em-alt"
