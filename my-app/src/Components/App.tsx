@@ -12,7 +12,7 @@ import 'pivotal-ui/css/positioning';
 import '../styles/main.css'
 import Firebase, { FirebaseContext } from '../Firebase';
 import HomePage from './HomePage';
-// import Checkout from './Checkout';
+import Checkout from './Checkout';
 import { mockedProducts } from '../MockedData';
 import ProdPage from './prodPage';
 import Cart from './Cart';
@@ -49,7 +49,27 @@ export default class App extends React.Component {
       </Router>
     </FirebaseContext.Provider>
       </Cart>
+      <FirebaseContext.Provider value={new Firebase()}>
+        <Cart>
+          <Router>
+            <Switch>
 
+              {mockedProducts.map(product => {
+                return (
+                  <Route key={product.id} path={`/product${product.id}`}>
+                    <ProdPage id={product.id} product={product} />
+                  </Route>
+                )
+              })}
+
+              <Route path="/checkout" component={Checkout} />
+              <Route path="/">
+                <HomePage />
+              </Route>
+            </Switch>
+          </Router>
+        </Cart>
+      </FirebaseContext.Provider>
     );
   }
 }
