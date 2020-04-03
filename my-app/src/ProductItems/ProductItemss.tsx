@@ -45,7 +45,7 @@ export function ProductItem(props: Props) {
   //             <DangerButton onClick={() => removeFromCart(id)} {...{style: { minWidth: "5em", maxWidth: "10em" }}}>Remove</DangerButton></> :
   //             <AddItemButton id={id} onClick={() => addToCart(id)} />}
 
-  if (window.location.pathname === '/DesignSystem-app/' || window.location.pathname === '/DesignSystem-app/checkout') {
+  if (window.location.pathname === '/DesignSystem-app/' || window.location.pathname === '/DesignSystem-app/checkout' || window.location.pathname === '/' || window.location.pathname === '/checkout') {
     return (
       <div className={`${props.showCart ? 'showCart display-flex row' : 'column'} Products ${props.className ? props.className : ''}`}>
         <span className={`productImage mtl ${props.showCart ? 'mobile' : ''}`}>
