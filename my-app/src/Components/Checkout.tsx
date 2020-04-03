@@ -5,6 +5,8 @@ import { Siteframe } from 'pivotal-ui/react/siteframe';
 import { Icon } from 'pivotal-ui/react/iconography';
 import 'pivotal-ui/css/alignment';
 import 'pivotal-ui/css/positioning';
+import { Link } from 'react-router-dom';
+import {BrandButton} from 'pivotal-ui/react/buttons';
 
 import ShoppingBag from "./CheckoutComponents/ShoppingBag";
 import CheckoutInfo from "./CheckoutComponents/CheckoutInfo";
@@ -35,7 +37,7 @@ interface State {
   price: number,
   shippingPrice: number,
   shippingTime: string,
-  totalPrice: string
+  totalPrice: number
 }
 
 export default class Checkout extends Component<{}, State> {
@@ -54,7 +56,7 @@ export default class Checkout extends Component<{}, State> {
     price: 0,
     shippingPrice: 0,
     shippingTime: "",
-    totalPrice: ""
+    totalPrice: 0
   }
 
   render() {
@@ -64,14 +66,13 @@ export default class Checkout extends Component<{}, State> {
           <div style={{ position: 'relative', height: '100vh' }}>
             <Siteframe {... {
               headerProps: {
-                logo: <div className="ptl pbl pll" style={{ fontSize: '40px' }}><Icon src="react" style={{ stroke: 'red' }} /></div>,
-                companyName: 'Our test store',
-                productName: 'Test Store',
+                className: 'bg-light-gray paxl',
+                companyName:
+                    <span style={{ color: 'black', fontSize:"30px", fontStyle:"italic" }}>RetroShop</span>,
+                productName: <div><Link to="/"><BrandButton>Go to frontPage</BrandButton></Link></div>,
               }
             }}>
-              <div className="bg-light-gray pal" style={{ height: '100%', overflow: "scroll" }}>
-                
-                  
+              <div className='bg-light-green paxl scroll' style={{ height: '100%', overflow: "scroll" }}>
                 {!this.state.hideReceipt ?
                 <Receipt status={this.state} />
                 : null}
@@ -124,70 +125,6 @@ export default class Checkout extends Component<{}, State> {
     return total;
   }
 
-  /*
-    addToTheCart = (addMeat:string) => {
-          
-      let productList = this.state.cart
-      let number = 0;
-      
-      productList.forEach((product: Products) => {
-  
-          if(product.id === addMeat) {
-              product.value++
-              console.log("two")
-          }
-          if(product.id !== addMeat) {
-              number++
-          }
-          if (number === this.state.cart.length) {                
-              this.state.cart.push({id: addMeat, value: 1})
-              console.log("one")
-          }
-      })
-      this.setState({
-          counters: productList
-      })
-  }*/
-  /*
-  incrementProduct = (id: string) => {
-  
-      let productList = this.state.cart
-  
-      productList.forEach((product: Products) => {
-          if(product.id === id) {
-              product.value++
-          }
-      })
-  
-      this.setState({
-          counters: productList
-      })
-  }
-  
-  minusProduct = (id:string) => {
-    let productList = this.state.cart
-  
-    productList.forEach((product: Products) => {
-      if(product.id === id) {
-        if(product.value <= 1) {
-          this.deleteProduct(id)
-        }
-        else{
-          product.value--
-          this.setState({
-            counters: productList
-          })
-        }
-      }
-    })
-  }
-  
-  deleteProduct = (id:string) => {
-      const counters = this.state.cart.filter(c => c.id !== id);
-      this.setState({counters});
-  }
-  
-    */
   displayBankCard = () => {
     this.setState({ hideBankCard: false })
     this.setState({ hideSwish: true })
@@ -249,8 +186,7 @@ export default class Checkout extends Component<{}, State> {
     let DHL = (document.getElementById("dhlShipping") as unknown as HTMLInputElement);
     let postNord = (document.getElementById("postNordShipping") as unknown as HTMLInputElement);
     let Shenker = (document.getElementById("shenkerShipping") as unknown as HTMLInputElement);
-
-    console.log("hello")
+  
     if (DHL.style.backgroundColor === "red") {
       console.log("DHL has been chosen")
       this.checkPaymentChosen(dhl)
@@ -360,33 +296,23 @@ export default class Checkout extends Component<{}, State> {
 
   orderHasBeenPlaced(shipping:any) {
 
-
+    let thePrice = this.getTotal()
+    
     this.setState({shippingPrice: shipping.cost})
     this.setState({shippingTime: shipping.time})
-    setTimeout(() => {
+    this.setState({price: thePrice})
+  setTimeout(() => {
       this.setState({hideReceipt: false})
     }, 2000);
     return true;
+    
+    let theTotalPrice = thePrice + shipping.cost;
+    
+    this.setState({totalPrice: theTotalPrice})
+    
+
   }
 
 
 
 }
-         // //If swish has been selected and filled out 
-          // if (this.state.hideSwish === false && localStorage.firstName && localStorage.lastName && localStorage.phoneNumber) {
-          //   alert("Your order has been placed.")
-          //   return true;
-          // }
-          // //if klarna has been selected and filled out
-          // else if (this.state.hideKlarna === false && localStorage.firstName && localStorage.lastName && localStorage.email) {
-          //   alert("Your order has been placed.")
-          //   return true;
-          // }
-          // else if (this.state.hideBankCard === false && localStorage.firstName && localStorage.lastName) {
-          //   alert("Your order has been placed.")
-          //   return true;
-          // }
-          // else {
-          //   alert("please fill out the payment")
-          //   return false;
-          // }

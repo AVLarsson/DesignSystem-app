@@ -47,7 +47,7 @@ const ConfirmOrderButton = (props: any) => {
                                 <circle className="ring" cx="50%" cy="50%" fill="none" r="45%" strokeLinecap="butt" strokeWidth="10%"></circle>
                                 <circle className="path" cx="50%" cy="50%" fill="none" r="45%" strokeLinecap="butt" strokeWidth="10%"></circle>
                             </svg></div> : null}
-                        <p className="type-sm">Continue as guest and</p>
+                        <p className="type-sm">Confirm Payment</p>
 
                         <PrimaryButton className="auth" id="anon"
                             onClick={() => {
