@@ -62,7 +62,6 @@ export default class Checkout extends Component<{}, State> {
       <CartContext.Consumer>
         {context =>
           <div style={{ position: 'relative', height: '100vh' }}>
-            {console.log(context.cart.length)}
             <Siteframe {... {
               headerProps: {
                 logo: <div className="ptl pbl pll" style={{ fontSize: '40px' }}><Icon src="react" style={{ stroke: 'red' }} /></div>,
@@ -73,6 +72,7 @@ export default class Checkout extends Component<{}, State> {
               <div className="bg-light-gray pal" style={{ height: '100%', overflow: "scroll" }}>
                 <Panel className="txt-c" {...{ title: 'Shopping Bag' }}>
                   <ShoppingBag cart={context.cart} />
+                  <p className="txt-r h4 em-high">Total: {this.getTotal()}kr</p>
                 </Panel>
                 <Panel className="txt-c" {...{ title: 'Your Information' }}>
                   <CheckoutInfo status={this.state} />
@@ -95,9 +95,9 @@ export default class Checkout extends Component<{}, State> {
                     : null}
 
                 </Panel>
-                <Panel className="txt-c" {...{ title: 'Confirmation' }}>
+                <Panel className="txt-c pbxxl" {...{ title: 'Confirmation' }}>
+                  
                   <ConfirmOrderButton checkIfDone={this.checkIfInfoFilledOut} />
-                  {/* <button onClick={this.checkIfInfoFilledOut}>Send</button> */}
                 </Panel>
               </div>
             </Siteframe>
@@ -105,6 +105,17 @@ export default class Checkout extends Component<{}, State> {
         }
       </CartContext.Consumer>
     )
+  }
+
+  /**
+   * Calls function from CartContext that calculates shopping bag total price.
+   * @returns {number} Total price of all products in shopping bag.
+   */
+  getTotal(): number {
+    const cartContext = this.context;
+    const total = cartContext.getCurrentTotal();
+    
+    return total;
   }
 
   /*
@@ -202,9 +213,11 @@ export default class Checkout extends Component<{}, State> {
       time: 3
     };
   
-    /*If a payment has been selected*/
+    // If the location is checkout, otherwise it checks on homepage as well. */
     if (window.location.pathname === '/checkout' || window.location.pathname === '/DesignSystem-app/checkout') {
+      /*If a payment has been selected*/
       if (this.state.hideBankCard === false || this.state.hideKlarna === false || this.state.hideSwish === false) {
+        // If cart is not empty
         if (this.context.cart.length >= 1) {
           /*If there is an item in the cart, and an shipping has been chosen, then we continue*/
           this.checkShippingChosen(dhl, shenker, postnord)
@@ -213,7 +226,7 @@ export default class Checkout extends Component<{}, State> {
         alert("Your shopping bag is empty. Please add items to your shopping bag before checkout.")
         return false;
       }
-    } else {console.log('hello')}
+    }
   }
   
   /**
