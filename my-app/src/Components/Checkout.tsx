@@ -16,6 +16,11 @@ import SwishInfo from "./CheckoutComponents/SwishInfo";
 import { Products } from 'src/ProductItems/ProductItemss';
 import { CartContext } from './CartContext';
 import ConfirmOrderButton from './ConfirmOrderButton';
+import Receipt from "./CheckoutComponents/Receipt"
+
+interface Props {
+
+}
 
 interface State {
   hideBankCard: boolean
@@ -25,8 +30,14 @@ interface State {
   lastName: boolean,
   email: boolean,
   adress: boolean,
-  cart: Products[]
+  cart: Products[],
+  hideReceipt: boolean,
+  price: number,
+  shippingPrice: number,
+  shippingTime: string,
+  totalPrice: string
 }
+
 export interface theShoppingCart {
   id: string,
   value: number
@@ -48,14 +59,12 @@ export default class Checkout extends Component<{}, State> {
     lastName: false,
     email: false,
     adress: false,
+    hideReceipt: true,
+    price: 0,
+    shippingPrice: 0,
+    shippingTime: "",
+    totalPrice: ""
   }
-
-  componentDidMount() {
-    if (localStorage.firstName) {
-      this.state.firstName = true;
-    }
-  }
-
 
   render() {
     return (
@@ -71,6 +80,9 @@ export default class Checkout extends Component<{}, State> {
               }
             }}>
               <div className="bg-light-gray pal" style={{ height: '100%', overflow: "scroll" }}>
+                {!this.state.hideReceipt ?
+                <Receipt status={this.state} />
+                : null}
                 <Panel className="txt-c" {...{ title: 'Shopping Bag' }}>
                   <ShoppingBag cart={context.cart} />
                 </Panel>
@@ -107,70 +119,6 @@ export default class Checkout extends Component<{}, State> {
     )
   }
 
-  /*
-    addToTheCart = (addMeat:string) => {
-          
-      let productList = this.state.cart
-      let number = 0;
-      
-      productList.forEach((product: Products) => {
-  
-          if(product.id === addMeat) {
-              product.value++
-              console.log("two")
-          }
-          if(product.id !== addMeat) {
-              number++
-          }
-          if (number === this.state.cart.length) {                
-              this.state.cart.push({id: addMeat, value: 1})
-              console.log("one")
-          }
-      })
-      this.setState({
-          counters: productList
-      })
-  }*/
-  /*
-  incrementProduct = (id: string) => {
-  
-      let productList = this.state.cart
-  
-      productList.forEach((product: Products) => {
-          if(product.id === id) {
-              product.value++
-          }
-      })
-  
-      this.setState({
-          counters: productList
-      })
-  }
-  
-  minusProduct = (id:string) => {
-    let productList = this.state.cart
-  
-    productList.forEach((product: Products) => {
-      if(product.id === id) {
-        if(product.value <= 1) {
-          this.deleteProduct(id)
-        }
-        else{
-          product.value--
-          this.setState({
-            counters: productList
-          })
-        }
-      }
-    })
-  }
-  
-  deleteProduct = (id:string) => {
-      const counters = this.state.cart.filter(c => c.id !== id);
-      this.setState({counters});
-  }
-  
-    */
   displayBankCard = () => {
     this.setState({ hideBankCard: false })
     this.setState({ hideSwish: true })
@@ -324,31 +272,13 @@ export default class Checkout extends Component<{}, State> {
   }
 
   orderHasBeenPlaced(shipping:any) {
-    alert("Your order has been placed.")
-    alert ("it will cost " + shipping.cost + "kr, and it will take " + shipping.time + " days")
+
+
+    this.setState({shippingPrice: shipping.cost})
+    this.setState({shippingTime: shipping.time})
+    this.setState({hideReceipt: false})
+
   }
 
 
-
-
-
 }
-
-         // //If swish has been selected and filled out 
-          // if (this.state.hideSwish === false && localStorage.firstName && localStorage.lastName && localStorage.phoneNumber) {
-          //   alert("Your order has been placed.")
-          //   return true;
-          // }
-          // //if klarna has been selected and filled out
-          // else if (this.state.hideKlarna === false && localStorage.firstName && localStorage.lastName && localStorage.email) {
-          //   alert("Your order has been placed.")
-          //   return true;
-          // }
-          // else if (this.state.hideBankCard === false && localStorage.firstName && localStorage.lastName) {
-          //   alert("Your order has been placed.")
-          //   return true;
-          // }
-          // else {
-          //   alert("please fill out the payment")
-          //   return false;
-          // }
