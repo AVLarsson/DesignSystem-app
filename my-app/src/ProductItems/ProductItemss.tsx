@@ -66,6 +66,23 @@ export function ProductItem(props: Props) {
     )
   } else {
     return (
+      <>
+      {props.showCart ? <div className={`${props.showCart ? 'showCart display-flex row' : 'column'} Products ${props.className ? props.className : ''}`}>
+        <a href={`/product${id}`}> 
+          <span className={`productImage mtl ${props.showCart ? 'mobile' : ''}`}>
+            <img alt={`${description}`} src={image} />
+          </span>
+        </a>
+        
+        <span className={`${props.showCart && !props.mobileView ? 'display-flex' : ''}`}>
+          <p className='mtl productTitle em-max type-md'>{name}</p>
+          <p className='prodictDescription type-sm'>{description}</p>
+          <p className=' productPrice type-sm'>{price}kr</p>
+          {props.showCart ? <><p className='productQuantity type-sm'>Quantity: {quantity}</p>
+            <DangerButton onClick={() => removeFromCart(id)} {...{ style: { minWidth: "5em", maxWidth: "10em" } }}>Remove</DangerButton></> :
+            <AddItemButton id={id} onClick={() => addToCart(id)} />}
+        </span>
+      </div> :
       <Grid className="grid-show mbxl" justifyContent='space-evenly'>
         <FlexCol col={16} {...{ style: { maxWidth: '30rem', height: '37rem' }, contentAlignment: 'middle', breakpoint: 'sm' }}>
 
@@ -81,13 +98,14 @@ export function ProductItem(props: Props) {
             <span className="pll display-flex em-high h1">{name}</span>
             <br />
             <span className="pll display-flex h2">{price}kr</span>
-            <AddItemButton id={id} onClick={() => addToCart(id)} />
+            {!props.showCart ? <AddItemButton id={id} onClick={() => addToCart(id)} /> : null}
             <br />
             <br />
             <span className="pll display-flex">{description}</span>
           </div>
         </FlexCol>
-      </Grid>
+      </Grid>}
+      </>
     )
   }
 

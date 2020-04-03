@@ -51,7 +51,7 @@ export default class Cart extends React.Component<{}, CartState> {
                         onHide={() => this.setState({ showCart: false })}
                         show={this.state.showCart}>
                         {this.showCartProducts()}
-                        {this.state.total === 0 ? null : <p className="pal em-high float-right">Total: {this.getCurrentTotal}kr</p>}
+                        {this.getCurrentTotal() === 0 ? null : <p className="pal em-high float-right">Total: {this.getCurrentTotal()}kr</p>}
                     </Modal>
                 </CartContext.Provider>
             </>

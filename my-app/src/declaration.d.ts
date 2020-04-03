@@ -16,4 +16,5 @@ declare module 'pictures/header-retro-shop.png';
 // declare module 'pivotal-ui/css/iconography';
 // declare module 'pivotal-ui/css/iconography';
 declare module 'pivotal-ui/react/modal';
+declare module 'pivotal-ui/react/alerts'
 declare module 'CheckoutComponents/ShoppingBag';
