@@ -1,0 +1,32 @@
+{
+  "files": {
+    "main.css": "/static/css/main.3ada41a1.chunk.css",
+    "main.js": "/static/js/main.2b98f368.chunk.js",
+    "main.js.map": "/static/js/main.2b98f368.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.f8c5b4be.js",
+    "runtime-main.js.map": "/static/js/runtime-main.f8c5b4be.js.map",
+    "static/css/2.27421e1b.chunk.css": "/static/css/2.27421e1b.chunk.css",
+    "static/js/2.61fd7468.chunk.js": "/static/js/2.61fd7468.chunk.js",
+    "static/js/2.61fd7468.chunk.js.map": "/static/js/2.61fd7468.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.78703849a3e2c495c6b90b79b0a81c34.js": "/precache-manifest.78703849a3e2c495c6b90b79b0a81c34.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/2.27421e1b.chunk.css.map": "/static/css/2.27421e1b.chunk.css.map",
+    "static/css/main.3ada41a1.chunk.css.map": "/static/css/main.3ada41a1.chunk.css.map",
+    "static/js/2.61fd7468.chunk.js.LICENSE.txt": "/static/js/2.61fd7468.chunk.js.LICENSE.txt",
+    "static/media/typography.css": "/static/media/SourceSansPro-normal-700-latin.0c618540.woff",
+    "static/media/blazer.jpg": "/static/media/blazer.175d8079.jpg",
+    "static/media/boots.jpg": "/static/media/boots.9d92fd2f.jpg",
+    "static/media/jacket.jpg": "/static/media/jacket.a09fb58e.jpg",
+    "static/media/leopard-coat.jpg": "/static/media/leopard-coat.39cbbfe2.jpg",
+    "static/media/sneakers.jpg": "/static/media/sneakers.4b5deeac.jpg",
+    "static/media/sunglasses.jpg": "/static/media/sunglasses.39774673.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.f8c5b4be.js",
+    "static/css/2.27421e1b.chunk.css",
+    "static/js/2.61fd7468.chunk.js",
+    "static/css/main.3ada41a1.chunk.css",
+    "static/js/main.2b98f368.chunk.js"
+  ]
+}
