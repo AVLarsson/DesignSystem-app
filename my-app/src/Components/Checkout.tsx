@@ -16,6 +16,11 @@ import SwishInfo from "./CheckoutComponents/SwishInfo";
 import { Products } from 'src/ProductItems/ProductItemss';
 import { CartContext } from './CartContext';
 import ConfirmOrderButton from './ConfirmOrderButton';
+import Receipt from "./CheckoutComponents/Receipt"
+
+interface Props {
+
+}
 
 interface State {
   hideBankCard: boolean
@@ -25,8 +30,14 @@ interface State {
   lastName: boolean,
   email: boolean,
   adress: boolean,
-  cart: Products[]
+  cart: Products[],
+  hideReceipt: boolean,
+  price: number,
+  shippingPrice: number,
+  shippingTime: string,
+  totalPrice: string
 }
+
 export interface theShoppingCart {
   id: string,
   value: number
@@ -48,14 +59,12 @@ export default class Checkout extends Component<{}, State> {
     lastName: false,
     email: false,
     adress: false,
+    hideReceipt: true,
+    price: 0,
+    shippingPrice: 0,
+    shippingTime: "",
+    totalPrice: ""
   }
-
-  componentDidMount() {
-    if (localStorage.firstName) {
-      this.state.firstName = true;
-    }
-  }
-
 
   render() {
     return (
@@ -70,6 +79,9 @@ export default class Checkout extends Component<{}, State> {
               }
             }}>
               <div className="bg-light-gray pal" style={{ height: '100%', overflow: "scroll" }}>
+                {!this.state.hideReceipt ?
+                <Receipt status={this.state} />
+                : null}
                 <Panel className="txt-c" {...{ title: 'Shopping Bag' }}>
                   <ShoppingBag cart={context.cart} />
                   <p className="txt-r h4 em-high">Total: {this.getTotal()}kr</p>
@@ -106,6 +118,7 @@ export default class Checkout extends Component<{}, State> {
       </CartContext.Consumer>
     )
   }
+
 
   /**
    * Calls function from CartContext that calculates shopping bag total price.
@@ -337,16 +350,17 @@ export default class Checkout extends Component<{}, State> {
   }
 
   orderHasBeenPlaced(shipping:any) {
-    alert("Your order has been placed.")
-    alert ("it will cost " + shipping.cost + "kr, and it will take " + shipping.time + " days")
+
+
+    this.setState({shippingPrice: shipping.cost})
+    this.setState({shippingTime: shipping.time})
+    this.setState({hideReceipt: false})
+
   }
 
 
 
-
-
 }
-
          // //If swish has been selected and filled out 
           // if (this.state.hideSwish === false && localStorage.firstName && localStorage.lastName && localStorage.phoneNumber) {
           //   alert("Your order has been placed.")
