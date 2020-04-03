@@ -72,6 +72,7 @@ export default class Checkout extends Component<{}, State> {
               <div className="bg-light-gray pal" style={{ height: '100%', overflow: "scroll" }}>
                 <Panel className="txt-c" {...{ title: 'Shopping Bag' }}>
                   <ShoppingBag cart={context.cart} />
+                  <p className="txt-r h4 em-high">Total: {this.getTotal()}kr</p>
                 </Panel>
                 <Panel className="txt-c" {...{ title: 'Your Information' }}>
                   <CheckoutInfo status={this.state} />
@@ -95,7 +96,7 @@ export default class Checkout extends Component<{}, State> {
 
                 </Panel>
                 <Panel className="txt-c pbxxl" {...{ title: 'Confirmation' }}>
-                  <p>Total: {this.getTotal()}kr</p>
+                  
                   <ConfirmOrderButton checkIfDone={this.checkIfInfoFilledOut} />
                 </Panel>
               </div>
@@ -106,7 +107,11 @@ export default class Checkout extends Component<{}, State> {
     )
   }
 
-  getTotal() {
+  /**
+   * Calls function from CartContext that calculates shopping bag total price.
+   * @returns {number} Total price of all products in shopping bag.
+   */
+  getTotal(): number {
     const cartContext = this.context;
     const total = cartContext.getCurrentTotal();
     
