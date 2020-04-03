@@ -12,7 +12,7 @@ import 'pivotal-ui/css/positioning';
 import '../styles/main.css'
 import Firebase, { FirebaseContext } from '../Firebase';
 import HomePage from './HomePage';
-// import Checkout from './Checkout';
+import Checkout from './Checkout';
 import { mockedProducts } from '../MockedData';
 import ProdPage from './prodPage';
 import Cart from './Cart';
@@ -20,36 +20,27 @@ import Cart from './Cart';
 export default class App extends React.Component {
   render() {
     return (
-      <Cart>
-       <FirebaseContext.Provider value={new Firebase()}>
-      <Router>
-        <Switch>
-        {/* <Route path="/product1">
-            {/* <ProdPage id={1} product={mockedProducts} /> 
-          </Route> */}
-          {mockedProducts.map(product => {
-            const component = `product${product.id}`
-            return (
-              <Route key={product.id} path={`/product${product.id}`}>
-              <ProdPage id={product.id} product={product} />
-              </Route>
-            )
-          })}
-          <Route path="/product">
-            <HomePage />
-          </Route> */}
-          
-          <Route path="/checkout">
-            {/* <CheckoutPage /> */}
-          </Route>
-          <Route path="/">
-            <HomePage />
-          </Route>
-        </Switch>
-      </Router>
-    </FirebaseContext.Provider>
-      </Cart>
+      <FirebaseContext.Provider value={new Firebase()}>
+        <Cart>
+          <Router>
+            <Switch>
 
+              {mockedProducts.map(product => {
+                return (
+                  <Route key={product.id} path={`/product${product.id}`}>
+                    <ProdPage id={product.id} product={product} />
+                  </Route>
+                )
+              })}
+
+              <Route path="/checkout" component={Checkout} />
+              <Route path="/">
+                <HomePage />
+              </Route>
+            </Switch>
+          </Router>
+        </Cart>
+      </FirebaseContext.Provider>
     );
   }
 }
