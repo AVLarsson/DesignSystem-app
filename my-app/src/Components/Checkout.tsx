@@ -190,7 +190,7 @@ export default class Checkout extends Component<{}, State> {
 
   checkIfInfoFilledOut = () => {
     /*If a payment has been selected*/
-    if (window.location.pathname === '/checkout') {
+    if (window.location.pathname === '/checkout' || window.location.pathname === '/DesignSystem-app/checkout') {
       if (this.state.hideBankCard === false || this.state.hideKlarna === false || this.state.hideSwish === false) {
         if (this.context.cart.length >= 1) {
           //If swish has been selected and filled out 
@@ -216,9 +216,6 @@ export default class Checkout extends Component<{}, State> {
         alert("Your shopping bag is empty. Please add items to your shopping bag before checkout.")
         return false;
       }
-    } else {
-      alert("Please select a payment option!")
-      return false;
-    }
+    } else {console.log('hello')}
   }
 }

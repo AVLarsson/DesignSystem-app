@@ -34,25 +34,17 @@ export default class App extends React.Component {
           {mockedProducts.map(product => {
             const component = `product${product.id}`
             return (
-              <Route key={product.id} path={`/product${product.id}`}>
+              <Route key={product.id} path={`/${component}`}>
               <ProdPage id={product.id} product={product} />
               </Route>
             )
           })}
-          <Route path="/product">
-            <HomePage />
-          </Route> 
-
           <Route path="/checkout">
             <Checkout />
           </Route>
           <Route path="/">
             <HomePage />
           </Route>
-              <Route path="/checkout" component={Checkout} />
-              <Route path="/">
-                <HomePage />
-              </Route>
             </Switch>
           </Router>
         </Cart>

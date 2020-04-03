@@ -63,12 +63,12 @@ class ProdPage extends React.Component<Props, {}> {
             { text: 'Blazer', path: '/product', id: '4' },
             { text: 'Boots', path: '/product', id: '5' },
             { text: 'Jacket', path: '/product', id: '6' },
-            { text: 'All products', path: '/', id: '999' }],
+            { text: 'All products', path: '/', id: '' }],
             secondaryLinks: [{ text: 'Shopping Bag' }, { text: 'Checkout', path: '/checkout', id: '0' }],
             renderLink: ({ text, path, id }: any) =>
               <>
                 {id === 'logo' ? text : path ?
-                  <Link to={`${path !== '/checkout' ? path : context.cart.length >= 1 ? path : '/'}`} key={id} href={path} style={{ padding: '3px', color: 'unset', textDecoration: 'none' }}>
+                  <Link to={`${path !== '/checkout' ? `${path}${id}` : context.cart.length >= 1 ? path : '/'}`} key={id} href={path} style={{ padding: '3px', color: 'unset', textDecoration: 'none' }}>
                     <DefaultButton disabled={path === '/checkout' && context.cart.length === 0 ? true : false} className={id === '0' ? '' : 'mlxl pan pui-btn--flat type-black'}>
                       {text}
                     </DefaultButton>

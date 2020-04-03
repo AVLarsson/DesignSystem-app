@@ -64,7 +64,7 @@ export function ProductItem(props: Props) {
   } else {
     return (
       <Grid className="grid-show mbxl" justifyContent='space-evenly'>
-        <FlexCol {...{ style: { maxWidth: '30rem', height: '37rem' }, contentAlignment: 'middle', breakpoint: 'sm', col: '16' }}>
+        <FlexCol col={16} {...{ style: { maxWidth: '30rem', height: '37rem' }, contentAlignment: 'middle', breakpoint: 'sm' }}>
 
 
           <div style={{ width: '100%', height: '80%' }}>
@@ -73,7 +73,7 @@ export function ProductItem(props: Props) {
 
         </FlexCol>
 
-        <FlexCol {...{ style: { maxWidth: '30rem', height: '35rem', marginTop: '4rem' }, breakpoint: 'sm', col: '6' }}>
+        <FlexCol col={6} {...{ style: { maxWidth: '30rem', height: '35rem', marginTop: '4rem' }, breakpoint: 'sm' }}>
           <div style={{ width: '100%' }}>
             <span className="pll display-flex em-high h1">{name}</span>
             <br />
