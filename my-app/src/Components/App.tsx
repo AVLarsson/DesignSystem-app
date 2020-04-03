@@ -22,7 +22,7 @@ export default class App extends React.Component {
     return (
       <Cart>
        <FirebaseContext.Provider value={new Firebase()}>
-      <Router>
+      <Router basename='/'>
         <Switch>
         {/* <Route path="/product1">
             {/* <ProdPage id={1} product={mockedProducts} /> 
