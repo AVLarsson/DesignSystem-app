@@ -1,8 +1,8 @@
 import * as React from 'react';
-import {Component} from 'react';
-import {Panel} from 'pivotal-ui/react/panels';
-import {Siteframe} from 'pivotal-ui/react/siteframe';
-import {Icon} from 'pivotal-ui/react/iconography';
+import { Component } from 'react';
+import { Panel } from 'pivotal-ui/react/panels';
+import { Siteframe } from 'pivotal-ui/react/siteframe';
+import { Icon } from 'pivotal-ui/react/iconography';
 import 'pivotal-ui/css/alignment';
 import 'pivotal-ui/css/positioning';
 
@@ -190,24 +190,35 @@ export default class Checkout extends Component<{}, State> {
 
   checkIfInfoFilledOut = () => {
     /*If a payment has been selected*/
-    if (this.state.hideBankCard === false || this.state.hideKlarna === false || this.state.hideSwish === false) {
-      //If swish has been selected and filled out 
-      if (this.state.hideSwish === false && localStorage.firstName && localStorage.lastName && localStorage.phoneNumber) {
-        alert("swish is done")
+    if (window.location.pathname === '/checkout') {
+      if (this.state.hideBankCard === false || this.state.hideKlarna === false || this.state.hideSwish === false) {
+        if (this.context.cart.length >= 1) {
+          //If swish has been selected and filled out 
+          if (this.state.hideSwish === false && localStorage.firstName && localStorage.lastName && localStorage.phoneNumber) {
+            alert("Your order has been placed.")
+            return true;
+          }
+          //if klarna has been selected and filled out
+          else if (this.state.hideKlarna === false && localStorage.firstName && localStorage.lastName && localStorage.email) {
+            alert("Your order has been placed.")
+            return true;
+          }
+          else if (this.state.hideBankCard === false && localStorage.firstName && localStorage.lastName) {
+            alert("Your order has been placed.")
+            return true;
+          }
+          else {
+            alert("please fill out the payment")
+            return false;
+          }
+        }
+      } else {
+        alert("Your shopping bag is empty. Please add items to your shopping bag before checkout.")
+        return false;
       }
-      //if klarna has been selected and filled out
-      else if (this.state.hideKlarna === false && localStorage.firstName && localStorage.lastName && localStorage.email) {
-        alert("klarna is done")
-      }
-      else if (this.state.hideBankCard === false && localStorage.firstName && localStorage.lastName) {
-        alert("bankcard is almost done")
-      }
-      else{
-        alert("please fill out the payment")
-      }
-    }
-    else{
+    } else {
       alert("Please select a payment option!")
+      return false;
     }
   }
 }

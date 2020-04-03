@@ -19,16 +19,11 @@ const ConfirmOrderButton = (props: any) => {
         className,
         ...rest
       } = props
-    const handleClick = async (firebase: any) => {
-        /* 
-        UNCOMMENT THE LINE BELOW TO SAVE TO DATABASE
-    
-        firebase.doSignInAnonymously();
-        */
-
+    const handleClick = async (firebase: any, cartContext: any) => {
         try {
             await firebase.doSignInAnonymously();
             console.log("Your order has been placed.");
+            cartContext.cart = [];
             return history.push('/');
         } catch (error) {
             console.log(error)
@@ -43,7 +38,7 @@ const ConfirmOrderButton = (props: any) => {
                         <p className="type-sm">Continue as guest and</p>
                         <PrimaryButton className="auth" id="anon"
                             onClick={() => {
-                                props.checkIfDone() === true && handleClick(firebase);
+                                props.checkIfDone() === true && handleClick(firebase, cartContext);
                             }}>
                             Confirm order
                         </PrimaryButton>
