@@ -1,5 +1,4 @@
 import * as React from 'react';
-import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import { Grid, FlexCol } from 'pivotal-ui/react/flex-grids';
@@ -8,18 +7,11 @@ import 'pivotal-ui/css/siteframe';
 import { Panel } from 'pivotal-ui/react/panels';
 import 'pivotal-ui/css/panels';
 import 'pivotal-ui/css/colors';
-import { Image } from 'pivotal-ui/react/images';
 import 'pivotal-ui/css/images';
-import { Row, Col } from 'pivotal-ui/react/grids';
-import AddItemButton from './AddItemButton';
 import { ProductItem } from '../ProductItems/ProductItemss';
 import { Products } from '../ProductItems/ProductItemss';
 import { CartContext } from './CartContext';
 import { DefaultButton } from 'pivotal-ui/react/buttons'
-
-// import {Icon} from 'pivotal-ui/react/iconography';
-// import 'pivotal-ui/css/iconography';
-
 
 interface Props {
   id?: number;
@@ -56,7 +48,7 @@ class ProdPage extends React.Component<Props, {}> {
           },
           sidebarProps: {
             className: 'bg-decorative-yellow overflow-hidden',
-            primaryLinks: [{ text: [<img style={{ width: '100%' }} src='https://i.imgur.com/ANCnCV1.png' />], id: 'logo' },
+            primaryLinks: [{ text: [<img alt='RetroShop logo' style={{ width: '90%', margin:'auto'}} src='https://i.imgur.com/ANCnCV1.png' />], id: 'logo' },
             { text: 'Coat', path: '/product', id: '1' },
             { text: 'Sunglasses', path: '/product', id: '2' },
             { text: 'Sneakers', path: '/product', id: '3' },
@@ -80,7 +72,7 @@ class ProdPage extends React.Component<Props, {}> {
           <div className="bg-light-green" style={{ height: '100%', width: 'auto', overflowX: 'hidden' }}>
             <Panel {...{
               className: 'bg-light-green display-flex',
-              style: { backgroundImage: 'url("https://i.imgur.com/MGlC0Hj.png")', minWidth: 'fit-content', width: 'auto', height: '20%', overflow: 'auto', padding: '0' }
+              style: { backgroundImage: 'url("https://i.imgur.com/6Ncy7S2.png")', minWidth: 'fit-content', width: 'auto', height: '20%', overflow: 'auto', padding: '0' }
             }}>
             </Panel>
 

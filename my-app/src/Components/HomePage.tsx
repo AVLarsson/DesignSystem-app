@@ -36,7 +36,7 @@ const HomePage = () => {
         },
         sidebarProps: {
             className: 'bg-decorative-yellow',
-            primaryLinks: [{ text: [<img key={"000"} style={{ width: '100%' }} src='https://i.imgur.com/ANCnCV1.png' />], id: 'logo' },
+            primaryLinks: [{ text: [<img alt='RetroShop logo' key={"000"} style={{ width: '90%', margin:'auto' }} src='https://i.imgur.com/ANCnCV1.png' />], id: 'logo' },
             { text: 'Coat', path: '/product', id: '1' },
             { text: 'Sunglasses', path: '/product', id: '2' },
             { text: 'Sneakers', path: '/product', id: '3' },
@@ -57,7 +57,12 @@ const HomePage = () => {
           </>
         }
     }}>
-        <div className="bg-light-green paxl scroll" style={{ height: '100%', width: 'auto' }}>
+        <div className="bg-light-green scroll" style={{ height: '100%', width: 'auto' }}>
+        <Panel {...{
+              className: 'bg-light-green display-flex',
+              style: { backgroundImage: 'url("https://i.imgur.com/6Ncy7S2.png")', minWidth: 'fit-content', width: 'auto', height: '20%', overflow: 'auto', padding: '0' }
+            }}>
+            </Panel>
             <Panel {...{
                 header: <h3 className="mam">All products</h3>,
                 className: 'scroll display-flex',
@@ -74,19 +79,8 @@ const HomePage = () => {
                 </Grid>
             </Panel>
         </div>
-    </Siteframe>)
-
-
-
+    </Siteframe>   
+    )
 }
 
 export default HomePage;
-
-/* ------ OLD PRODUCT CARD ------
-<FlexCol col={8} className="width-product pan mbxxxl">
-    <Image className="pal" src="http://source.unsplash.com/user/lordmaui/54e6y8NYiSM" />
-    <p className="pll prl mbxl man display-flex space-between">
-        <span>Vans</span>
-        <span>499SEK</span>
-    </p>
-</FlexCol>*/
