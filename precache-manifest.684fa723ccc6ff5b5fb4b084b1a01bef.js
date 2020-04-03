@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "0c155c7ffce53d6a5637e60cb16d78ad",
+    "revision": "24d053ab37e7de946818cd5f9661a365",
     "url": "/DesignSystem-app/index.html"
   },
   {
-    "revision": "52ec4cac45d5d9fc0eac",
+    "revision": "69e6ddc6bb2b9afb14af",
     "url": "/DesignSystem-app/static/css/2.e7d3898c.chunk.css"
   },
   {
-    "revision": "96e378aadc10b72f997c",
+    "revision": "7a4a26a23581df35ecd2",
     "url": "/DesignSystem-app/static/css/main.b223f83d.chunk.css"
   },
   {
-    "revision": "52ec4cac45d5d9fc0eac",
-    "url": "/DesignSystem-app/static/js/2.81378705.chunk.js"
+    "revision": "69e6ddc6bb2b9afb14af",
+    "url": "/DesignSystem-app/static/js/2.96092f3b.chunk.js"
   },
   {
     "revision": "2520f30cb4e102284a8f5fa3a821a3bf",
-    "url": "/DesignSystem-app/static/js/2.81378705.chunk.js.LICENSE.txt"
+    "url": "/DesignSystem-app/static/js/2.96092f3b.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "96e378aadc10b72f997c",
-    "url": "/DesignSystem-app/static/js/main.d10f4804.chunk.js"
+    "revision": "7a4a26a23581df35ecd2",
+    "url": "/DesignSystem-app/static/js/main.76d557fa.chunk.js"
   },
   {
     "revision": "40f8fb34132c47d816d2",
