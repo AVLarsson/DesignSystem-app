@@ -48,9 +48,12 @@ export function ProductItem(props: Props) {
   if (window.location.pathname === '/DesignSystem-app/' || window.location.pathname === '/DesignSystem-app/checkout' || window.location.pathname === '/' || window.location.pathname === '/checkout') {
     return (
       <div className={`${props.showCart ? 'showCart display-flex row' : 'column'} Products ${props.className ? props.className : ''}`}>
-        <span className={`productImage mtl ${props.showCart ? 'mobile' : ''}`}>
-          <img alt={`${description}`} src={image} />
-        </span>
+        <a href={`/product${id}`}> 
+          <span className={`productImage mtl ${props.showCart ? 'mobile' : ''}`}>
+            <img alt={`${description}`} src={image} />
+          </span>
+        </a>
+        
         <span className={`${props.showCart && !props.mobileView ? 'display-flex' : ''}`}>
           <p className='mtl productTitle em-max type-md'>{name}</p>
           <p className='prodictDescription type-sm'>{description}</p>
