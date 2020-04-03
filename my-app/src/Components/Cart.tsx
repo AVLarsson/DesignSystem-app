@@ -11,6 +11,7 @@ interface CartState {
     removeFromCart: (id: number) => void;
     currentCart: () => void;
     updateScreenWidth: () => void;
+    getCurrentTotal: () => number;
     showCart: boolean;
     windowWidth: number;
     total: number;
@@ -27,6 +28,7 @@ export default class Cart extends React.Component<{}, CartState> {
             updateScreenWidth: this.updateScreenWidth,
             showCart: false,
             total: 0,
+            getCurrentTotal: this.getCurrentTotal,
             windowWidth: window.innerWidth
         }
 
@@ -34,6 +36,7 @@ export default class Cart extends React.Component<{}, CartState> {
         this.removeFromCart = this.removeFromCart.bind(this);
         this.currentCart = this.currentCart.bind(this);
         this.setState = this.setState.bind(this);
+        this.getCurrentTotal = this.getCurrentTotal.bind(this);
         this.updateScreenWidth = this.updateScreenWidth.bind(this);
     }
 
@@ -48,7 +51,7 @@ export default class Cart extends React.Component<{}, CartState> {
                         onHide={() => this.setState({ showCart: false })}
                         show={this.state.showCart}>
                         {this.showInfo()}
-                        {this.state.total === 0 ? null : <p className="pal em-high float-right">Total: {this.state.total}kr</p>}
+                        {this.state.total === 0 ? null : <p className="pal em-high float-right">Total: {this.getCurrentTotal}kr</p>}
                     </Modal>
                 </CartContext.Provider>
             </>
@@ -58,7 +61,7 @@ export default class Cart extends React.Component<{}, CartState> {
     showInfo() {
         const { windowWidth } = this.state;
         if (1 <= this.state.cart.length) {
-            return ( 
+            return (
                 this.state.cart.map(product => {
                     return (product.quantity === 0 ? null : <ProductItem
                         className="width-product"
@@ -66,7 +69,8 @@ export default class Cart extends React.Component<{}, CartState> {
                         key={product.id}
                         mobileView={windowWidth <= 481}
                         product={product} />
-                    )}))
+                    )
+                }))
         } else if (this.state.cart.length === 0) {
             return <p>Looks like your shopping bag is empty...</p>
         }
@@ -85,6 +89,17 @@ export default class Cart extends React.Component<{}, CartState> {
                 this.setState({ cart, total });
             }
         })
+    }
+
+    getCurrentTotal = () => {
+        let total = 0;
+        const { cart } = this.state;
+        if (cart !== undefined || cart !== null) {
+            cart.forEach(product => {
+                total = total + (parseInt(product.price) * product.quantity)
+            });
+            return (total);
+        } else { return (0); }
     }
 
     removeProduct(id: number, total: number) {

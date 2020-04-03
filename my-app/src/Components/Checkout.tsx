@@ -62,7 +62,6 @@ export default class Checkout extends Component<{}, State> {
       <CartContext.Consumer>
         {context =>
           <div style={{ position: 'relative', height: '100vh' }}>
-            {console.log(context.cart.length)}
             <Siteframe {... {
               headerProps: {
                 logo: <div className="ptl pbl pll" style={{ fontSize: '40px' }}><Icon src="react" style={{ stroke: 'red' }} /></div>,
@@ -95,9 +94,9 @@ export default class Checkout extends Component<{}, State> {
                     : null}
 
                 </Panel>
-                <Panel className="txt-c" {...{ title: 'Confirmation' }}>
+                <Panel className="txt-c pbxxl" {...{ title: 'Confirmation' }}>
+                  <p>Total: {this.getTotal()}kr</p>
                   <ConfirmOrderButton checkIfDone={this.checkIfInfoFilledOut} />
-                  {/* <button onClick={this.checkIfInfoFilledOut}>Send</button> */}
                 </Panel>
               </div>
             </Siteframe>
@@ -105,6 +104,13 @@ export default class Checkout extends Component<{}, State> {
         }
       </CartContext.Consumer>
     )
+  }
+
+  getTotal() {
+    const cartContext = this.context;
+    const total = cartContext.getCurrentTotal();
+    
+    return total;
   }
 
   /*
@@ -189,9 +195,11 @@ export default class Checkout extends Component<{}, State> {
 
 
   checkIfInfoFilledOut = () => {
-    /*If a payment has been selected*/
+    // If the location is checkout, otherwise it checks on homepage as well. */
     if (window.location.pathname === '/checkout' || window.location.pathname === '/DesignSystem-app/checkout') {
+      /*If a payment has been selected*/
       if (this.state.hideBankCard === false || this.state.hideKlarna === false || this.state.hideSwish === false) {
+        // If cart is not empty
         if (this.context.cart.length >= 1) {
           //If swish has been selected and filled out 
           if (this.state.hideSwish === false && localStorage.firstName && localStorage.lastName && localStorage.phoneNumber) {
@@ -216,6 +224,6 @@ export default class Checkout extends Component<{}, State> {
         alert("Your shopping bag is empty. Please add items to your shopping bag before checkout.")
         return false;
       }
-    } else {console.log('hello')}
+    }
   }
 }
