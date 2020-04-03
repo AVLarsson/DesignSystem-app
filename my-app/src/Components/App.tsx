@@ -28,12 +28,21 @@ export default class App extends React.Component {
         <FirebaseContext.Provider value={new Firebase()}>
           <Router basename='/DesignSystem-app'>
         <Switch>
-          {mockedProducts.map(product => {
+        {mockedProducts.map(product => {
             const component = `product${product.id}`
             return (
               <Route key={product.id} path={`/${component}`}>
               <ProdPage id={product.id} product={product} />
               </Route>
+            )
+          })}
+          <Route path="/checkout">
+            <Checkout />
+          </Route>
+          <Route path="/">
+            <HomePage />
+          </Route>
+
             </Switch>
           </Router>
         </FirebaseContext.Provider>
