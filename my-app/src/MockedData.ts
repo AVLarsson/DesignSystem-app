@@ -1,5 +1,4 @@
 import { Products } from './ProductItems/ProductItemss'
-// import brallorPic from './ProductItems/ProductImage/byxorPlaceholder.jpg'
 import coatPic from './ProductItems/ProductImage/leopard-coat.jpg';
 import blazerPic from './ProductItems/ProductImage/blazer.jpg';
 import bootsPic from './ProductItems/ProductImage/boots.jpg';
