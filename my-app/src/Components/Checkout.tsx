@@ -52,13 +52,9 @@ export default class Checkout extends Component <{status?:any}, State> {
   componentDidMount() {
     if (localStorage.firstName) {
       this.state.firstName = true;
-      console.log(this.state.firstName)
     }
   }
 
-  onUpdate = () => {
-    console.log("hello")
-  };
 
   render() {
     return (
@@ -107,30 +103,6 @@ export default class Checkout extends Component <{status?:any}, State> {
     )
   }
 
-
-  addToTheCart = (addMeat:string) => {
-        
-    let productList = this.state.counters
-    let number = 0;
-    
-    productList.forEach((product: theShoppingCart) => {
-
-        if(product.id === addMeat) {
-            product.value++
-            console.log("two")
-        }
-        if(product.id !== addMeat) {
-            number++
-        }
-        if (number === this.state.counters.length) {                
-            this.state.counters.push({id: addMeat, value: 1})
-            console.log("one")
-        }
-    })
-    this.setState({
-        counters: productList
-    })
-}
 
 incrementProduct = (id: string) => {
 
@@ -189,9 +161,22 @@ deleteProduct = (id:string) => {
 
 
   checkIfInfoFilledOut = () => {
+    /*If a payment has been selected*/
     if (this.state.hideBankCard === false || this.state.hideKlarna === false || this.state.hideSwish === false) {
-      console.log("Payment has been selected")
-
+      //If swish has been selected and filled out 
+      if (this.state.hideSwish === false && localStorage.firstName && localStorage.lastName && localStorage.phoneNumber) {
+        alert("swish is done")
+      }
+      //if klarna has been selected and filled out
+      else if (this.state.hideKlarna === false && localStorage.firstName && localStorage.lastName && localStorage.email) {
+        alert("klarna is done")
+      }
+      else if (this.state.hideBankCard === false && localStorage.firstName && localStorage.lastName) {
+        alert("bankcard is almost done")
+      }
+      else{
+        alert("please fill out the payment")
+      }
     }
     else{
       alert("Please select a payment option!")

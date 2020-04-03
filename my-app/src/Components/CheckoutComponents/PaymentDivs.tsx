@@ -4,8 +4,6 @@ import 'pivotal-ui/css/selection';
 export default class PaymentDivs extends React.Component <{displayBankCard: () => void, displaySwish: () => void, displayKlarna: () => void}> {
 
       componentDidMount() {
-          console.log("hello")
-
           let paymentDiv = document.getElementsByClassName("paymentDiv")
 
           for (let i = 0; i < paymentDiv.length; i++) {

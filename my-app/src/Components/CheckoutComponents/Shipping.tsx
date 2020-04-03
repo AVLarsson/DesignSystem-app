@@ -8,8 +8,6 @@ export default class Shipping extends React.Component  {
   }
 
   componentDidMount() {
-      console.log("hello")
-
       let shippingDiv = document.getElementsByClassName("shippingDiv")
 
       for (let i = 0; i < shippingDiv.length; i++) {
