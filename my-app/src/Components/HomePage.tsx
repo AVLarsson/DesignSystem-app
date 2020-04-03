@@ -43,7 +43,7 @@ const HomePage = () => {
             { text: 'Blazer', path: '/product', id: '4' },
             { text: 'Boots', path: '/product', id: '5' },
             { text: 'Jacket', path: '/product', id: '6' },
-                { text: 'All products', path: '/', id: '999' }
+                { text: 'All products', path: '/', id: '' }
             ],
             secondaryLinks: [{ text: 'Shopping Bag' }, { text: 'Checkout', path: '/checkout', id: '0' }],
             renderLink: ({ text, path, id }: any) =>
