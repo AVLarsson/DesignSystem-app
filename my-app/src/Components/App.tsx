@@ -23,19 +23,32 @@ export default class App extends React.Component {
 
   render() {
     return (
+      
       <FirebaseContext.Provider value={new Firebase()}>
         <Cart>
-          <Router>
-            <Switch>
+          <Router basename='/DesignSystem-app'>
+        <Switch>
+        {/* <Route path="/product1">
+            {/* <ProdPage id={1} product={mockedProducts} /> 
+          </Route> */}
+          {mockedProducts.map(product => {
+            const component = `product${product.id}`
+            return (
+              <Route key={product.id} path={`/product${product.id}`}>
+              <ProdPage id={product.id} product={product} />
+              </Route>
+            )
+          })}
+          <Route path="/product">
+            <HomePage />
+          </Route> 
 
-              {mockedProducts.map(product => {
-                return (
-                  <Route key={product.id} path={`/product${product.id}`}>
-                    <ProdPage id={product.id} product={product} />
-                  </Route>
-                )
-              })}
-
+          <Route path="/checkout">
+            <Checkout />
+          </Route>
+          <Route path="/">
+            <HomePage />
+          </Route>
               <Route path="/checkout" component={Checkout} />
               <Route path="/">
                 <HomePage />
