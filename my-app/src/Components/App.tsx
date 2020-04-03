@@ -44,8 +44,6 @@ export default class App extends React.Component {
           </Router>
         </Cart>
       </FirebaseContext.Provider>
-
-
     );
   }
   static contextType = CartContext;

@@ -10,38 +10,40 @@ interface Props {
 
 export default class CheckoutInfo extends React.Component <Props, {}> {
 
-    state = { updateBool: false }
-
       componentDidMount = () => {
+        let userFirstName = (document.getElementById("userFirstName") as unknown as HTMLInputElement);
+        let userLastName = (document.getElementById("userLastName") as unknown as HTMLInputElement);
+        let userEmail = (document.getElementById("userEmail") as unknown as HTMLInputElement);
+        let userPhoneNumber = (document.getElementById("userPhoneNumber") as unknown as HTMLInputElement);
+        let userAdress = (document.getElementById("userAdress") as unknown as HTMLInputElement);
+        let userZipcode = (document.getElementById("userZipcode") as unknown as HTMLInputElement);
+        let userCountry = (document.getElementById("userCountry") as unknown as HTMLInputElement);
 
-        console.log(this.state.updateBool)
-          
-          if (this.props.status.firstName === false) {
-        }
         
-        let theName = (document.getElementById("userFirstName") as unknown as HTMLInputElement);
         if (localStorage.firstName){
-            
-            theName.value = JSON.parse(localStorage.firstName);
-            
-            console.log(theName.value)
+            userFirstName.value = JSON.parse(localStorage.firstName);
         }
-        else {
-            // this.forceUpdate(this.componentDidMount)  
+        if (localStorage.lastName){
+            userLastName.value = JSON.parse(localStorage.lastName);
+        }
+        if (localStorage.email){
+            userEmail.value = JSON.parse(localStorage.email);
+        }
+        if (localStorage.phoneNumber){
+            userPhoneNumber.value = JSON.parse(localStorage.phoneNumber);
+        }
+        if (localStorage.adress){
+            userAdress.value = JSON.parse(localStorage.adress);
+        }
+        if (localStorage.zipcode){
+            userZipcode.value = JSON.parse(localStorage.zipcode);
+        }
+        if (localStorage.country){
+            userCountry.value = JSON.parse(localStorage.country);
         }
     }
     
-    componentDidUpdate() {
-        let theName = (document.getElementById("userFirstName") as unknown as HTMLInputElement);
-        if (localStorage.firstName){
-            
-            theName.value = JSON.parse(localStorage.firstName);
-        }
-    }
-    
-    bananarama() {
-        console.log(this.state.updateBool);
-    }
+
 
     handleInputChange(event:any) {
         const targetValue = event.target.value;
@@ -61,39 +63,37 @@ export default class CheckoutInfo extends React.Component <Props, {}> {
                   firstName: {
                     inline: true,
                     label: 'First Name',
-                    initialValue: "hello",
                     children: <Input id="userFirstName" onKeyUp={this.handleInputChange} />,
                   },
                   lastName: {
                     inline: true,
                     label: 'Last Name',
-                    initialValue: "hello",
-                    children: <Input onKeyUp={this.handleInputChange}/>
+                    children: <Input id="userLastName" onKeyUp={this.handleInputChange}/>
                   },
                   email: {
                       inline: true,
                       label: "Email",
-                      children: <Input onKeyUp={this.handleInputChange}/>
+                      children: <Input id="userEmail" onKeyUp={this.handleInputChange}/>
                   },
                   phoneNumber: {
                       inline: true,
                       label: "Phone Number",
-                      children: <Input onKeyUp={this.handleInputChange}/>
+                      children: <Input id="userPhoneNumber" onKeyUp={this.handleInputChange}/>
                   },
                   adress: {
                       inline: true,
                       label: "Adress",
-                      children: <Input onKeyUp={this.handleInputChange}/>
+                      children: <Input id="userAdress" onKeyUp={this.handleInputChange}/>
                   },
                   zipcode: {
                       inline: true,
                       label: "Zipcode",
-                      children: <Input onKeyUp={this.handleInputChange}/>
+                      children: <Input id="userZipcode" onKeyUp={this.handleInputChange}/>
                   },
                   country: {
                       inline: true,
                       label: "Country",
-                      children: <Input onKeyUp={this.handleInputChange}/>
+                      children: <Input id="userCountry" onKeyUp={this.handleInputChange}/>
                   }
                 }
               }}>

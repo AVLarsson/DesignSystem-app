@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { Component } from 'react';
-import { Panel } from 'pivotal-ui/react/panels';
-import { Siteframe } from 'pivotal-ui/react/siteframe';
-import { Icon } from 'pivotal-ui/react/iconography';
+import {Component} from 'react';
+import {Panel} from 'pivotal-ui/react/panels';
+import {Siteframe} from 'pivotal-ui/react/siteframe';
+import {Icon} from 'pivotal-ui/react/iconography';
 import 'pivotal-ui/css/alignment';
 import 'pivotal-ui/css/positioning';
 
@@ -53,13 +53,9 @@ export default class Checkout extends Component<{}, State> {
   componentDidMount() {
     if (localStorage.firstName) {
       this.state.firstName = true;
-      console.log(this.state.firstName)
     }
   }
 
-  onUpdate = () => {
-    console.log("hello")
-  };
 
   render() {
     return (
@@ -193,20 +189,25 @@ export default class Checkout extends Component<{}, State> {
 
 
   checkIfInfoFilledOut = () => {
-    if (window.location.pathname === '/checkout') {
-      if (this.state.hideBankCard === false || this.state.hideKlarna === false || this.state.hideSwish === false) {
-        if (this.context.cart.length >= 1) {
-          console.log("Payment has been selected")
-          return true;
-        } else {
-          alert("Your shopping bag is empty. Please add items to your shopping bag before checkout.")
-          return false;
-        }
+    /*If a payment has been selected*/
+    if (this.state.hideBankCard === false || this.state.hideKlarna === false || this.state.hideSwish === false) {
+      //If swish has been selected and filled out 
+      if (this.state.hideSwish === false && localStorage.firstName && localStorage.lastName && localStorage.phoneNumber) {
+        alert("swish is done")
       }
-      else {
-        alert("Please select a payment option!")
-        return false;
+      //if klarna has been selected and filled out
+      else if (this.state.hideKlarna === false && localStorage.firstName && localStorage.lastName && localStorage.email) {
+        alert("klarna is done")
       }
-    } else { return false }
+      else if (this.state.hideBankCard === false && localStorage.firstName && localStorage.lastName) {
+        alert("bankcard is almost done")
+      }
+      else{
+        alert("please fill out the payment")
+      }
+    }
+    else{
+      alert("Please select a payment option!")
+    }
   }
 }
