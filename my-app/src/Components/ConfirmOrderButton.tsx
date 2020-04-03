@@ -35,7 +35,7 @@ const ConfirmOrderButton = (props: any) => {
             <CartContext.Consumer>
                 {cartContext =>
                     <>
-                        <p className="type-sm">Continue as guest and</p>
+                        <p className="type-sm">Confirm Payment</p>
                         <PrimaryButton className="auth" id="anon"
                             onClick={() => {
                                 props.checkIfDone() === true && handleClick(firebase, cartContext);
