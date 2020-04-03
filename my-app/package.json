@@ -1,5 +1,5 @@
 {
-    "home-page": "http://{username}.github.io/{repo}",
+    "home-page": "http://AVLarsson.github.io/DesignSystem-app",
     "name": "my-app",
     "version": "0.1.0",
     "private": true,
