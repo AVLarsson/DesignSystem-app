@@ -2,6 +2,8 @@ import React from 'react';
 import app from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
+import { Products } from 'src/ProductItems/ProductItemss';
+import { CartContext } from 'src/Components/CartContext';
 
 // Firebase configuration
 const firebaseConfig = {
@@ -19,37 +21,30 @@ export interface FirebaseState {
     db: app.database.Database;
     auth: app.auth.Auth;
     orderId: string;
-    order: { [key: string]: { [key: string]: number } };
+    order: Products[];
 }
 
 app.initializeApp(firebaseConfig);
 
 class Firebase extends React.Component<{}, FirebaseState> {
+    // static contextType = React.useContext(CartContext);
+    
     constructor(props?: any) {
         super(props);
-        
+
         this.state = {
             db: app.database(),
             auth: app.auth(),
             orderId: '',
-            order: {
-                '2': {
-                    quantity: 2,
-                    price: 199
-                },
-                '4': {
-                    quantity: 1,
-                    price: 399
-                }
-            }
+            order: [] as any,
         }
-
+        
         /** Check if user is signed in already, from previous session. */
         app.auth().onAuthStateChanged(authUser => {
             if (authUser) {
-                console.log('signed in', authUser.uid)
+                // console.log('signed in', authUser.uid)
             } else {
-                console.log('no user')
+                // console.log('no user')
             }
         });
 
@@ -67,9 +62,9 @@ class Firebase extends React.Component<{}, FirebaseState> {
      */
     doSignInAnonymously = () => {
         let newOrderId = this.getOrderId();
-        this.state.auth.signInAnonymously()
-            .then(authUser => this.saveOrderData(authUser, JSON.stringify(newOrderId)))
-            .catch(error => this.errorMessage(error));
+            this.state.auth.signInAnonymously()
+                .then(authUser => this.saveOrderData(authUser, JSON.stringify(newOrderId)))
+                .catch(error => this.errorMessage(error));
     }
 
     /**
@@ -85,19 +80,21 @@ class Firebase extends React.Component<{}, FirebaseState> {
      * @param newOrderId random order id.
      */
     saveOrderData(authUser: app.auth.UserCredential, newOrderId: string) {
+        const cartContext = React.useContext(CartContext)
+        console.log(cartContext, 'yes')
         // if user has signed in (anonymously)
         if (authUser.user !== null) {
             // iterate through each product in order
-            Object.keys(this.state.order).forEach(productID => {
+            Object.keys(this.context.cart).forEach(product => {
                 // create database ref for each product in order
-                const firebaseRef = this.state.db.ref(`/test/${authUser.user?.uid}/${newOrderId}/${productID}`);
+                const firebaseRef = this.state.db.ref(`/test/${authUser.user?.uid}/${newOrderId}`);
                 // loop through key-value pairs in each product in order
-                Object.entries(this.state.order[productID]).forEach(orderValue => {
+                /*Object.entries(this.context.cart[product]).forEach(orderValue => {
                     // update (add) each key-value pair to product
                     firebaseRef.update({
                         [orderValue[0]]: orderValue[1]
                     })
-                })
+                })*/
             })
         }
     }
@@ -118,14 +115,14 @@ class Firebase extends React.Component<{}, FirebaseState> {
         this.state.auth.onAuthStateChanged(authUser => {
             if (authUser) {
                 this.state.db.ref(`/test/${authUser?.uid}`)
-                .once('value').then(snapshot => {
-                    snapshot.forEach(order => {
-                        const value = order.val()
-                        Object.keys(value).forEach(hell => {
-                            console.log(Object.entries(Object.keys(value)))
-                        })
-                    });
-                })
+                    .once('value').then(snapshot => {
+                        snapshot.forEach(order => {
+                            const value = order.val()
+                            Object.keys(value).forEach(hell => {
+                                console.log(Object.entries(Object.keys(value)))
+                            })
+                        });
+                    })
             }
         });
     }

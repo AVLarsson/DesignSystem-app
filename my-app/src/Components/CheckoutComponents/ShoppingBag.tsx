@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react';
 import SingleCartItem from "./SingleCartItem";
-import { theShoppingCart } from "../Checkout";
 import { Products } from 'src/ProductItems/ProductItemss';
 import { CartContext } from '../CartContext';
 
