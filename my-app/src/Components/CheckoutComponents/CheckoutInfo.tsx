@@ -1,6 +1,4 @@
 import * as React from 'react';
-import {Form} from 'pivotal-ui/react/forms';
-import {Grid, FlexCol} from 'pivotal-ui/react/flex-grids';
 import {Input} from 'pivotal-ui/react/inputs';
 
 
@@ -50,6 +48,7 @@ export default class CheckoutInfo extends React.Component <Props, {}> {
         const targetName = event.target.name
         const valueString = JSON.stringify(targetValue);
 
+
         localStorage.setItem(targetName, valueString)
     
             
@@ -58,75 +57,38 @@ export default class CheckoutInfo extends React.Component <Props, {}> {
 
     render() {
         return (
-            <Form style={{display: "flex", justifyContent: "center"}} {...{
-                fields: {
-                  firstName: {
-                    inline: true,
-                    label: 'First Name',
-                    children: <Input id="userFirstName" onKeyUp={this.handleInputChange} />,
-                  },
-                  lastName: {
-                    inline: true,
-                    label: 'Last Name',
-                    children: <Input id="userLastName" onKeyUp={this.handleInputChange}/>
-                  },
-                  email: {
-                      inline: true,
-                      label: "Email",
-                      children: <Input id="userEmail" onKeyUp={this.handleInputChange}/>
-                  },
-                  phoneNumber: {
-                      inline: true,
-                      label: "Phone Number",
-                      children: <Input id="userPhoneNumber" onKeyUp={this.handleInputChange}/>
-                  },
-                  adress: {
-                      inline: true,
-                      label: "Adress",
-                      children: <Input id="userAdress" onKeyUp={this.handleInputChange}/>
-                  },
-                  zipcode: {
-                      inline: true,
-                      label: "Zipcode",
-                      children: <Input id="userZipcode" onKeyUp={this.handleInputChange}/>
-                  },
-                  country: {
-                      inline: true,
-                      label: "Country",
-                      children: <Input id="userCountry" onKeyUp={this.handleInputChange}/>
-                  }
-                }
-              }}>
-                {({fields} : {fields:any} ) => { 
-                return (
-                    <div style={{width: "80vw"}}>
-                        <Grid className="grid-show mbxl" style={this.centerStyle}>
-                          
-                        <FlexCol col={5}>{fields.firstName}</FlexCol>
-                        <FlexCol col={5}>{fields.lastName}</FlexCol>
-                            
-                        </Grid>
-                        <Grid className="grid-show mbxl" style={this.centerStyle}>
-                          
-                        <FlexCol col={5}>{fields.email}</FlexCol>
-                        <FlexCol col={5}>{fields.phoneNumber}</FlexCol>
-
-                        </Grid>
-                        <Grid className="grid-show mbxl" style={this.centerStyle}>
-
-                        <FlexCol col={10}>{fields.adress}</FlexCol>
-
-                        </Grid>
-                        <Grid className="grid-show mbxl" style={this.centerStyle}>
-
-                        <FlexCol col={3}>{fields.zipcode}</FlexCol>
-                        <FlexCol  col={5}>{fields.country}</FlexCol>
-
-                        </Grid>
+            <div>
+                <form style={this.gridContainer} action="">
+                    <div style={this.gridItem}>
+                        <label htmlFor="userFirstName">First Name</label>
+                        <Input name="firstName" id="userFirstName" onKeyUp={this.handleInputChange} />
                     </div>
-                );
-                }}
-            </Form>
+                    <div style={this.gridItem}>
+                        <label htmlFor="userLastName">Last Name</label>
+                        <Input name="lastName" id="userLastName" onKeyUp={this.handleInputChange} />
+                    </div>
+                    <div style={this.gridItem}>
+                        <label htmlFor="userEmail">Email</label>
+                        <Input name="email" id="userEmail" onKeyUp={this.handleInputChange} />
+                    </div>
+                    <div style={this.gridItem}>
+                        <label htmlFor="userPhoneNumber">Phone Number</label>
+                        <Input name="phoneNumber" id="userPhoneNumber" onKeyUp={this.handleInputChange} />
+                    </div>
+                    <div style={this.gridItem}>
+                        <label htmlFor="userAdress">Adress</label>
+                        <Input name="adress" id="userAdress" onKeyUp={this.handleInputChange} />
+                    </div>
+                    <div style={this.gridItem}>
+                        <label htmlFor="userZipcode">Zipcode</label>
+                        <Input name="zipcode" id="userZipcode" onKeyUp={this.handleInputChange} />
+                    </div>
+                    <div style={this.gridItem}>
+                        <label htmlFor="userCountry">Country</label>
+                        <Input name="country" id="userCountry" onKeyUp={this.handleInputChange} />
+                    </div>
+                </form>
+            </div>
         )
     }
 
@@ -136,4 +98,15 @@ export default class CheckoutInfo extends React.Component <Props, {}> {
         justifyContent: "center", 
         alignItems: "center",
       }
+
+    gridContainer: React.CSSProperties = {
+        display: "grid",
+        gridTemplateColumns: "auto auto",
+        gridColumnGap: "50px",
+        gridRowGap: "20px",
+        justifyContent: "center",
+    }
+    gridItem: React.CSSProperties = {
+        fontSize: "16px"
+    }
 }
