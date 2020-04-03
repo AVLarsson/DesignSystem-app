@@ -22,7 +22,7 @@ export default class App extends React.Component {
     return (
       <Cart>
        <FirebaseContext.Provider value={new Firebase()}>
-      <Router basename='/DesignSystem-app'>
+      <Router basename={process.env.PUBLIC_URL}>
         <Switch>
         {/* <Route path="/product1">
             {/* <ProdPage id={1} product={mockedProducts} /> 
@@ -30,19 +30,19 @@ export default class App extends React.Component {
           {mockedProducts.map(product => {
             const component = `product${product.id}`
             return (
-              <Route key={product.id} path={`/product${product.id}`}>
+              <Route key={product.id} path={process.env.PUBLIC_URL + `/product${product.id}`}>
               <ProdPage id={product.id} product={product} />
               </Route>
             )
           })}
-          <Route path="/product">
+          <Route path={process.env.PUBLIC_URL + '/product'}>
             <HomePage />
           </Route> */}
           
-          <Route path="/checkout">
+          <Route path={process.env.PUBLIC_URL + "/checkout"}>
             {/* <CheckoutPage /> */}
           </Route>
-          <Route path="/">
+          <Route path={process.env.PUBLIC_URL + "/"}>
             <HomePage />
           </Route>
         </Switch>
