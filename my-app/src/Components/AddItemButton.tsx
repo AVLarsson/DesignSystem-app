@@ -13,9 +13,7 @@ export interface AddItemButtonState {
 
 export interface AddItemButtonProps {
     id: number;
-    onClick: any
-    // onClick: () => void
-    // addItem: (id: number) => void
+    onClick: any;
 }
 
 export default class AddItemButton extends React.Component<AddItemButtonProps, AddItemButtonState> {
@@ -26,9 +24,13 @@ export default class AddItemButton extends React.Component<AddItemButtonProps, A
         this.state = {
             show: false,
             disableAnimation: false,
-            disableButton: false,
+            disableButton: false
         };
+
+        this.toggleState = this.toggleState.bind(this);
     }
+
+    animationTimer = 0 as any;
 
     render() {
         return (
@@ -53,6 +55,35 @@ export default class AddItemButton extends React.Component<AddItemButtonProps, A
         );
     }
 
+    componentDidMount() {
+        clearTimeout(this.animationTimer);
+    }
+
+    componentWillUnmount() {
+        if (this.state.disableButton || this.state.show) {
+            clearTimeout(this.animationTimer);
+        }
+    }
+
+    setAnimationTimer = () => {
+        if (this.animationTimer) {
+            this.clearAnimationTimer();
+            return;
+        }
+        // Remember the timer handle
+        this.animationTimer = setTimeout(() => {
+            this.setState({ disableButton: false, show: false });
+            this.animationTimer = 0;
+        }, 2000);
+    };
+
+    clearAnimationTimer = () => {
+        if (this.animationTimer) {
+            clearTimeout(this.animationTimer);
+            this.animationTimer = 0;
+        }
+      };
+
     /**
      * Toggles state for button and modal. 
      * They need separate states or else the button won't complete it's Timeout.
@@ -60,8 +91,6 @@ export default class AddItemButton extends React.Component<AddItemButtonProps, A
     toggleState = () => {
         this.props.onClick()
         this.setState({ disableButton: true, show: true });
-        setTimeout(() => {
-            this.setState({ disableButton: false, show: false });
-        }, 2000);
+        this.setAnimationTimer();
     }
 }
