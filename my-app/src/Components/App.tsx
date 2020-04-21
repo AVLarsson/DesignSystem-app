@@ -24,11 +24,11 @@ export default class App extends React.Component {
   render() {
     return (
 
+    <Router basename='/DesignSystem-app'>
       <Cart>
         <FirebaseContext.Provider value={new Firebase()}>
-          <Router basename='/DesignSystem-app'>
-        <Switch>
-        {mockedProducts.map(product => {
+          <Switch>
+            {mockedProducts.map(product => {
             const component = `product${product.id}`
             return (
               <Route key={product.id} path={`/${component}`}>
@@ -44,9 +44,9 @@ export default class App extends React.Component {
           </Route>
 
             </Switch>
-          </Router>
         </FirebaseContext.Provider>
       </Cart>
+    </Router>
     );
   }
   static contextType = CartContext;
