@@ -21,6 +21,21 @@ export default class KlarnaInfo extends React.Component {
     }
   }
 
+  checkIfNumber(event:any) {
+
+  let targetValue = event.target.value
+  const regex=/^[a-zA-Z]+$/;
+
+  for (let i = 0; i < event.target.value.length; i++) {
+      if (!targetValue[i].match(regex))
+      {
+          event.target.value = "";
+          targetValue = "";
+      }
+  }
+}
+
+
   render() {
     return (
 
@@ -28,11 +43,11 @@ export default class KlarnaInfo extends React.Component {
         <form style={this.gridContainer}>
           <div style={this.gridItem}>
             <label htmlFor="userFirstNameKlarna">First Name</label>
-            <Input id="userFirstNameKlarna" />
+            <Input id="userFirstNameKlarna" onChange={this.checkIfNumber} />
           </div>
           <div style={this.gridItem}>
             <label htmlFor="userLastNameKlarna">Last Name</label>
-            <Input id="userLastNameKlarna" />
+            <Input id="userLastNameKlarna" onChange={this.checkIfNumber} />
           </div>
           <div style={this.gridItem}>
             <label htmlFor="userEmailKlarna">Email</label>

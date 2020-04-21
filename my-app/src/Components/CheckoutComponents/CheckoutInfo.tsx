@@ -40,12 +40,39 @@ export default class CheckoutInfo extends React.Component <Props, {}> {
             userCountry.value = JSON.parse(localStorage.country);
         }
     }
-    
+
 
 
     handleInputChange(event:any) {
-        const targetValue = event.target.value;
+        let targetValue = event.target.value;
         const targetName = event.target.name
+
+
+        if (targetName == "phoneNumber" || targetName == "zipcode") {
+
+            const regex=/^[a-zA-Z]+$/;
+            for (let i = 0; i < event.target.value.length; i++) {
+                if (targetValue[i].match(regex))
+                {
+                    event.target.value = "";
+                    targetValue = "";
+                }
+            }
+
+
+        } else if  (targetName == "firstName" || targetName == "lastName" || targetName == "country") {
+
+            const regex=/^[a-zA-Z]+$/;
+            for (let i = 0; i < event.target.value.length; i++) {
+                if (!targetValue[i].match(regex))
+                {
+                    event.target.value = "";
+                    targetValue = "";
+                }
+            }
+
+        }
+
         const valueString = JSON.stringify(targetValue);
 
 
@@ -61,31 +88,31 @@ export default class CheckoutInfo extends React.Component <Props, {}> {
                 <form style={this.gridContainer} action="">
                     <div style={this.gridItem}>
                         <label htmlFor="userFirstName">First Name</label>
-                        <Input name="firstName" id="userFirstName" onKeyUp={this.handleInputChange} />
+                        <Input name="firstName" id="userFirstName" onChange={this.handleInputChange} />
                     </div>
                     <div style={this.gridItem}>
                         <label htmlFor="userLastName">Last Name</label>
-                        <Input name="lastName" id="userLastName" onKeyUp={this.handleInputChange} />
+                        <Input name="lastName" id="userLastName" onChange={this.handleInputChange} />
                     </div>
                     <div style={this.gridItem}>
                         <label htmlFor="userEmail">Email</label>
-                        <Input name="email" id="userEmail" onKeyUp={this.handleInputChange} />
+                        <Input name="email" id="userEmail" onChange={this.handleInputChange} />
                     </div>
                     <div style={this.gridItem}>
                         <label htmlFor="userPhoneNumber">Phone Number</label>
-                        <Input name="phoneNumber" id="userPhoneNumber" onKeyUp={this.handleInputChange} />
+                        <Input name="phoneNumber" id="userPhoneNumber" onChange={this.handleInputChange} />
                     </div>
                     <div style={this.gridItem}>
                         <label htmlFor="userAdress">Adress</label>
-                        <Input name="adress" id="userAdress" onKeyUp={this.handleInputChange} />
+                        <Input name="adress" id="userAdress" onChange={this.handleInputChange} />
                     </div>
                     <div style={this.gridItem}>
                         <label htmlFor="userZipcode">Zipcode</label>
-                        <Input name="zipcode" id="userZipcode" onKeyUp={this.handleInputChange} />
+                        <Input name="zipcode" id="userZipcode" onChange={this.handleInputChange} />
                     </div>
                     <div style={this.gridItem}>
                         <label htmlFor="userCountry">Country</label>
-                        <Input name="country" id="userCountry" onKeyUp={this.handleInputChange} />
+                        <Input name="country" id="userCountry" onChange={this.handleInputChange} />
                     </div>
                 </form>
             </div>

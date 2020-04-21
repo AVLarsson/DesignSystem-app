@@ -270,8 +270,8 @@ export default class Checkout extends Component<{}, State> {
  * This checks if BankCard has been filled out
  */
   checkBankCardFilledOut(shipping: any): boolean {
-    let userFirstName = (document.getElementById("userFirstNameSwish") as unknown as HTMLInputElement);
-    let userLastName = (document.getElementById("userLastNameSwish") as unknown as HTMLInputElement);
+    let userFirstName = (document.getElementById("userFirstNameBank") as unknown as HTMLInputElement);
+    let userLastName = (document.getElementById("userLastNameBank") as unknown as HTMLInputElement);
     let userCardNumber = (document.getElementById("userCardNumber") as unknown as HTMLInputElement);
     let userCvc = (document.getElementById("userCvc") as unknown as HTMLInputElement);
     let userMonth = (document.getElementById("userMonth") as unknown as HTMLInputElement);

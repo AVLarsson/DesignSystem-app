@@ -5,8 +5,8 @@ import "../Imports.css";
 export default class BankCardInfo extends React.Component {
 
   componentDidMount = () => {
-    let userFirstName = (document.getElementById("userFirstNameSwish") as unknown as HTMLInputElement);
-    let userLastName = (document.getElementById("userLastNameSwish") as unknown as HTMLInputElement);
+    let userFirstName = (document.getElementById("userFirstNameBank") as unknown as HTMLInputElement);
+    let userLastName = (document.getElementById("userLastNameBank") as unknown as HTMLInputElement);
 
     
     if (localStorage.firstName){
@@ -17,34 +17,64 @@ export default class BankCardInfo extends React.Component {
     }
 }
 
+checkIfNumber(event:any) {
+
+    let targetValue = event.target.value
+    let targetId = event.target.id;
+    const regex=/^[a-zA-Z]+$/;
+
+
+    if (targetId == "userCardNumber" || targetId == "userCvc"  || targetId == "userMonth" || targetId == "userYear"  ) {
+    
+        for (let i = 0; i < event.target.value.length; i++) {
+            if (targetValue[i].match(regex))
+            {
+                event.target.value = "";
+                targetValue = "";
+            }
+        }
+    }
+    else {
+        for (let i = 0; i < event.target.value.length; i++) {
+            if (!targetValue[i].match(regex))
+            {
+                event.target.value = "";
+                targetValue = "";
+            }
+        }
+    }
+
+}
+
+
 
     render() {
       return (
         <div>
         <form style={this.gridContainer} action="">
             <div style={this.gridItem}>
-                <label htmlFor="userFirstNameSwish">First Name</label>
-                <Input id="userFirstNameSwish" />
+                <label htmlFor="userFirstNameBank">First Name</label>
+                <Input id="userFirstNameBank" onChange={this.checkIfNumber} />
             </div>
             <div style={this.gridItem}>
-                <label htmlFor="userLastNameSwish">Last Name</label>
-                <Input id="userLastNameSwish"/>
+                <label htmlFor="userLastNameBank">Last Name</label>
+                <Input id="userLastNameBank" onChange={this.checkIfNumber}/>
             </div>
             <div style={this.gridItem}>
                 <label htmlFor="userCardNumber">Card Number</label>
-                <Input id="userCardNumber" />
+                <Input id="userCardNumber"  onChange={this.checkIfNumber}/>
             </div>
             <div style={this.gridItem}>
                 <label htmlFor="userCvc">CVC</label>
-                <Input id="userCvc" />
+                <Input id="userCvc" onChange={this.checkIfNumber}/>
             </div>
             <div style={this.gridItem}>
                 <label htmlFor="userMonth">Month</label>
-                <Input id="userMonth" />
+                <Input id="userMonth" onChange={this.checkIfNumber}/>
             </div>
             <div style={this.gridItem}>
                 <label htmlFor="userYear">Year</label>
-                <Input id="userYear" />
+                <Input id="userYear" onChange={this.checkIfNumber}/>
             </div>
         </form>
     </div>
