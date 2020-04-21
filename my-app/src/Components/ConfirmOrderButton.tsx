@@ -1,14 +1,11 @@
 import { FirebaseContext } from '../Firebase';
-import React, { ReactInstance, FC } from 'react';
+import React from 'react';
 import { PrimaryButton } from 'pivotal-ui/react/buttons'
 import { CartContext } from './CartContext';
-import { Products } from 'src/ProductItems/ProductItemss';
-import { Redirect, withRouter } from 'react-router-dom';
 import 'pivotal-ui/css/iconography';
-import { SuccessAlert, InfoAlert, WarningAlert, ErrorAlert } from 'pivotal-ui/react/alerts';
 import 'pivotal-ui/css/alerts';
-import { Icon } from 'pivotal-ui/react/iconography'
 import 'pivotal-ui/css/iconography'
+import { withRouter } from 'react-router-dom';
 
 interface Props {
     checkIfDone: () => boolean
@@ -42,7 +39,7 @@ const ConfirmOrderButton = (props: any) => {
             <CartContext.Consumer>
                 {cartContext =>
                     <>
-                                            {isLoading === true ?
+                        {isLoading === true ?
                             <div className="icon icon-middle spinner position-absolute" style={{ fontSize: "96px", margin: "0 auto" }}><svg className="icon-spinner-lg" height="100px" width="100px" viewBox="0 0 101 101" xmlns="http://www.w3.org/2000/svg">
                                 <circle className="ring" cx="50%" cy="50%" fill="none" r="45%" strokeLinecap="butt" strokeWidth="10%"></circle>
                                 <circle className="path" cx="50%" cy="50%" fill="none" r="45%" strokeLinecap="butt" strokeWidth="10%"></circle>

@@ -55,29 +55,41 @@ export default class AddItemButton extends React.Component<AddItemButtonProps, A
         );
     }
 
+    /**
+     * Clear spinner timer on mount to avoid overlapping.
+     */
     componentDidMount() {
         clearTimeout(this.animationTimer);
     }
 
+    /**
+     * Clear spinner timer on unmount.
+     */
     componentWillUnmount() {
         if (this.state.disableButton || this.state.show) {
             clearTimeout(this.animationTimer);
         }
     }
 
-    setAnimationTimer = () => {
+    /**
+     * Handles the start of the timer for the loading spinner.
+     * Clears timer if it exists and then sets timer that will disable the spinner when it finishes.
+     */
+    setLoadingTimer = () => {
         if (this.animationTimer) {
-            this.clearAnimationTimer();
-            return;
+            this.clearLoadingTimer();
         }
-        // Remember the timer handle
+
         this.animationTimer = setTimeout(() => {
             this.setState({ disableButton: false, show: false });
             this.animationTimer = 0;
         }, 2000);
     };
 
-    clearAnimationTimer = () => {
+    /**
+     * Clears spinner timer if it exists.
+     */
+    clearLoadingTimer = () => {
         if (this.animationTimer) {
             clearTimeout(this.animationTimer);
             this.animationTimer = 0;
@@ -91,6 +103,6 @@ export default class AddItemButton extends React.Component<AddItemButtonProps, A
     toggleState = () => {
         this.props.onClick()
         this.setState({ disableButton: true, show: true });
-        this.setAnimationTimer();
+        this.setLoadingTimer();
     }
 }

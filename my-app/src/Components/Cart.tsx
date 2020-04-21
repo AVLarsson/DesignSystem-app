@@ -88,6 +88,7 @@ export default class Cart extends React.Component<{}, CartState> {
     removeFromCart = (id: number) => {
         let { cart, total } = this.state;
 
+        // eslint-disable-next-line
         cart.map(product => {
             if (product.id === id && product.quantity <= 1) {
                 total = total - parseInt(product.price);

@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import AddItemButton from '../Components/AddItemButton';
 import { CartContext } from '../Components/CartContext';
 import { DangerButton } from 'pivotal-ui/react/buttons'
-import { Modal } from 'pivotal-ui/react/modal';
-import { mockedProducts } from '../MockedData'
 import { Grid, FlexCol } from 'pivotal-ui/react/flex-grids';
 import { Link } from 'react-router-dom';
 
