@@ -48,7 +48,7 @@ class ProdPage extends React.Component<Props, {}> {
           },
           sidebarProps: {
             className: 'bg-decorative-yellow overflow-hidden',
-            primaryLinks: [{ text: [<img alt='RetroShop logo' style={{ width: '90%', margin:'auto'}} src='https://i.imgur.com/ANCnCV1.png' />], id: 'logo' },
+            primaryLinks: [{ text: [<img alt='RetroShop logo' key={'logo'} style={{ width: '90%', margin:'auto'}} src='https://i.imgur.com/ANCnCV1.png' />], id: 'logo' },
             { text: 'Coat', path: '/product', id: '1' },
             { text: 'Sunglasses', path: '/product', id: '2' },
             { text: 'Sneakers', path: '/product', id: '3' },
