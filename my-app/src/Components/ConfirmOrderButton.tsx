@@ -31,9 +31,8 @@ const ConfirmOrderButton = (props: any) => {
         setTimeout(() => {
         }, 1000);
         setTimeout(() => {
-            setIsLoading(false);
             cartContext.cart = [];
-            // history.push('/');
+            setIsLoading(false);
         }, 2000);
     }
 
@@ -49,8 +48,8 @@ const ConfirmOrderButton = (props: any) => {
                             </svg></div> : null}
                         <p className="type-sm">Confirm Payment</p>
 
-                        <PrimaryButton className="auth" id="anon"
-                            onClick={() => {
+                        <PrimaryButton large disabled={isLoading || cartContext.cart.length <= 0} className="auth" id="anon"
+                            onClick={cartContext.cart.length <= 0 ? null : () => {
                                 props.checkIfDone() === true && handleClick(firebase, cartContext);
                             }}>
                             Confirm order
