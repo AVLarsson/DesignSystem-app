@@ -58,28 +58,6 @@ class ConfirmOrderButton extends React.Component<ConfirmOrderButtonProps, Confir
         }, 2000);
         return null;
     }
-    
-    return (<FirebaseContext.Consumer>
-        {firebase =>
-            <CartContext.Consumer>
-                {cartContext =>
-                    <>
-                        {isLoading === true ?
-                            <div className="icon icon-middle spinner position-absolute" style={{ fontSize: "96px", margin: "0 auto" }}><svg className="icon-spinner-lg" height="100px" width="100px" viewBox="0 0 101 101" xmlns="http://www.w3.org/2000/svg">
-                                <circle className="ring" cx="50%" cy="50%" fill="none" r="45%" strokeLinecap="butt" strokeWidth="10%"></circle>
-                                <circle className="path" cx="50%" cy="50%" fill="none" r="45%" strokeLinecap="butt" strokeWidth="10%"></circle>
-                            </svg></div> : null}
-                        <p className="type-sm">Confirm Payment</p>
-
-                        <PrimaryButton className="auth" id="anon"
-                            onClick={() => {
-                                props.checkIfDone() === true && handleClick(firebase, cartContext);
-                            }}>
-                            Confirm order
-                        </PrimaryButton>
-                    </>
-                }</CartContext.Consumer>
-        }</FirebaseContext.Consumer>)
 }
 
 export default ConfirmOrderButton;
