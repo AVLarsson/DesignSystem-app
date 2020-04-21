@@ -7,33 +7,58 @@ import 'pivotal-ui/css/alerts';
 import 'pivotal-ui/css/iconography'
 import { withRouter } from 'react-router-dom';
 
-interface Props {
-    checkIfDone: () => boolean
+interface ConfirmOrderButtonProps {
+    checkIfDone: any;
 }
 
-const ConfirmOrderButton = (props: any) => {
-    const [isLoading, setIsLoading] = React.useState(false);
-    const {
-        history,
-        location,
-        match,
-        staticContext,
-        onClick,
-        className,
-        ...rest
-    } = props
-    const handleClick = (firebase: any, cartContext: any) => {
-        setIsLoading(true);
-        firebase.doSignInAnonymously();
-        setTimeout(() => {
-        }, 1000);
-        setTimeout(() => {
-            setIsLoading(false);
-            cartContext.cart = [];
-            // history.push('/');
-        }, 2000);
+interface ConfirmOrderButtonState {
+    isLoading: boolean;
+}
+
+class ConfirmOrderButton extends React.Component<ConfirmOrderButtonProps, ConfirmOrderButtonState> {
+    constructor(props: ConfirmOrderButtonProps) {
+        super(props);
+        this.state = {
+            isLoading: false
+        }
+
+        this.handleClick = this.handleClick.bind(this);
     }
 
+    render() {
+        return (<FirebaseContext.Consumer>
+            {firebase =>
+                <CartContext.Consumer>
+                    {cartContext =>
+                        <>
+                            {this.state.isLoading === true ?
+                                <div className="icon icon-middle spinner position-absolute" style={{ fontSize: "96px", margin: "0 auto" }}><svg className="icon-spinner-lg" height="100px" width="100px" viewBox="0 0 101 101" xmlns="http://www.w3.org/2000/svg">
+                                    <circle className="ring" cx="50%" cy="50%" fill="none" r="45%" strokeLinecap="butt" strokeWidth="10%"></circle>
+                                    <circle className="path" cx="50%" cy="50%" fill="none" r="45%" strokeLinecap="butt" strokeWidth="10%"></circle>
+                                </svg></div> : null}
+                            <p className="type-sm">Confirm Payment</p>
+                            <PrimaryButton large disabled={this.state.isLoading || cartContext.cart.length <= 0} className="auth" id="anon"
+                                onClick={cartContext.cart.length <= 0 ? null :
+                                    () => this.props.checkIfDone() === true ? this.handleClick(firebase, cartContext) : () => null
+                                }>
+                                Confirm order
+                            </PrimaryButton>
+                        </>
+                    }</CartContext.Consumer>
+            }</FirebaseContext.Consumer>);
+    }
+
+    handleClick = (firebase: any, cartContext: any) => {
+        this.setState({ isLoading: true });
+        firebase.doSignInAnonymously();
+
+        setTimeout(() => {
+            cartContext.cart = [];
+            this.setState({ isLoading: false });
+        }, 2000);
+        return null;
+    }
+    
     return (<FirebaseContext.Consumer>
         {firebase =>
             <CartContext.Consumer>
@@ -57,4 +82,4 @@ const ConfirmOrderButton = (props: any) => {
         }</FirebaseContext.Consumer>)
 }
 
-export default withRouter(ConfirmOrderButton);
+export default ConfirmOrderButton;

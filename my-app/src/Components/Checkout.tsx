@@ -102,8 +102,7 @@ export default class Checkout extends Component<{}, State> {
 
                 </Panel>
                 <Panel className="txt-c pbxxl" {...{ title: 'Confirmation' }}>
-
-                  <ConfirmOrderButton shipping={this.state} checkIfDone={this.checkIfInfoFilledOut} />
+                  <ConfirmOrderButton checkIfDone={this.checkIfInfoFilledOut} />
                 </Panel>
               </div>
             </Siteframe>
