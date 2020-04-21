@@ -10,16 +10,16 @@ import 'pivotal-ui/css/alerts';
 import { Icon } from 'pivotal-ui/react/iconography'
 import 'pivotal-ui/css/iconography'
 
-interface ConfirmButtonProps {
+interface ConfirmOrderButtonProps {
     checkIfDone: any;
 }
 
-interface ConfirmButtonState {
+interface ConfirmOrderButtonState {
     isLoading: boolean;
 }
 
-class ConfirmButton extends React.Component<ConfirmButtonProps, ConfirmButtonState> {
-    constructor(props: ConfirmButtonProps) {
+class ConfirmOrderButton extends React.Component<ConfirmOrderButtonProps, ConfirmOrderButtonState> {
+    constructor(props: ConfirmOrderButtonProps) {
         super(props);
         this.state = {
             isLoading: false
@@ -52,7 +52,6 @@ class ConfirmButton extends React.Component<ConfirmButtonProps, ConfirmButtonSta
     }
 
     handleClick = (firebase: any, cartContext: any) => {
-        console.log('click')
         this.setState({ isLoading: true });
         firebase.doSignInAnonymously();
 
@@ -64,4 +63,4 @@ class ConfirmButton extends React.Component<ConfirmButtonProps, ConfirmButtonSta
     }
 }
 
-export default ConfirmButton;
+export default ConfirmOrderButton;
