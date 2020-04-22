@@ -22,21 +22,49 @@ export default class SwishInfo extends React.Component {
 }
 
 
+checkIfNumber(event:any) {
+
+    let targetValue = event.target.value
+    let targetId = event.target.id;
+    const regex=/^[a-zA-Z]+$/;
+
+
+    if (targetId == "userPhoneNumberSwish") {
+    
+        for (let i = 0; i < event.target.value.length; i++) {
+            if (targetValue[i].match(regex))
+            {
+                event.target.value = "";
+            }
+        }
+    }
+    else {
+        for (let i = 0; i < event.target.value.length; i++) {
+            if (!targetValue[i].match(regex))
+            {
+                event.target.value = "";
+            }
+        }
+    }
+
+}
+
+
     render() {
       return (
         <div>
         <form style={this.gridContainer} action="">
             <div style={this.gridItem}>
                 <label htmlFor="userFirstNameSwish">First Name</label>
-                <Input id="userFirstNameSwish" />
+                <Input id="userFirstNameSwish" onChange={this.checkIfNumber}/>
             </div>
             <div style={this.gridItem}>
                 <label htmlFor="userLastNameSwish">Last Name</label>
-                <Input id="userLastNameSwish"/>
+                <Input id="userLastNameSwish" onChange={this.checkIfNumber}/>
             </div>
             <div style={this.gridItem}>
                 <label htmlFor="userPhoneNumberSwish">Phone Number</label>
-                <Input id="userPhoneNumberSwish" />
+                <Input id="userPhoneNumberSwish" onChange={this.checkIfNumber}/>
             </div>
         </form>
     </div>
