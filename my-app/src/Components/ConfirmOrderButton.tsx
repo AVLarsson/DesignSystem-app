@@ -4,8 +4,7 @@ import { PrimaryButton } from 'pivotal-ui/react/buttons'
 import { CartContext } from './CartContext';
 import 'pivotal-ui/css/iconography';
 import 'pivotal-ui/css/alerts';
-import 'pivotal-ui/css/iconography'
-import { withRouter } from 'react-router-dom';
+import 'pivotal-ui/css/iconography';
 
 interface ConfirmOrderButtonProps {
     checkIfDone: any;

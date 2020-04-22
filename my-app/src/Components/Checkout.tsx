@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Component } from 'react';
 import { Panel } from 'pivotal-ui/react/panels';
 import { Siteframe } from 'pivotal-ui/react/siteframe';
-import { Icon } from 'pivotal-ui/react/iconography';
 import 'pivotal-ui/css/alignment';
 import 'pivotal-ui/css/positioning';
 import { Link } from 'react-router-dom';
