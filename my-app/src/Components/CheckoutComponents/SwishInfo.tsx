@@ -29,7 +29,7 @@ checkIfNumber(event:any) {
     const regex=/^[a-zA-Z]+$/;
 
 
-    if (targetId == "userPhoneNumberSwish") {
+    if (targetId === "userPhoneNumberSwish") {
     
         for (let i = 0; i < event.target.value.length; i++) {
             if (targetValue[i].match(regex))

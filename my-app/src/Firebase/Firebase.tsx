@@ -87,7 +87,8 @@ class Firebase extends React.Component<{}, FirebaseState> {
             // iterate through each product in order
             Object.keys(this.context.cart).forEach(product => {
                 // create database ref for each product in order
-                const firebaseRef = this.state.db.ref(`/test/${authUser.user?.uid}/${newOrderId}`);
+                // THIS WAS NOT WORKING ---- TODO: clean up this mess
+                // const firebaseRef = this.state.db.ref(`/test/${authUser.user?.uid}/${newOrderId}`);
                 // loop through key-value pairs in each product in order
                 /*Object.entries(this.context.cart[product]).forEach(orderValue => {
                     // update (add) each key-value pair to product

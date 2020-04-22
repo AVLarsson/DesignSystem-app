@@ -48,7 +48,7 @@ export default class CheckoutInfo extends React.Component <Props, {}> {
         const targetName = event.target.name
 
 
-        if (targetName == "phoneNumber" || targetName == "zipcode") {
+        if (targetName === "phoneNumber" || targetName === "zipcode") {
 
             const regex=/^[a-zA-Z]+$/;
             for (let i = 0; i < event.target.value.length; i++) {
@@ -60,7 +60,7 @@ export default class CheckoutInfo extends React.Component <Props, {}> {
             }
 
 
-        } else if  (targetName == "firstName" || targetName == "lastName" || targetName == "country") {
+        } else if  (targetName === "firstName" || targetName === "lastName" || targetName === "country") {
 
             const regex=/^[a-zA-Z]+$/;
             for (let i = 0; i < event.target.value.length; i++) {

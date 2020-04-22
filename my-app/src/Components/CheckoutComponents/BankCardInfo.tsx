@@ -24,7 +24,7 @@ checkIfNumber(event:any) {
     const regex=/^[a-zA-Z]+$/;
 
 
-    if (targetId == "userCardNumber" || targetId == "userCvc"  || targetId == "userMonth" || targetId == "userYear"  ) {
+    if (targetId === "userCardNumber" || targetId === "userCvc"  || targetId === "userMonth" || targetId === "userYear"  ) {
     
         for (let i = 0; i < event.target.value.length; i++) {
             if (targetValue[i].match(regex))
