@@ -39,7 +39,7 @@ export default class App extends React.Component {
           <Route path="/checkout">
             <Checkout />
           </Route>
-          <Route path="/">
+          <Route path="">
             <HomePage />
           </Route>
 
