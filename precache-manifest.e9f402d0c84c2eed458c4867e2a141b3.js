@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "99c94f3cf0d417767f924cd283ca56c6",
+    "revision": "4b638cbaec305c3ae1ebe93e104e6448",
     "url": "/DesignSystem-app/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/DesignSystem-app/static/css/2.e7d3898c.chunk.css"
   },
   {
-    "revision": "07727570dca059e7bc3c",
+    "revision": "9fb3b422a84952d0814b",
     "url": "/DesignSystem-app/static/css/main.b223f83d.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/DesignSystem-app/static/js/2.1fccfce8.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "07727570dca059e7bc3c",
-    "url": "/DesignSystem-app/static/js/main.379b6e71.chunk.js"
+    "revision": "9fb3b422a84952d0814b",
+    "url": "/DesignSystem-app/static/js/main.71cba158.chunk.js"
   },
   {
     "revision": "40f8fb34132c47d816d2",
