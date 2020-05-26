@@ -29,7 +29,7 @@ export function ProductItem(props: Props) {
   const { addToCart, removeFromCart } = React.useContext(CartContext);
   const { id, name, description, price, image, quantity } = props.product;
 
-  if (window.location.pathname === '/DesignSystem-app/' || window.location.pathname === '/DesignSystem-app/checkout' || window.location.pathname === '/' || window.location.pathname === '/checkout') {
+  if (window.location.pathname === '/DesignSystem-app' || window.location.pathname === '/DesignSystem-app/' || window.location.pathname === '/DesignSystem-app/checkout' || window.location.pathname === '/' || window.location.pathname === '/checkout') {
     return (
       <div className={`${props.showCart ? 'showCart display-flex row' : 'column'} Products ${props.className ? props.className : ''}`}>
         <Link to={`/product${id}`}> 
