@@ -2,24 +2,45 @@ import * as React from 'react';
 import {Input} from 'pivotal-ui/react/inputs';
 import "../Imports.css";
 
-export default class BankCardInfo extends React.Component {
-
-  componentDidMount = () => {
-    let userFirstName = (document.getElementById("userFirstNameBank") as unknown as HTMLInputElement);
-    let userLastName = (document.getElementById("userLastNameBank") as unknown as HTMLInputElement);
-
-    
-    if (localStorage.firstName){
-        userFirstName.value = JSON.parse(localStorage.firstName);
-    }
-    if (localStorage.lastName){
-        userLastName.value = JSON.parse(localStorage.lastName);
-    }
+interface Props {
+    passStateFromBankCard: any
 }
 
-checkIfNumber(event:any) {
 
+export default class BankCardInfo extends React.Component <Props, {}> {
+    constructor(props:any) {
+        super(props)
+        this.checkIfNumber = this.checkIfNumber.bind(this)
+    }
+    
+    state = {
+        firstName: "",
+        lastName: "",
+        bankNumber: "",
+        cvc: "",
+        month: "",
+        year: ""
+    }
+
+//   componentDidMount = () => {
+//     let userFirstName; 
+//     let userLastName;
+
+    
+//     if (localStorage.firstName){
+//         userFirstName = JSON.parse(localStorage.firstName);
+//         this.setState({firstName:userFirstName})
+//     }
+//     if (localStorage.lastName){
+//         userLastName = JSON.parse(localStorage.lastName);
+//         this.setState({lastName:userLastName})
+//     }
+// }
+
+checkIfNumber(event:any) {
+    event.persist()
     let targetValue = event.target.value
+    const targetName = event.target.name;
     let targetId = event.target.id;
     const regex=/^[a-zA-Z]+$/;
 
@@ -44,6 +65,34 @@ checkIfNumber(event:any) {
         }
     }
 
+    if (targetName === "firstName") {
+        this.setState({firstName:targetValue}, this.sendToParent)
+    }
+
+    if (targetName === "lastName") {
+        this.setState({lastName:targetValue}, this.sendToParent)
+    }
+
+    if (targetName === "bankCard") {
+        this.setState({bankNumber:targetValue}, this.sendToParent)
+    }
+
+    if (targetName === "cvc") {
+        this.setState({cvc:targetValue}, this.sendToParent)
+    }
+
+    if (targetName === "month") {
+        this.setState({month:targetValue}, this.sendToParent)
+    }
+
+    if (targetName === "year") {
+        this.setState({year:targetValue}, this.sendToParent)
+    }
+
+}
+
+sendToParent = () => {
+    this.props.passStateFromBankCard(this.state)
 }
 
 
@@ -54,27 +103,27 @@ checkIfNumber(event:any) {
         <form style={this.gridContainer} action="">
             <div style={this.gridItem}>
                 <label htmlFor="userFirstNameBank">First Name</label>
-                <Input id="userFirstNameBank" onChange={this.checkIfNumber} />
+                <Input name="firstName" id="userFirstNameBank" onChange={this.checkIfNumber} />
             </div>
             <div style={this.gridItem}>
                 <label htmlFor="userLastNameBank">Last Name</label>
-                <Input id="userLastNameBank" onChange={this.checkIfNumber}/>
+                <Input name="lastName" id="userLastNameBank" onChange={this.checkIfNumber}/>
             </div>
             <div style={this.gridItem}>
                 <label htmlFor="userCardNumber">Card Number</label>
-                <Input id="userCardNumber"  onChange={this.checkIfNumber}/>
+                <Input name="bankCard" id="userCardNumber"  onChange={this.checkIfNumber}/>
             </div>
             <div style={this.gridItem}>
                 <label htmlFor="userCvc">CVC</label>
-                <Input id="userCvc" onChange={this.checkIfNumber}/>
+                <Input name="cvc" id="userCvc" onChange={this.checkIfNumber}/>
             </div>
             <div style={this.gridItem}>
                 <label htmlFor="userMonth">Month</label>
-                <Input id="userMonth" onChange={this.checkIfNumber}/>
+                <Input name="month" id="userMonth" onChange={this.checkIfNumber}/>
             </div>
             <div style={this.gridItem}>
                 <label htmlFor="userYear">Year</label>
-                <Input id="userYear" onChange={this.checkIfNumber}/>
+                <Input name="year" id="userYear" onChange={this.checkIfNumber}/>
             </div>
         </form>
     </div>

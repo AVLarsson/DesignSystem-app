@@ -20,10 +20,22 @@ import ConfirmOrderButton from './ConfirmOrderButton';
 import Receipt from "./CheckoutComponents/Receipt"
 
 interface Props {
-
+  passStateFromInfo:any
+  passStateFromKlarna:any
+  passStateFromBankCard:any
+  passShipping: any
 }
 
 interface State {
+  userInfoWritten: boolean,
+  klarnaInfoWritten: boolean,
+  swishInfoWritten: boolean,
+  bankCardInfoWritten: boolean
+
+  dhlSelected: boolean
+  shenkerSelected: boolean,
+  postNordSelected: boolean,
+
   hideBankCard: boolean
   hideSwish: boolean
   hideKlarna: boolean
@@ -39,10 +51,20 @@ interface State {
   totalPrice: number
 }
 
-export default class Checkout extends Component<{}, State> {
+export default class Checkout extends Component<{}, State, {onChange:any}> {
   static contextType = CartContext;
 
   state = {
+    userInfoWritten: false,
+    klarnaInfoWritten: false,
+    swishInfoWritten: false,
+    bankCardInfoWritten: false,
+
+    dhlSelected: false,
+    shenkerSelected: false,
+    postNordSelected: false,
+
+
     hideBankCard: true,
     hideSwish: true,
     hideKlarna: true,
@@ -80,23 +102,23 @@ export default class Checkout extends Component<{}, State> {
                   <p className="txt-r h4 em-high">Total: {this.getTotal()}kr</p>
                 </Panel>
                 <Panel className="txt-c" {...{ title: 'Your Information' }}>
-                  <CheckoutInfo status={this.state} />
+                  <CheckoutInfo passStateFromInfo={this.passStateFromInfo} status={this.state} />
                 </Panel>
                 <Panel className="txt-c" {...{ title: 'Shipping' }}>
-                  <Shipping />
+                  <Shipping passShipping={this.passShipping}/>
                 </Panel >
                 <Panel className="txt-c" {...{ title: 'Payment' }}>
                   <PaymentDivs displayBankCard={this.displayBankCard} displayKlarna={this.displayKlarna} displaySwish={this.displaySwish} />
                   {!this.state.hideBankCard ?
-                    <BankCardInfo />
+                    <BankCardInfo passStateFromBankCard={this.passStateFromBankCard} />
                     : null}
 
                   {!this.state.hideKlarna ?
-                    <KlarnaInfo />
+                    <KlarnaInfo passStateFromKlarna={this.passStateFromKlarna} />
                     : null}
 
                   {!this.state.hideSwish ?
-                    <SwishInfo />
+                    <SwishInfo passStateFromSwish={this.passStateFromSwish} />
                     : null}
 
                 </Panel>
@@ -123,6 +145,85 @@ export default class Checkout extends Component<{}, State> {
     return total;
   }
 
+  passStateFromInfo= (props:any) => {
+    console.log(props.adress)
+
+      if(props.firstName !== "" && props.firstName != null
+      && props.lastName !== "" && props.lastName != null 
+      && props.country !== "" && props.country != null
+      && props.phoneNumber !== "" && props.phoneNumber != null
+      && props.zipcode !== "" && props.zipcode != null
+      && props.email !== "" && props.email != null
+      && props.adress !== "" && props.email != null) {
+        this.setState({userInfoWritten:true})
+        console.log("Info is done")
+      }else{
+        this.setState({userInfoWritten:false})
+      }
+  }
+
+  passStateFromKlarna= (props:any) => {
+
+      if(props.firstName !== "" && props.firstName != null
+      && props.lastName !== "" && props.lastName != null 
+      && props.email !== "" && props.email != null) {
+        this.setState({klarnaInfoWritten:true})
+        console.log("Klarna is done")
+      }else{
+        this.setState({klarnaInfoWritten:false})
+      }
+  }
+
+  passStateFromSwish= (props:any) => {
+
+      if(props.firstName !== "" && props.firstName != null
+      && props.lastName !== "" && props.lastName != null 
+      && props.phoneNumber !== "" && props.phoneNumber != null) {
+        this.setState({swishInfoWritten:true})
+        console.log("Swish is done")
+      }else{
+        this.setState({swishInfoWritten:false})
+      }
+  }
+
+  passStateFromBankCard= (props:any) => {
+
+      if(props.firstName !== "" && props.firstName != null
+      && props.lastName !== "" && props.lastName != null 
+      && props.bankNumber !== "" && props.bankNumber != null
+      && props.cvc !== "" && props.cvc != null
+      && props.month !== "" && props.month != null
+      && props.year !== "" && props.year != null) {
+        this.setState({bankCardInfoWritten:true})
+        console.log("Bankcard is done")
+      }else{
+        this.setState({bankCardInfoWritten:false})
+      }
+  }
+
+  passShipping = (props:any) => {
+
+    if (props.dhl.selected == true) {
+      console.log("dhl has been selected")
+      this.setState({dhlSelected:true})
+      this.setState({shenkerSelected:false})
+      this.setState({postNordSelected:false})
+    }
+    if (props.shenker.selected == true) {
+      console.log("shenker has been selected")
+      this.setState({dhlSelected:false})
+      this.setState({shenkerSelected:true})
+      this.setState({postNordSelected:false})
+    }
+    if (props.postnord.selected == true) {
+      console.log("postnord has been selected")
+      this.setState({dhlSelected:false})
+      this.setState({shenkerSelected:false})
+      this.setState({postNordSelected:true})
+    }
+
+  }
+
   displayBankCard = () => {
     this.setState({ hideBankCard: false })
     this.setState({ hideSwish: true })
@@ -140,7 +241,7 @@ export default class Checkout extends Component<{}, State> {
   }
 
 
-  checkIfInfoFilledOut = (): boolean => {
+  checkIfInfoFilledOut = () => {
     let dhl = {
       cost: 99,
       time: 1
@@ -160,9 +261,14 @@ export default class Checkout extends Component<{}, State> {
       if (this.state.hideBankCard === false || this.state.hideKlarna === false || this.state.hideSwish === false) {
         // If cart is not empty
         if (this.context.cart.length >= 1) {
-          /*If there is an item in the cart, and an shipping has been chosen, then we continue*/
-          this.checkShippingChosen(dhl, shenker, postnord);
-          return true;
+          // If the userInfo has been submited
+          if(this.state.userInfoWritten == true) {
+            /*If there is an item in the cart, and an shipping has been chosen, then we continue*/
+            this.checkShippingChosen(dhl, shenker, postnord);
+            return true;
+          } else {
+            alert("Please fill in your information")
+          }
         } else {
           alert("Your shopping bag is empty. Please add items to your shopping bag before checkout.");
           return false;
@@ -180,24 +286,23 @@ export default class Checkout extends Component<{}, State> {
    * @param shenker  Everything that contains inside shenker
    * @param postnord Everything that contains inside postnord
    */
-  checkShippingChosen(dhl: any, shenker: any, postnord: any): boolean {
-    let DHL = (document.getElementById("dhlShipping") as unknown as HTMLInputElement);
-    let postNord = (document.getElementById("postNordShipping") as unknown as HTMLInputElement);
-    let Shenker = (document.getElementById("shenkerShipping") as unknown as HTMLInputElement);
-  
-    if (DHL.style.backgroundColor === "red") {
+  checkShippingChosen(dhl: any, shenker: any, postnord: any) {
+
+    if (this.state.dhlSelected == true) {
       console.log("DHL has been chosen")
       this.checkPaymentChosen(dhl)
       return true;
     }
-    else if (postNord.style.backgroundColor === "red") {
-      console.log("Postnord has been chosen")
-      this.checkPaymentChosen(postnord)
-      return true;
-    }
-    else if (Shenker.style.backgroundColor === "red") {
+
+    if (this.state.shenkerSelected == true) {
       console.log("Shenker has been chosen")
       this.checkPaymentChosen(shenker)
+      return true;
+    }
+
+    if (this.state.postNordSelected == true) {
+      console.log("Postnord has been chosen")
+      this.checkPaymentChosen(postnord)
       return true;
     }
     else {
@@ -206,90 +311,25 @@ export default class Checkout extends Component<{}, State> {
     }
   }
 
-  checkPaymentChosen(shipping: any): boolean {
+  checkPaymentChosen(shipping: any) {
     if (this.state.hideBankCard === false) {
-      this.checkBankCardFilledOut(shipping);
-      return true;
+      if (this.state.bankCardInfoWritten) {
+        this.orderHasBeenPlaced(shipping);
+        return true;
+      }
     }
     if (this.state.hideKlarna === false) {
-      this.checkKlarnaFilledOut(shipping)
-      return true;
+      if (this.state.klarnaInfoWritten) {
+        this.orderHasBeenPlaced(shipping);
+        return true;
+      }
     }
     if (this.state.hideSwish === false) {
-      this.checkSwishFilledOut(shipping)
-      return true;
+      if (this.state.swishInfoWritten) {
+        this.orderHasBeenPlaced(shipping);
+        return true;
+      }
     } else { return false; }
-  }
-
-
-  /**
-   * This checks if Swish has been filled out
-   */
-  checkSwishFilledOut(shipping: any): boolean {
-    let userFirstName = (document.getElementById("userFirstNameSwish") as unknown as HTMLInputElement);
-    let userLastName = (document.getElementById("userLastNameSwish") as unknown as HTMLInputElement);
-    let userPhoneNumber = (document.getElementById("userPhoneNumberSwish") as unknown as HTMLInputElement);
-
-    if (userFirstName.value !== "" && userFirstName.value !== null &&
-      userLastName.value !== "" && userLastName.value !== null &&
-      userPhoneNumber.value !== "" && userLastName.value !== null) {
-
-      this.orderHasBeenPlaced(shipping)
-      return true;
-    }
-    else {
-      alert("Please fill out the payment options")
-      return false;
-    }
-  }
-
-  /**
- * This checks if Klarna has been filled out
- */
-  checkKlarnaFilledOut(shipping: any): boolean {
-    let userFirstName = (document.getElementById("userFirstNameKlarna") as unknown as HTMLInputElement);
-    let userLastName = (document.getElementById("userLastNameKlarna") as unknown as HTMLInputElement);
-    let userEmail = (document.getElementById("userEmailKlarna") as unknown as HTMLInputElement);
-
-    if (userFirstName.value !== "" && userFirstName.value !== null &&
-      userLastName.value !== "" && userLastName.value !== null &&
-      userEmail.value !== "" && userLastName.value !== null) {
-
-      this.orderHasBeenPlaced(shipping)
-      return true;
-
-    }
-    else {
-      alert("Please fill out the payment options")
-      return false;
-    }
-  }
-
-  /**
- * This checks if BankCard has been filled out
- */
-  checkBankCardFilledOut(shipping: any): boolean {
-    let userFirstName = (document.getElementById("userFirstNameBank") as unknown as HTMLInputElement);
-    let userLastName = (document.getElementById("userLastNameBank") as unknown as HTMLInputElement);
-    let userCardNumber = (document.getElementById("userCardNumber") as unknown as HTMLInputElement);
-    let userCvc = (document.getElementById("userCvc") as unknown as HTMLInputElement);
-    let userMonth = (document.getElementById("userMonth") as unknown as HTMLInputElement);
-    let userYear = (document.getElementById("userYear") as unknown as HTMLInputElement);
-
-    if (userFirstName.value !== "" && userFirstName.value !== null &&
-      userLastName.value !== "" && userLastName.value !== null &&
-      userCardNumber.value !== "" && userLastName.value !== null &&
-      userCvc.value !== "" && userCvc.value !== null &&
-      userMonth.value !== "" && userMonth.value !== null &&
-      userYear.value !== "" && userYear.value !== null) {
-
-      this.orderHasBeenPlaced(shipping);
-      return true;
-    }
-    else {
-      alert("Please fill out the payment options")
-      return false;
-    }
   }
 
   orderHasBeenPlaced(shipping:any) {

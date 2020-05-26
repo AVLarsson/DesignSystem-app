@@ -1,11 +1,34 @@
 import * as React from 'react';
 import 'pivotal-ui/css/selection';
 
-export default class Shipping extends React.Component  {
+interface Props {
+  passShipping: any
+}
+
+export default class Shipping extends React.Component <Props, {}> {
   constructor(props:any) {
     super(props);
-    this.state = {date: new Date()};
+    this.handleDivSelect = this.handleDivSelect.bind(this)
+    // this.state = {date: new Date()};
   }
+
+  state = {
+    dhl: {
+      price: 99,
+      time: 24,
+      selected: false
+    },
+    shenker: {
+      price: 49,
+      time: 48,
+      selected: false
+    },
+    postnord: {
+      price: "free",
+      time: 72,
+      selected: false
+    },
+}
 
   componentDidMount() {
       let shippingDiv = document.getElementsByClassName("shippingDiv")
@@ -57,7 +80,31 @@ export default class Shipping extends React.Component  {
           }
       }
       event.currentTarget.style.backgroundColor = "red"
+
+
+      if (event.currentTarget.id == "dhlShipping") {
+        this.state.dhl.selected = true;
+        this.state.shenker.selected = false;
+        this.state.postnord.selected = false;
+      }
+
+
+      if (event.currentTarget.id == "shenkerShipping") {
+        this.state.dhl.selected = false;
+        this.state.shenker.selected = true;
+        this.state.postnord.selected = false;
+      }
+
+
+      if (event.currentTarget.id == "postNordShipping") {
+        this.state.dhl.selected = false;
+        this.state.shenker.selected = false;
+        this.state.postnord.selected = true;
+      }
+
+      this.props.passShipping(this.state)
   }
+  
 
 
     shippingPaymentBox: React.CSSProperties = {

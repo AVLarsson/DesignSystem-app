@@ -2,37 +2,78 @@ import * as React from 'react';
 import "../Imports.css";
 import {Input} from 'pivotal-ui/react/inputs';
 
-export default class KlarnaInfo extends React.Component {
+interface Props {
+  passStateFromKlarna: any
+}
 
-  componentDidMount = () => {
-    let userFirstName = (document.getElementById("userFirstNameKlarna") as unknown as HTMLInputElement);
-    let userLastName = (document.getElementById("userLastNameKlarna") as unknown as HTMLInputElement);
-    let userEmail = (document.getElementById("userEmailKlarna") as unknown as HTMLInputElement);
+export default class KlarnaInfo extends React.Component  <Props, {}> {
+
+  constructor(props:any) {
+    super(props)
+    this.checkIfNumber = this.checkIfNumber.bind(this)
+}
+
+state = {
+    firstName: "",
+    lastName: "",
+    email: ""
+}
+
+  // componentDidMount = () => {
+
+  //   let userFirstName; 
+  //   let userLastName;
+  //   let userEmail;
+
 
     
-    if (localStorage.firstName){
-        userFirstName.value = JSON.parse(localStorage.firstName);
-    }
-    if (localStorage.lastName){
-        userLastName.value = JSON.parse(localStorage.lastName);
-    }
-    if (localStorage.phoneNumber){
-        userEmail.value = JSON.parse(localStorage.phoneNumber);
-    }
-  }
+  //   if (localStorage.firstName){
+  //       userFirstName = JSON.parse(localStorage.firstName);
+  //       this.setState({firstName:userFirstName})
+  //   }
+  //   if (localStorage.lastName){
+  //       userLastName = JSON.parse(localStorage.lastName);
+  //       this.setState({lastName:userLastName})
+  //   }
+  //   if (localStorage.email){
+  //       userEmail = JSON.parse(localStorage.email);
+  //       this.setState({email:userEmail})
+  //   }
+  // }
 
   checkIfNumber(event:any) {
+    event.persist()
+    let targetValue = event.target.value
+    const targetName = event.target.name;
 
-  let targetValue = event.target.value
-  const regex=/^[a-zA-Z]+$/;
+    const regex=/^[a-zA-Z]+$/;
 
-  for (let i = 0; i < event.target.value.length; i++) {
-      if (!targetValue[i].match(regex))
-      {
-          event.target.value = "";
-          targetValue = "";
+    if (targetName !== "email") {
+      for (let i = 0; i < event.target.value.length; i++) {
+          if (!targetValue[i].match(regex))
+          {
+              event.target.value = "";
+              targetValue = "";
+          }
       }
-  }
+    }
+
+
+          if (targetName === "firstName") {
+            this.setState({firstName:targetValue}, this.sendToParent)
+        }
+
+        if (targetName === "lastName") {
+            this.setState({lastName:targetValue}, this.sendToParent)
+        }
+
+        if (targetName === "email") {
+            this.setState({email:targetValue}, this.sendToParent)
+        }
+}
+
+sendToParent = () => {
+  this.props.passStateFromKlarna(this.state)
 }
 
 
@@ -43,15 +84,15 @@ export default class KlarnaInfo extends React.Component {
         <form style={this.gridContainer}>
           <div style={this.gridItem}>
             <label htmlFor="userFirstNameKlarna">First Name</label>
-            <Input id="userFirstNameKlarna" onChange={this.checkIfNumber} />
+            <Input name="firstName" id="userFirstNameKlarna" onChange={this.checkIfNumber} />
           </div>
           <div style={this.gridItem}>
             <label htmlFor="userLastNameKlarna">Last Name</label>
-            <Input id="userLastNameKlarna" onChange={this.checkIfNumber} />
+            <Input name="lastName" id="userLastNameKlarna" onChange={this.checkIfNumber} />
           </div>
           <div style={this.gridItem}>
             <label htmlFor="userEmailKlarna">Email</label>
-            <Input id="userEmailKlarna" />
+            <Input name="email" id="userEmailKlarna" onChange={this.checkIfNumber}/>
           </div>
         </form>
       </div>

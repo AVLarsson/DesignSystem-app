@@ -2,30 +2,51 @@ import * as React from 'react';
 import {Input} from 'pivotal-ui/react/inputs';
 import "../Imports.css";
 
-export default class SwishInfo extends React.Component {
+interface Props {
+    passStateFromSwish: any
+  }
+  
 
-  componentDidMount = () => {
-    let userFirstName = (document.getElementById("userFirstNameSwish") as unknown as HTMLInputElement);
-    let userLastName = (document.getElementById("userLastNameSwish") as unknown as HTMLInputElement);
-    let userPhoneNumber = (document.getElementById("userPhoneNumberSwish") as unknown as HTMLInputElement);
+export default class SwishInfo extends React.Component <Props, {}> {
+
+    constructor(props:any) {
+        super(props)
+        this.checkIfNumber = this.checkIfNumber.bind(this)
+    }
+    
+    state = {
+        firstName: "",
+        lastName: "",
+        phoneNumber: ""
+    }
+
+//   componentDidMount = () => {
+
+//     let userFirstName; 
+//     let userLastName;
+//     let userPhoneNumber;
 
     
-    if (localStorage.firstName){
-        userFirstName.value = JSON.parse(localStorage.firstName);
-    }
-    if (localStorage.lastName){
-        userLastName.value = JSON.parse(localStorage.lastName);
-    }
-    if (localStorage.phoneNumber){
-        userPhoneNumber.value = JSON.parse(localStorage.phoneNumber);
-    }
-}
+//     if (localStorage.firstName){
+//         userFirstName = JSON.parse(localStorage.firstName);
+//         this.setState({firstName:userFirstName})
+//     }
+//     if (localStorage.lastName){
+//         userLastName = JSON.parse(localStorage.lastName);
+//         this.setState({lastName:userLastName})
+//     }
+//     if (localStorage.phoneNumber){
+//         userPhoneNumber = JSON.parse(localStorage.phoneNumber);
+//         this.setState({phoneNumber:userPhoneNumber})
+//     }
+// }
 
 
 checkIfNumber(event:any) {
-
+    event.persist()
     let targetValue = event.target.value
     let targetId = event.target.id;
+    const targetName = event.target.name;
     const regex=/^[a-zA-Z]+$/;
 
 
@@ -47,7 +68,23 @@ checkIfNumber(event:any) {
         }
     }
 
+
+    if (targetName === "firstName") {
+        this.setState({firstName:targetValue}, this.sendToParent)
+    }
+
+    if (targetName === "lastName") {
+        this.setState({lastName:targetValue}, this.sendToParent)
+    }
+
+    if (targetName === "phoneNumber") {
+        this.setState({phoneNumber:targetValue}, this.sendToParent)
+    }
 }
+
+sendToParent = () => {
+    this.props.passStateFromSwish(this.state)
+  }
 
 
     render() {
@@ -56,15 +93,15 @@ checkIfNumber(event:any) {
         <form style={this.gridContainer} action="">
             <div style={this.gridItem}>
                 <label htmlFor="userFirstNameSwish">First Name</label>
-                <Input id="userFirstNameSwish" onChange={this.checkIfNumber}/>
+                <Input name="firstName" id="userFirstNameSwish" onChange={this.checkIfNumber}/>
             </div>
             <div style={this.gridItem}>
                 <label htmlFor="userLastNameSwish">Last Name</label>
-                <Input id="userLastNameSwish" onChange={this.checkIfNumber}/>
+                <Input name="lastName" id="userLastNameSwish" onChange={this.checkIfNumber}/>
             </div>
             <div style={this.gridItem}>
                 <label htmlFor="userPhoneNumberSwish">Phone Number</label>
-                <Input id="userPhoneNumberSwish" onChange={this.checkIfNumber}/>
+                <Input name="phoneNumber" id="userPhoneNumberSwish" onChange={this.checkIfNumber}/>
             </div>
         </form>
     </div>
