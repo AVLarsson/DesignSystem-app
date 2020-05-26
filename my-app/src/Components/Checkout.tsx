@@ -264,8 +264,13 @@ export default class Checkout extends Component<{}, State, {onChange:any}> {
           // If the userInfo has been submited
           if(this.state.userInfoWritten == true) {
             /*If there is an item in the cart, and an shipping has been chosen, then we continue*/
-            this.checkShippingChosen(dhl, shenker, postnord);
-            return true;
+            if(this.state.dhlSelected == true || this.state.postNordSelected == true || this.state.shenkerSelected == true) {
+              this.checkShippingChosen(dhl, shenker, postnord);
+              return true;
+            } else {
+              alert("please choose an shipping method")
+              return false;
+            }
           } else {
             alert("Please fill in your information")
           }
@@ -305,10 +310,6 @@ export default class Checkout extends Component<{}, State, {onChange:any}> {
       this.checkPaymentChosen(postnord)
       return true;
     }
-    else {
-      alert("please choose an shipping method")
-      return false;
-    }
   }
 
   checkPaymentChosen(shipping: any) {
@@ -347,11 +348,5 @@ export default class Checkout extends Component<{}, State, {onChange:any}> {
     }, 2000);
     return true;
     
-
-    
-
   }
-
-
-
 }
