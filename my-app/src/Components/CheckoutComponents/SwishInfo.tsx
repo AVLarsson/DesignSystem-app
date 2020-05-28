@@ -2,22 +2,9 @@ import * as React from 'react';
 // import { Input } from 'pivotal-ui/react/inputs';
 import "../Imports.css";
 import { Grid, FlexCol } from 'pivotal-ui/react/flex-grids';
-import { Form } from 'pivotal-ui/react/forms';
 import { Panel } from 'pivotal-ui/react/panels';
-import ConfirmOrderButton from '../ConfirmOrderButton';
 import { CartContext } from '../CartContext';
 
-// interface Props {
-//   passStateFromSwish: any
-//   checkIfNumber: (input: string) => boolean
-//   checkIfDone: () => boolean
-
-// }
-interface State {
-  firstName: string
-  lastName: string
-  phoneNumber: string
-}
 
 interface Props {
   fields: any
@@ -37,94 +24,17 @@ export default class SwishInfo extends React.Component <Props, {}>{
 
   }
 
-  //   componentDidMount = () => {
-
-  //     let userFirstName; 
-  //     let userLastName;
-  //     let userPhoneNumber;
-
-
-  //     if (localStorage.firstName){
-  //         userFirstName = JSON.parse(localStorage.firstName);
-  //         this.setState({firstName:userFirstName})
-  //     }
-  //     if (localStorage.lastName){
-  //         userLastName = JSON.parse(localStorage.lastName);
-  //         this.setState({lastName:userLastName})
-  //     }
-  //     if (localStorage.phoneNumber){
-  //         userPhoneNumber = JSON.parse(localStorage.phoneNumber);
-  //         this.setState({phoneNumber:userPhoneNumber})
-  //     }
-  // }
-
-  /*
-    checkIfNumber(event: any) {
-      event.persist()
-      let targetValue = event.target.value
-      let targetId = event.target.id;
-      const targetName = event.target.name;
-      const regex = /^[a-zA-Z]+$/;
-  
-  
-      if (targetId === "userPhoneNumberSwish") {
-  
-        for (let i = 0; i < event.target.value.length; i++) {
-          if (targetValue[i].match(regex)) {
-            event.target.value = "";
-          }
-        }
-      }
-      else {
-        for (let i = 0; i < event.target.value.length; i++) {
-          if (!targetValue[i].match(regex)) {
-            event.target.value = "";
-          }
-        }
-      }
-  
-  
-      if (targetName === "firstName") {
-        this.setState({ firstName: targetValue }, this.sendToParent)
-      }
-  
-      if (targetName === "lastName") {
-        this.setState({ lastName: targetValue }, this.sendToParent)
-      }
-  
-      if (targetName === "phoneNumber") {
-        this.setState({ phoneNumber: targetValue }, this.sendToParent)
-      }
-    }
-    */
-
-  sendToParent = (props: State) => {
-    // this.props.passStateFromSwish(props)
-  }
-
-  handleSubmit = ({ firstName, lastName, phoneNumber }: State) => {
-    this.sendToParent({ firstName, lastName, phoneNumber })
-  }
-
-  // handleChange = (current?: any) => {
-
-  //   const { firstName, lastName, phoneNumber } = this.state;
-  //   if (firstName !== "" && lastName !== "" && phoneNumber !== "") {
-  //     this.sendToParent(this.state)
-  //   } else console.log("not completed")
-
-  // }
 
   render() {
     return (
       <div>
         <FlexCol>
           <Grid>
-            <FlexCol>{this.props.fields.firstNamePay}</FlexCol>
-            <FlexCol>{this.props.fields.lastNamePay}</FlexCol>
+            <FlexCol>{this.props.fields.firstNameSwishPay}</FlexCol>
+            <FlexCol>{this.props.fields.lastNameSwishPay}</FlexCol>
           </Grid>
           <Grid>
-            <FlexCol>{this.props.fields.phoneNumberPay}</FlexCol>
+            <FlexCol>{this.props.fields.phoneNumberSwishPay}</FlexCol>
           </Grid>
         </FlexCol>
       </div>

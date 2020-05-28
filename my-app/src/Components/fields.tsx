@@ -46,12 +46,12 @@ export const IfBankCardFields = {
 
 
 
-    firstNamePay: {
+    firstNameBankPay: {
         initialValue: '',
         validator: (currentValue: any) => !checkIfLetter(currentValue) && currentValue.length < 1 ? 'Please enter your first name' : null,
         label: 'First Name'
     },
-    lastNamePay: {
+    lastNameBankPay: {
         initialValue: '',
         validator: (currentValue: any) => !checkIfLetter(currentValue) && currentValue.length < 1 ? 'Please enter your last name' : null,
         label: 'Last Name'
@@ -119,17 +119,17 @@ export const IfSwishFields = {
 
 
 
-    firstNamePay: {
+    firstNameSwishPay: {
         initialValue: '',
         validator: (currentValue: any) => !checkIfLetter(currentValue) && currentValue.length < 1 ? 'Please enter your first name' : null,
         label: 'First Name'
     },
-    lastNamePay: {
+    lastNameSwishPay: {
         initialValue: '',
         validator: (currentValue: any) => !checkIfLetter(currentValue) && currentValue.length < 1 ? 'Please enter your last name' : null,
         label: 'Last Name'
     },
-    phoneNumberPay: {
+    phoneNumberSwishPay: {
         initialValue: '',
         validator: (currentValue: any) => !checkIfNumber(currentValue) && currentValue.length < 1 ? 'Please enter a valid email' : null,
         label: 'Phone Number',
@@ -177,17 +177,17 @@ export const IfKlarnaFields = {
 
 
 
-    firstNamePay: {
+    firstNameKlarnaPay: {
         initialValue: '',
         validator: (currentValue: any) => !checkIfLetter(currentValue) && currentValue.length < 1 ? 'Please enter your first name' : null,
         label: 'First Name'
     },
-    lastNamePay: {
+    lastNameKlarnaPay: {
         initialValue: '',
         validator: (currentValue: any) => !checkIfLetter(currentValue) && currentValue.length < 1 ? 'Please enter your last name' : null,
         label: 'Last Name'
     },
-    emailPay: {
+    emailKlarnaPay: {
         initialValue: '',
         validator: (currentValue: any) => !checkIfEmail(currentValue) && currentValue.length < 1 ? 'Please enter a valid email as abc@abc.com' : null,
         label: 'Email',
