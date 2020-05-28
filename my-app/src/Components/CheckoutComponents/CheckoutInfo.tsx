@@ -162,7 +162,6 @@ export default class CheckoutInfo extends React.Component <Props, {}> {
                     <Grid>
                         {console.log(this.props.test)}
                         <FlexCol>{this.props.fields.firstName}</FlexCol>
-                        <FlexCol>{this.props.fields.}</FlexCol>
                         {/* {this.props.fields.checkoutInfoFields.props} */}
                     </Grid>
                     {/* <Grid>
