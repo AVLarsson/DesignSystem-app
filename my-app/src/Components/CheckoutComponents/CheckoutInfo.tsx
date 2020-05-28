@@ -11,9 +11,7 @@ import { checkoutInfoFields } from '../fields'
 
 interface Props {
     status: any,
-    passStateFromInfo: any,
-    fields: any
-    test: any
+    passStateFromInfo: any
 }
 
 export default class CheckoutInfo extends React.Component <Props, {}> {
@@ -160,8 +158,8 @@ export default class CheckoutInfo extends React.Component <Props, {}> {
             })} */}
                 <FlexCol>
                     <Grid>
-                        {console.log(this.props.test)}
-                        <FlexCol>{this.props.fields.firstName}</FlexCol>
+                        {/* {console.log(this.props.test)}
+                        <FlexCol>{this.props.firstName}</FlexCol> */}
                         {/* {this.props.fields.checkoutInfoFields.props} */}
                     </Grid>
                     {/* <Grid>

@@ -5,7 +5,7 @@ import { Siteframe } from 'pivotal-ui/react/siteframe';
 import 'pivotal-ui/css/alignment';
 import 'pivotal-ui/css/positioning';
 import { Link } from 'react-router-dom';
-import { BrandButton } from 'pivotal-ui/react/buttons';
+import { BrandButton, PrimaryButton } from 'pivotal-ui/react/buttons';
 
 import { Form } from 'pivotal-ui/react/forms';
 import ShoppingBag from "./CheckoutComponents/ShoppingBag";
@@ -14,6 +14,7 @@ import Shipping from "./CheckoutComponents/Shipping";
 import PaymentDivs from "./CheckoutComponents/PaymentDivs";
 import BankCardInfo from "./CheckoutComponents/BankCardInfo";
 import KlarnaInfo from "./CheckoutComponents/KlarnaInfo";
+import { FlexCol } from 'pivotal-ui/react/flex-grids'
 import SwishInfo from "./CheckoutComponents/SwishInfo";
 import { Products } from 'src/ProductItems/ProductItemss';
 import { CartContext } from './CartContext';
@@ -58,10 +59,10 @@ interface State {
   shippingTime: string,
   totalPrice: number
   date: Date
-  success: boolean
+  shipment: string
 }
 
-export default class Checkout extends Component<{}, State, { fields: any }> {
+export default class Checkout extends Component<{}, State> {
   static contextType = CartContext;
   constructor(props: any) {
     super(props)
@@ -89,9 +90,8 @@ export default class Checkout extends Component<{}, State, { fields: any }> {
       shippingPrice: 0,
       shippingTime: "",
       totalPrice: 0,
-
-      date: new Date(),
-      success: false
+      shipment: "",
+      date: new Date()
     }
 
     this.checkPaymentChosen = this.checkPaymentChosen.bind(this);
@@ -107,31 +107,30 @@ export default class Checkout extends Component<{}, State, { fields: any }> {
     return date.toDateString().split(" ", 3).join(" ");
   }
 
-  bankfields = () => {
-    Object.entries(bankCardFields).map((value, i, array) => {
-      const property = value[0];
-      const val = value[1];
-      return 
-    })
+  showFields = () => {
+    const { hideBankCard, hideSwish, hideKlarna } = this.state;
+    if (!hideBankCard) {
+      return bankCardFields
+    }
+    if (!hideSwish) {
+      return swishFields
+    }
+    if (!hideKlarna) {
+      return klarnaFields
+    }
+    return {}
   }
 
   render() {
+    const fiell = this.showFields()
+    console.log(this.showFields)
     return (
       <CartContext.Consumer>
         {context =>
           <div style={{ position: 'relative', height: '100vh' }}>
             <Form {...{
-              fields: {
-                firstName: {
-                  initialValue: '',
-                  validator: (currentValue: any) => currentValue.length < 3 ? 'Please enter your first name' : null,
-                  label: 'First Name'
-                },
-                bankCardFields: { bankCardFields },
-                klarna: { klarnaFields },
-                swish: { swishFields },
-                checkoutInfoFields
-              }
+              onSubmit: ({ initial, current }: any) => this.state.shipment !== "" ? alert("Successfully submitted (shipment was not empty)") : alert("No shipment was selected"),
+              fields: Object.assign({}, [checkoutInfoFields][0], [this.showFields()][0])
             }}>
               {({ fields, onSubmit, canSubmit }: any) => {
                 return (
@@ -152,7 +151,8 @@ export default class Checkout extends Component<{}, State, { fields: any }> {
                         <p className="txt-r h4 em-high">Total: {this.getTotal()}kr</p>
                       </Panel>
                       <Panel className="txt-c" {...{ title: 'Your Information' }}>
-                        <CheckoutInfo test={fields} fields={fields} passStateFromInfo={this.passStateFromInfo} status={this.state} />
+                      <FlexCol>{Object.values(fields)}</FlexCol>
+                        <CheckoutInfo passStateFromInfo={this.passStateFromInfo} status={this.state} />
                       </Panel>
                       <Panel className="txt-c" {...{ title: 'Shipping' }}>
                         <Shipping passShipping={this.passShipping} />
@@ -165,6 +165,7 @@ export default class Checkout extends Component<{}, State, { fields: any }> {
                         {!this.state.hideKlarna ? <KlarnaInfo /> : null}
 
                         {!this.state.hideSwish ? <SwishInfo /> : null}
+                        <PrimaryButton onClick={() => canSubmit() ? onSubmit() : console.log("no")}>hello</PrimaryButton>
                         <ConfirmOrderButton />
                       </Panel>
                     </div>
@@ -240,15 +241,15 @@ export default class Checkout extends Component<{}, State, { fields: any }> {
 
     if (props === "dhl") {
       console.log("dhl has been selected")
-      this.setState({ dhlSelected: true, shenkerSelected: false, postNordSelected: false })
+      this.setState({ dhlSelected: true, shenkerSelected: false, postNordSelected: false, shipment: "dhl" })
     }
     if (props === "shenker") {
       console.log("shenker has been selected")
-      this.setState({ dhlSelected: false, shenkerSelected: true, postNordSelected: false })
+      this.setState({ dhlSelected: false, shenkerSelected: true, postNordSelected: false, shipment: "shenker" })
     }
     if (props === "postnord") {
       console.log("postnord has been selected")
-      this.setState({ dhlSelected: false, shenkerSelected: false, postNordSelected: true })
+      this.setState({ dhlSelected: false, shenkerSelected: false, postNordSelected: true, shipment: "postnord" })
     }
 
   }
@@ -258,6 +259,7 @@ export default class Checkout extends Component<{}, State, { fields: any }> {
   }
   displaySwish = () => {
     this.setState({ hideBankCard: true, hideSwish: false, hideKlarna: true })
+    return 
   }
   displayKlarna = () => {
     this.setState({ hideBankCard: true, hideSwish: true, hideKlarna: false })
