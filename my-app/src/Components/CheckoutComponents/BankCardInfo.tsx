@@ -2,17 +2,18 @@ import * as React from 'react';
 // import { Input } from 'pivotal-ui/react/inputs';
 import "../Imports.css";
 import { Panel } from 'pivotal-ui/react/panels';
-import { Form } from 'pivotal-ui/react/forms';
+import { Form, FormUnit } from 'pivotal-ui/react/forms';
 import { Grid, FlexCol } from 'pivotal-ui/react/flex-grids';
 import ConfirmOrderButton from '../ConfirmOrderButton';
 import { CartContext } from '../CartContext';
 
-interface Props {
-    passStateFromBankCard: any
-    checkIfNumber: (input: any) => boolean
-    date: Date
-    checkIfDone: () => boolean
-}
+import { bankCardFields } from '../fields'
+// interface Props {
+//     passStateFromBankCard: any
+//     checkIfNumber: (input: any) => boolean
+//     date: Date
+//     checkIfDone: () => boolean
+// }
 
 interface State {
     firstName: string
@@ -23,7 +24,7 @@ interface State {
     year: string
 }
 
-export default class BankCardInfo extends React.Component<Props, State> {
+export default class BankCardInfo extends React.Component<{}, State> {
     static contextType = CartContext;
     constructor(props: any) {
         super(props)
@@ -85,7 +86,7 @@ export default class BankCardInfo extends React.Component<Props, State> {
     }
 
     sendToParent(props: State) {
-        this.props.passStateFromBankCard(props)
+        // this.props.passStateFromBankCard(props)
     }
 
     handleSubmit({ firstName, lastName, bankNumber, cvc, month, year }: State) {
@@ -93,83 +94,39 @@ export default class BankCardInfo extends React.Component<Props, State> {
     }
 
     handleChange = (current?: any) => {
-    
+
         const { firstName, lastName, bankNumber, cvc, month, year } = this.state;
         if (firstName !== "" && lastName !== "" && bankNumber !== "" && cvc !== "" && month !== "" && year !== "") {
-          this.sendToParent(this.state)
-      } else console.log("not completed")
-      
+            this.sendToParent(this.state)
+        } else console.log("not completed")
+
     }
 
     render() {
         return (
             <Panel>
-                <Form {...{
-                    className: "pbxxxl mbxxl",
-                    onSubmit: ({ initial, current }: any) => { this.handleChange(current) },
-                    fields: {
-                        firstName: {
-                            initialValue: '',
-                            validator: (currentValue: any) => currentValue.length < 1 ? 'Please enter your first name' : null,
-                            label: 'First Name'
-                        },
-                        lastName: {
-                            initialValue: '',
-                            validator: (currentValue: any) => currentValue.length < 1 ? 'Please enter your last name' : null,
-                            label: 'Last Name'
-                        },
-                        bankNumber: {
-                            initialValue: '',
-                            validator: (currentValue: any) => !this.props.checkIfNumber(currentValue) ? 'Please enter a number' : currentValue.length !== 16 ? 'Please enter 16 digits' : null,
-                            label: 'Card Number'
-                        },
-                        cvc: {
-                            initialValue: '',
-                            validator: (currentValue: any) => !this.props.checkIfNumber(currentValue) ? 'Please enter a number' : currentValue.length !== 3 ? 'Please enter at least 3 numbers' : null,
-                            label: 'CVC',
-                        },
-                        month: {
-                            help: 'Month',
-                            initialValue: '',
-                            validator: (currentValue: any) => !this.props.checkIfNumber(currentValue) ? 'Please enter a number' : currentValue > 12 ? 'Please enter a month' : null,
-                        },
-                        year: {
-                            help: 'Year',
-                            initialValue: '',
-                            className: "txt-b",
-                            validator: (currentValue: any) => !this.props.checkIfNumber(currentValue) ? 'Please enter a number' : currentValue < this.props.date.getFullYear() || currentValue > 9999 ? 'Your card has expired' : null,
-                        }
-                    }
-                }}>
-                    {({ fields, canSubmit, onSubmit }: any) => {
-                        return (
-                            <div>
-                                <FlexCol>
-                                    <Grid>
-                                        <FlexCol>{fields.firstName}</FlexCol>
-                                        <FlexCol>{fields.lastName}</FlexCol>
-                                    </Grid>
-                                    <Grid>
-                                        <FlexCol>{fields.bankNumber}</FlexCol>
-                                        <FlexCol>{fields.cvc}</FlexCol>
-                                        <FlexCol>
-                                            <h6 className="em-high">Expiry date</h6>
-                                            <Grid>
-                                                <FlexCol>{fields.month}</FlexCol>
-                                                <FlexCol>{fields.year}</FlexCol>
-                                            </Grid>
-                                        </FlexCol>
-                                    </Grid>
-                                    <Grid>
-                                        <FlexCol>
-                                            <ConfirmOrderButton checkIfDone={this.props.checkIfDone} onClick={() => canSubmit() ? onSubmit() : null} isDisabled={!canSubmit() || !this.props.checkIfDone} />
-                                        </FlexCol>
-                                    </Grid>
-                                </FlexCol>
-                            </div>
-                        );
-                    }}
-                </Form>
+{/* {Object.keys(bankCardFields).map(val => console.log(val))} */}
+                <div>
+                    <FlexCol>
+                        <Grid>
+                            <FlexCol></FlexCol>
+                            <FlexCol></FlexCol>
+                        </Grid>
+                        <Grid>
+                            <FlexCol></FlexCol>
+                            <FlexCol></FlexCol>
+                            <FlexCol>
+                                <h6 className="em-high">Expiry date</h6>
+                                <Grid>
+                                    <FlexCol></FlexCol>
+                                    <FlexCol></FlexCol>
+                                </Grid>
+                            </FlexCol>
+                        </Grid>
+                        <Grid>
+                        </Grid>
+                    </FlexCol>
+                </div>
             </Panel>
 
             /*
