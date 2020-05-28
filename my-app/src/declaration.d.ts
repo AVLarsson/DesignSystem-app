@@ -11,10 +11,8 @@ declare module 'pivotal-ui/css/panels';
 declare module 'pivotal-ui/css/images';
 declare module 'pivotal-ui/react/images';
 declare module 'pivotal-ui/react/grids';
-// declare module 'pivotal-ui/css/iconography';
 declare module 'pictures/header-retro-shop.png';
-// declare module 'pivotal-ui/css/iconography';
-// declare module 'pivotal-ui/css/iconography';
 declare module 'pivotal-ui/react/modal';
 declare module 'pivotal-ui/react/alerts'
 declare module 'CheckoutComponents/ShoppingBag';
+declare module 'pivotal-ui/react/dividers';
