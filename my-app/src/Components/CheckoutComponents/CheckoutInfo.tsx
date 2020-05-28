@@ -7,8 +7,6 @@ import { Panel } from 'pivotal-ui/react/panels';
 import ConfirmOrderButton from '../ConfirmOrderButton';
 import { CartContext } from '../CartContext';
 
-import { checkoutInfoFields } from '../fields'
-
 interface Props {
     status: any,
     passStateFromInfo: any,
@@ -160,21 +158,20 @@ export default class CheckoutInfo extends React.Component <Props, {}> {
             })} */}
                 <FlexCol>
                     <Grid>
-                        {console.log(this.props.test)}
-                        <FlexCol>{this.props.fields.firstName}</FlexCol>
-                        {/* {this.props.fields.checkoutInfoFields.props} */}
-                    </Grid>
-                    {/* <Grid>
-                        <FlexCol>{fields.email}</FlexCol>
-                        <FlexCol>{fields.phoneNumber}</FlexCol>
+                        {this.props.fields.firstName}
+                        {this.props.fields.lastName}
                     </Grid>
                     <Grid>
-                        <FlexCol>{fields.adress}</FlexCol>
-                        <FlexCol>{fields.zipcode}</FlexCol>
+                        <FlexCol>{this.props.fields.email}</FlexCol>
+                        <FlexCol>{this.props.fields.phoneNumber}</FlexCol>
                     </Grid>
                     <Grid>
-                        <FlexCol>{fields.country}</FlexCol>
-                    </Grid> */}
+                        <FlexCol>{this.props.fields.adress}</FlexCol>
+                        <FlexCol>{this.props.fields.zipcode}</FlexCol>
+                    </Grid>
+                    <Grid>
+                        <FlexCol>{this.props.fields.country}</FlexCol>
+                    </Grid>
                 </FlexCol>
 
 

@@ -7,7 +7,7 @@ import { Grid, FlexCol } from 'pivotal-ui/react/flex-grids';
 import ConfirmOrderButton from '../ConfirmOrderButton';
 import { CartContext } from '../CartContext';
 
-import { bankCardFields } from '../fields'
+// import { bankCardFields } from '../fields'
 // interface Props {
 //     passStateFromBankCard: any
 //     checkIfNumber: (input: any) => boolean
@@ -24,7 +24,13 @@ interface State {
     year: string
 }
 
-export default class BankCardInfo extends React.Component<{}, State> {
+interface Props {
+    fields: any
+
+}
+
+
+export default class BankCardInfo extends React.Component<Props, {}> {
     static contextType = CartContext;
     constructor(props: any) {
         super(props)
@@ -93,14 +99,14 @@ export default class BankCardInfo extends React.Component<{}, State> {
         this.sendToParent({ firstName, lastName, bankNumber, cvc, month, year })
     }
 
-    handleChange = (current?: any) => {
+    // handleChange = (current?: any) => {
 
-        const { firstName, lastName, bankNumber, cvc, month, year } = this.state;
-        if (firstName !== "" && lastName !== "" && bankNumber !== "" && cvc !== "" && month !== "" && year !== "") {
-            this.sendToParent(this.state)
-        } else console.log("not completed")
+    //     const { firstName, lastName, bankNumber, cvc, month, year } = this.state;
+    //     if (firstName !== "" && lastName !== "" && bankNumber !== "" && cvc !== "" && month !== "" && year !== "") {
+    //         this.sendToParent(this.state)
+    //     } else console.log("not completed")
 
-    }
+    // }
 
     render() {
         return (
@@ -116,7 +122,6 @@ export default class BankCardInfo extends React.Component<{}, State> {
                             <FlexCol></FlexCol>
                             <FlexCol></FlexCol>
                             <FlexCol>
-                                <h6 className="em-high">Expiry date</h6>
                                 <Grid>
                                     <FlexCol></FlexCol>
                                     <FlexCol></FlexCol>

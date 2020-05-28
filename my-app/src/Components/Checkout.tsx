@@ -5,7 +5,7 @@ import { Siteframe } from 'pivotal-ui/react/siteframe';
 import 'pivotal-ui/css/alignment';
 import 'pivotal-ui/css/positioning';
 import { Link } from 'react-router-dom';
-import { BrandButton } from 'pivotal-ui/react/buttons';
+import { BrandButton, PrimaryButton } from 'pivotal-ui/react/buttons';
 
 import { Form } from 'pivotal-ui/react/forms';
 import ShoppingBag from "./CheckoutComponents/ShoppingBag";
@@ -20,7 +20,7 @@ import { CartContext } from './CartContext';
 import ConfirmOrderButton from './ConfirmOrderButton';
 import Receipt from "./CheckoutComponents/Receipt"
 
-import { bankCardFields, klarnaFields, swishFields, checkoutInfoFields } from './fields';
+import { IfKlarnaFields, IfSwishFields, IfBankCardFields } from './fields';
 
 interface shippingType {
   cost: number;
@@ -107,13 +107,11 @@ export default class Checkout extends Component<{}, State, { fields: any }> {
     return date.toDateString().split(" ", 3).join(" ");
   }
 
-  bankfields = () => {
-    Object.entries(bankCardFields).map((value, i, array) => {
-      const property = value[0];
-      const val = value[1];
-      return 
-    })
-  }
+  // bankfields() { 
+  //   return Object.values(bankCardFields)[0]
+  //   }
+
+theChoiceOfField = [IfSwishFields][0]
 
   render() {
     return (
@@ -121,17 +119,8 @@ export default class Checkout extends Component<{}, State, { fields: any }> {
         {context =>
           <div style={{ position: 'relative', height: '100vh' }}>
             <Form {...{
-              fields: {
-                firstName: {
-                  initialValue: '',
-                  validator: (currentValue: any) => currentValue.length < 3 ? 'Please enter your first name' : null,
-                  label: 'First Name'
-                },
-                bankCardFields: { bankCardFields },
-                klarna: { klarnaFields },
-                swish: { swishFields },
-                checkoutInfoFields
-              }
+              fields: this.theChoiceOfField,
+              onSubmit: ({initial, current}: any) => console.log(current),
             }}>
               {({ fields, onSubmit, canSubmit }: any) => {
                 return (
@@ -160,12 +149,14 @@ export default class Checkout extends Component<{}, State, { fields: any }> {
                       <Panel className="txt-c" {...{ title: 'Payment' }}>
                         {console.log(fields.bankCard)}
                         <PaymentDivs displayBankCard={this.displayBankCard} displayKlarna={this.displayKlarna} displaySwish={this.displaySwish} />
-                        {!this.state.hideBankCard ? <BankCardInfo>{fields.bankCard}</BankCardInfo> : null}
+                        {!this.state.hideBankCard ? <BankCardInfo fields={fields}>{fields.bankCard}</BankCardInfo> : null}
 
                         {!this.state.hideKlarna ? <KlarnaInfo /> : null}
 
-                        {!this.state.hideSwish ? <SwishInfo /> : null}
+                        {!this.state.hideSwish ? <SwishInfo fields={fields} /> : null}
                         <ConfirmOrderButton />
+                        <PrimaryButton onClick={() => canSubmit() ? console.log("click") : alert("no")}>hello</PrimaryButton>
+
                       </Panel>
                     </div>
                   </Siteframe>
@@ -177,6 +168,19 @@ export default class Checkout extends Component<{}, State, { fields: any }> {
       </CartContext.Consumer>
     )
   }
+
+
+
+checkIfLetter = (value: any) => {
+  const regex = /^[a-zA-Z]+$/;
+  for (let i = 0; i < value.length; i++) {
+      if (!value[i].match(regex)) {
+          return true;
+      }else{
+          return false;
+      }
+  }
+}
 
 
   /**

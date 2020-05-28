@@ -19,8 +19,13 @@ interface State {
   phoneNumber: string
 }
 
+interface Props {
+  fields: any
 
-export default class SwishInfo extends React.Component<{}, State> {
+}
+
+
+export default class SwishInfo extends React.Component <Props, {}>{
   static contextType = CartContext;
   constructor(props: any) {
     super(props)
@@ -101,32 +106,28 @@ export default class SwishInfo extends React.Component<{}, State> {
     this.sendToParent({ firstName, lastName, phoneNumber })
   }
 
-  handleChange = (current?: any) => {
+  // handleChange = (current?: any) => {
 
-    const { firstName, lastName, phoneNumber } = this.state;
-    if (firstName !== "" && lastName !== "" && phoneNumber !== "") {
-      this.sendToParent(this.state)
-    } else console.log("not completed")
+  //   const { firstName, lastName, phoneNumber } = this.state;
+  //   if (firstName !== "" && lastName !== "" && phoneNumber !== "") {
+  //     this.sendToParent(this.state)
+  //   } else console.log("not completed")
 
-  }
+  // }
 
   render() {
     return (
-      <Panel>
-        <div>
-          <FlexCol>
-            <Grid>
-              <FlexCol></FlexCol>
-              <FlexCol></FlexCol>
-            </Grid>
-            <Grid>
-              <FlexCol></FlexCol>
-            </Grid>
-            <Grid>
-            </Grid>
-          </FlexCol>
-        </div>
-      </Panel >
+      <div>
+        <FlexCol>
+          <Grid>
+            <FlexCol>{this.props.fields.firstNamePay}</FlexCol>
+            <FlexCol>{this.props.fields.lastNamePay}</FlexCol>
+          </Grid>
+          <Grid>
+            <FlexCol>{this.props.fields.phoneNumberPay}</FlexCol>
+          </Grid>
+        </FlexCol>
+      </div>
     )
   }
 
