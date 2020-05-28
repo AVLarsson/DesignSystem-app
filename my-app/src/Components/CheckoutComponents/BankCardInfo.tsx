@@ -90,7 +90,15 @@ export default class BankCardInfo extends React.Component<Props, State> {
 
     handleSubmit({ firstName, lastName, bankNumber, cvc, month, year }: State) {
         this.sendToParent({ firstName, lastName, bankNumber, cvc, month, year })
+    }
 
+    handleChange = (current?: any) => {
+    
+        const { firstName, lastName, bankNumber, cvc, month, year } = this.state;
+        if (firstName !== "" && lastName !== "" && bankNumber !== "" && cvc !== "" && month !== "" && year !== "") {
+          this.sendToParent(this.state)
+      } else console.log("not completed")
+      
     }
 
     render() {
@@ -98,7 +106,7 @@ export default class BankCardInfo extends React.Component<Props, State> {
             <Panel>
                 <Form {...{
                     className: "pbxxxl mbxxl",
-                    onSubmit: ({ initial, current }: any) => { this.handleSubmit(current) },
+                    onSubmit: ({ initial, current }: any) => { this.handleChange(current) },
                     fields: {
                         firstName: {
                             initialValue: '',

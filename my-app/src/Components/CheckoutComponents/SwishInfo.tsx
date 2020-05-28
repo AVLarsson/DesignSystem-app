@@ -101,6 +101,15 @@ export default class SwishInfo extends React.Component<Props, State> {
     this.sendToParent({ firstName, lastName, phoneNumber })
   }
 
+  handleChange = (current?: any) => {
+    
+    const { firstName, lastName, phoneNumber } = this.state;
+    if (firstName !== "" && lastName !== "" && phoneNumber !== "") {
+      this.sendToParent(this.state)
+  } else console.log("not completed")
+  
+}
+
   render() {
     return (
 
@@ -108,7 +117,7 @@ export default class SwishInfo extends React.Component<Props, State> {
         <Form {...{
           resetOnSubmit: false,
           className: "pbxxxl mbxxl",
-          onSubmit: ({ initial, current }: any) => { this.handleSubmit(current) },
+          onSubmit: ({ initial, current }: any) => { this.handleChange(current) },
           fields: {
             firstName: {
               initialValue: '',
