@@ -1,7 +1,13 @@
 import * as React from 'react';
 import 'pivotal-ui/css/selection';
 
-export default class PaymentDivs extends React.Component <{displayBankCard: () => void, displaySwish: () => void, displayKlarna: () => void}> {
+interface Props {
+    displayBankCard: () => void
+    displaySwish: () => void
+    displayKlarna: () => void
+}
+
+export default class PaymentDivs extends React.Component<Props, {}> {
 
       componentDidMount() {
           let paymentDiv = document.getElementsByClassName("paymentDiv")

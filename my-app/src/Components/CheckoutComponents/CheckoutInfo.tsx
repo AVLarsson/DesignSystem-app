@@ -1,10 +1,19 @@
 import * as React from 'react';
 import {Input} from 'pivotal-ui/react/inputs';
 
+import { Grid, FlexCol } from 'pivotal-ui/react/flex-grids';
+import { Form } from 'pivotal-ui/react/forms';
+import { Panel } from 'pivotal-ui/react/panels';
+import ConfirmOrderButton from '../ConfirmOrderButton';
+import { CartContext } from '../CartContext';
+
+import { checkoutInfoFields } from '../fields'
 
 interface Props {
     status: any,
-    passStateFromInfo: any
+    passStateFromInfo: any,
+    fields: any
+    test: any
 }
 
 export default class CheckoutInfo extends React.Component <Props, {}> {
@@ -12,6 +21,7 @@ export default class CheckoutInfo extends React.Component <Props, {}> {
     constructor(props:any) {
         super(props)
         this.handleInputChange = this.handleInputChange.bind(this)
+    
     }
 
     state = {
@@ -141,9 +151,35 @@ export default class CheckoutInfo extends React.Component <Props, {}> {
 
 
     render() {
+        //  onChange={(e: React.ChangeEvent<HTMLInputElement>) => (e.target.value !== null && this.setState({ firstName: e.target.value }, this.handleChange))}
         return (
             <div>
-                <form style={this.gridContainer} action="">
+            {/* {Object.entries(checkoutInfoFields).map((val, i, arr) => {
+                Object.values(val).map(val2 => console.log(val2))
+                return <FlexCol key={val[0]}>{arr[i]}</FlexCol>
+            })} */}
+                <FlexCol>
+                    <Grid>
+                        {console.log(this.props.test)}
+                        <FlexCol>{this.props.fields.firstName}</FlexCol>
+                        {/* {this.props.fields.checkoutInfoFields.props} */}
+                    </Grid>
+                    {/* <Grid>
+                        <FlexCol>{fields.email}</FlexCol>
+                        <FlexCol>{fields.phoneNumber}</FlexCol>
+                    </Grid>
+                    <Grid>
+                        <FlexCol>{fields.adress}</FlexCol>
+                        <FlexCol>{fields.zipcode}</FlexCol>
+                    </Grid>
+                    <Grid>
+                        <FlexCol>{fields.country}</FlexCol>
+                    </Grid> */}
+                </FlexCol>
+
+
+
+                {/* <form style={this.gridContainer} action="">
                     <div style={this.gridItem}>
                         <label htmlFor="userFirstName">First Name</label>
                         <Input name="firstName" id="userFirstName" onChange={this.handleInputChange} value={this.state.firstName} />
@@ -173,7 +209,7 @@ export default class CheckoutInfo extends React.Component <Props, {}> {
                         <Input name="country" id="userCountry" onChange={this.handleInputChange} value={this.state.country} />
 
                     </div>
-                </form>
+                </form> */}
             </div>
         )
     }

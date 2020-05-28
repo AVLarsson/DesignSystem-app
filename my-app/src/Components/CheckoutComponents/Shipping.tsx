@@ -1,138 +1,86 @@
 import * as React from 'react';
 import 'pivotal-ui/css/selection';
+import { FlexCol } from 'pivotal-ui/react/flex-grids';
 
 interface Props {
   passShipping: any
 }
 
-export default class Shipping extends React.Component <Props, {}> {
-  constructor(props:any) {
-    super(props);
-    this.handleDivSelect = this.handleDivSelect.bind(this)
-    // this.state = {date: new Date()};
-  }
-
-  state = {
-    dhl: {
-      price: 99,
-      time: 24,
-      selected: false
-    },
-    shenker: {
-      price: 49,
-      time: 48,
-      selected: false
-    },
-    postnord: {
-      price: "free",
-      time: 72,
-      selected: false
-    },
+interface shippingType {
+  price: number | string;
+  time: number;
+  selected: boolean;
 }
 
-  componentDidMount() {
-      let shippingDiv = document.getElementsByClassName("shippingDiv")
+interface State {
+  selected: string
+}
 
-      for (let i = 0; i < shippingDiv.length; i++) {
-        shippingDiv[i].addEventListener("click", this.handleDivSelect)
-          
-      }
-  }
-
-
-    render() {
-        return (
-            <div className="pui-no-select"  style={{display:"flex",flexDirection: "row", alignItems: "center", justifyContent: "center"}}>
-            <div id="dhlShipping" className="shippingDiv" style={this.shippingPaymentBox}>
-              <div style={this.shippingPaymentBoxInside}>
-                DHL
-              </div>
-              <p>24h</p>
-              <p className="amountForShipping">99kr</p>
-            </div>
-            <div id="shenkerShipping" className="shippingDiv" style={this.shippingPaymentBox}>
-              <div style={this.shippingPaymentBoxInside}>
-                Shenker
-              </div>
-              <p>48h</p>
-              <p className="amountForShipping">49kr</p>
-            </div>
-            <div id="postNordShipping" className="shippingDiv" style={this.shippingPaymentBox}>
-              <div style={this.shippingPaymentBoxInside}>
-                Postnord
-              </div>
-              <p>72h</p>
-              <p className="amountForShipping">free</p>
-            </div>
-          </div>
-        )
+export default class Shipping extends React.Component<Props, State> {
+  constructor(props: any) {
+    super(props);
+    this.handleDivSelect = this.handleDivSelect.bind(this)
+    this.state = {
+      selected: ""
     }
-    
-    handleDivSelect(event:any) {
-      let paymentDiv = document.getElementsByClassName("shippingDiv") as HTMLCollectionOf<HTMLElement>
-
-      for (let i = 0; i < paymentDiv.length; i++) {
-          paymentDiv[i].style.backgroundColor = "lightgray"
-
-          if (event.currentTarget.querySelectorAll(".amountForShipping")[i]) {
-            
-            console.log(event.currentTarget.querySelectorAll(".amountForShipping")[i].textContent)
-          }
-      }
-      event.currentTarget.style.backgroundColor = "red"
-
-
-      if (event.currentTarget.id == "dhlShipping") {
-        this.state.dhl.selected = true;
-        this.state.shenker.selected = false;
-        this.state.postnord.selected = false;
-      }
-
-
-      if (event.currentTarget.id == "shenkerShipping") {
-        this.state.dhl.selected = false;
-        this.state.shenker.selected = true;
-        this.state.postnord.selected = false;
-      }
-
-
-      if (event.currentTarget.id == "postNordShipping") {
-        this.state.dhl.selected = false;
-        this.state.shenker.selected = false;
-        this.state.postnord.selected = true;
-      }
-
-      this.props.passShipping(this.state)
   }
-  
+
+  render() {
+    const { selected } = this.state;
+    return (
+      <div className="pui-no-select" style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
+        <FlexCol onClick={this.handleDivSelect} id="dhl" className={`dhl shippingDiv ${selected === "dhl" ? "bg-light-teal" : "bg-light-gray"} border-rounded"`} style={this.shippingPaymentBox}>
+          <div className="bg-accent-teal border-rounded type-white" style={this.shippingPaymentBoxInside}>
+            DHL
+              </div>
+          <p>24h</p>
+          <p className="amountForShipping">99kr</p>
+        </FlexCol>
+        <FlexCol onClick={this.handleDivSelect} id="shenker" className={`shenker shippingDiv ${selected === "shenker" ? "bg-light-teal" : "bg-light-gray"} border-rounded"`} style={this.shippingPaymentBox}>
+          <div className="bg-accent-teal border-rounded type-white" style={this.shippingPaymentBoxInside}>
+            Shenker
+              </div>
+          <p>48h</p>
+          <p className="amountForShipping">49kr</p>
+        </FlexCol>
+        <FlexCol onClick={this.handleDivSelect} id="postnord" className={`postnord shippingDiv ${selected === "postnord" ? "bg-light-teal" : "bg-light-gray"} border-rounded"`} style={this.shippingPaymentBox}>
+          <div className="bg-accent-teal border-rounded type-white" style={this.shippingPaymentBoxInside}>
+            Postnord
+            </div>
+          <p>72h</p>
+          <p className="amountForShipping">free</p>
+        </FlexCol>
+      </div>
+    )
+  }
+
+  handleDivSelect = (event: any) => {
+    this.setState({selected: event.currentTarget.id})
+    this.props.passShipping(event.currentTarget.id)
+  }
 
 
-    shippingPaymentBox: React.CSSProperties = {
-        width: "150px",
-        height: "150px",
-        backgroundColor: "lightgray",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        flexDirection: "column",
-        margin: "10px",
 
-        border: "2px solid black",
-        borderRadius: "16px",
-        fontStyle: "italic",
-        fontSize: "16px",
-        fontWeight: "bold"
-      }
-      shippingPaymentBoxInside: React.CSSProperties = {
-        width: "100px",
-        height: "50px",
-        backgroundColor: "red",
-        margin: "0",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
+  shippingPaymentBox: React.CSSProperties = {
+    minWidth: "120px",
+    maxWidth: "200px",
+    height: "150px",
+    backgroundColor: "lightgray",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "column",
+    margin: "10px",
 
-        border: "2px solid black",
-        borderRadius: "16px"
-      }
+    fontSize: "16px",
+    fontWeight: "bold"
+  }
+  shippingPaymentBoxInside: React.CSSProperties = {
+    width: "100px",
+    height: "50px",
+    margin: "0",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
+  }
 }

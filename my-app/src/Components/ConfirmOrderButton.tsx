@@ -9,16 +9,18 @@ import { Divider } from 'pivotal-ui/react/dividers';
 import { SuccessAlert } from 'pivotal-ui/react/alerts'
 
 interface ConfirmOrderButtonProps {
-    isDisabled?: boolean
-    onClick: () => void
-}
+//     isDisabled?: boolean
+    // onClick: () => void
+     // success: boolean
+          checkIfDone: () => boolean
+ }
 
 interface ConfirmOrderButtonState {
     isLoading: boolean;
 }
 
-class ConfirmOrderButton extends React.Component<ConfirmOrderButtonProps, ConfirmOrderButtonState> {
-    constructor(props: ConfirmOrderButtonProps) {
+class ConfirmOrderButton extends React.Component<{}, ConfirmOrderButtonState> {
+    constructor(props: any) {
         super(props);
         this.state = {
             isLoading: false
@@ -37,14 +39,13 @@ class ConfirmOrderButton extends React.Component<ConfirmOrderButtonProps, Confir
                         <>
                             {this.firebaseInstance = firebase.doSignInAnonymously()}
                             {isLoading ?
-
                                 <div className="icon icon-middle spinner position-absolute" style={{ fontSize: "96px", margin: "0 auto" }}><svg className="icon-spinner-lg" height="100px" width="100px" viewBox="0 0 101 101" xmlns="http://www.w3.org/2000/svg">
                                     <circle className="ring" cx="50%" cy="50%" fill="none" r="45%" strokeLinecap="butt" strokeWidth="10%"></circle>
                                     <circle className="path" cx="50%" cy="50%" fill="none" r="45%" strokeLinecap="butt" strokeWidth="10%"></circle>
                                 </svg></div> : this.animationTimer === null && <>
                                     <Divider />
-                                    <PrimaryButton large type="submit" disabled={this.props.isDisabled || cartContext.cart.length < 1} className="auth" id="anon"
-                                        onClick={this.toggleState}>Confirm order</PrimaryButton></>} {!isLoading && this.animationTimer !== null && <SuccessAlert withIcon>Your order has been placed.</SuccessAlert>}
+                                    <PrimaryButton large type="submit" disabled={cartContext.cart.length < 1} className="auth" id="anon"
+                                        onClick={() => this.toggleState}>Confirm order</PrimaryButton></>} {!isLoading && this.animationTimer !== null && <SuccessAlert withIcon>Your order has been placed.</SuccessAlert>}
                         </>
                     }</CartContext.Consumer>
             }</FirebaseContext.Consumer>);
@@ -76,11 +77,11 @@ class ConfirmOrderButton extends React.Component<ConfirmOrderButtonProps, Confir
             this.clearLoadingTimer();
         }
         
-        this.props.onClick()
-        this.animationTimer = setTimeout(() => {
-            this.setState({ isLoading: false });
-            this.animationTimer = 0;
-        }, 2000);
+        // this.props.onClick()
+        // this.animationTimer = setTimeout(() => {
+        //     this.setState({ isLoading: false });
+        //     this.animationTimer = 0;
+        // }, 2000);
 
     };
 
