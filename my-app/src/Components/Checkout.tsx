@@ -55,6 +55,7 @@ interface State {
   shippingTime: string,
   totalPrice: number
   date: Date
+  success: boolean
 }
 
 export default class Checkout extends Component<{}, State, { onChange: any }> {
@@ -86,7 +87,8 @@ export default class Checkout extends Component<{}, State, { onChange: any }> {
       shippingTime: "",
       totalPrice: 0,
 
-      date: new Date()
+      date: new Date(),
+      success: false
     }
 
     this.checkPaymentChosen = this.checkPaymentChosen.bind(this);
@@ -96,7 +98,6 @@ export default class Checkout extends Component<{}, State, { onChange: any }> {
   }
 
   getDeliveryDate = () => {
-    console.log("hello")
     const date = new Date()
     date.setDate(date.getDate() + parseInt(this.state.shippingTime))
     
@@ -187,35 +188,41 @@ export default class Checkout extends Component<{}, State, { onChange: any }> {
     }
   }
 
-  
+  checkIfEmpty(string: string) {
+    if (string !== null && string !== "" && string !== undefined) {
+      return true
+    } return false
+  }
 
   passStateFromKlarna = ({ firstName, lastName, email }: any) => {
-      this.setState({ klarnaInfoWritten: true }, this.checkIfInfoFilledOut)
+    if (this.checkIfEmpty(firstName) && this.checkIfEmpty(lastName) && this.checkIfEmpty(email)) {
+      this.setState({ klarnaInfoWritten: true })
       console.log("Klarna is done")
+    }
   }
 
   passStateFromSwish = ({ firstName, lastName, phoneNumber }: any) => {
-      this.setState({ swishInfoWritten: true }, this.checkIfInfoFilledOut)
+      this.setState({ swishInfoWritten: true })
       console.log("Swish is done")
       // this.checkIfInfoFilledOut()
   }
 
   passStateFromBankCard = (props: any) => {
-      this.setState({ bankCardInfoWritten: true }, this.checkIfInfoFilledOut)
+      this.setState({ bankCardInfoWritten: true })
       console.log("bank done")
   }
 
   passShipping = (props: any) => {
 
-    if (props.dhl.selected === true) {
+    if (props === "dhl") {
       console.log("dhl has been selected")
       this.setState({ dhlSelected: true, shenkerSelected: false, postNordSelected: false  })
     }
-    if (props.shenker.selected === true) {
+    if (props === "shenker") {
       console.log("shenker has been selected")
       this.setState({ dhlSelected: false, shenkerSelected: true, postNordSelected: false })
     }
-    if (props.postnord.selected === true) {
+    if (props === "postnord") {
       console.log("postnord has been selected")
       this.setState({ dhlSelected: false, shenkerSelected: false, postNordSelected: true })
     }
@@ -248,7 +255,7 @@ export default class Checkout extends Component<{}, State, { onChange: any }> {
     };
     console.log("Check if info")
     // If the location is checkout, otherwise it checks on homepage as well. */
-    if (window.location.pathname === '/checkout' || window.location.pathname === '/DesignSystem-app/checkout') {
+    if (window.location.pathname.match('/checkout')) {
       /*If a payment has been selected*/
       if (this.state.hideBankCard === false || this.state.hideKlarna === false || this.state.hideSwish === false) {
         // If cart is not empty
@@ -271,8 +278,6 @@ export default class Checkout extends Component<{}, State, { onChange: any }> {
       }
     } return false;
   }
-
-
 
   /**
    * 

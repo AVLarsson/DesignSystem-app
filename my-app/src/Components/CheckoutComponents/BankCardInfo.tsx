@@ -154,7 +154,7 @@ export default class BankCardInfo extends React.Component<Props, State> {
                                     </Grid>
                                     <Grid>
                                         <FlexCol>
-                                            <ConfirmOrderButton onClick={() => canSubmit() ? onSubmit() : null} isDisabled={!canSubmit() || !this.props.checkIfDone} />
+                                            <ConfirmOrderButton checkIfDone={this.props.checkIfDone} onClick={() => canSubmit() ? onSubmit() : null} isDisabled={!canSubmit() || !this.props.checkIfDone} />
                                         </FlexCol>
                                     </Grid>
                                 </FlexCol>

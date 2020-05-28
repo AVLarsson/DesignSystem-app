@@ -10,7 +10,8 @@ import { CartContext } from '../CartContext';
 interface Props {
   passStateFromSwish: any
   checkIfNumber: (input: string) => boolean
-  checkIfDone: () => boolean | undefined
+  checkIfDone: () => boolean
+
 }
 interface State {
   firstName: string
@@ -139,7 +140,7 @@ export default class SwishInfo extends React.Component<Props, State> {
                   </Grid>
                   <Grid>
                     <FlexCol>
-                      <ConfirmOrderButton onClick={() => canSubmit() ? onSubmit() : null} isDisabled={!canSubmit() || !this.props.checkIfDone} />
+                      <ConfirmOrderButton checkIfDone={this.props.checkIfDone} onClick={() => canSubmit() ? onSubmit() : null} isDisabled={!canSubmit() || !this.props.checkIfDone} />
                     </FlexCol>
                   </Grid>
                 </FlexCol>

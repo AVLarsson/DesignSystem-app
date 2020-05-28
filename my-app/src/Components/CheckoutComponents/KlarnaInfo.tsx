@@ -94,11 +94,17 @@ export default class KlarnaInfo extends React.Component<Props, State> {
   }
 
   sendToParent = (props: State) => {
+    console.log("Submitted, send")
     this.props.passStateFromKlarna(props)
   }
 
-  handleSubmit({ firstName, lastName, email }: any) {
-    this.sendToParent({ firstName, lastName, email })
+  handleChange = (current?: any) => {
+    
+      const { firstName, lastName, email } = this.state;
+      if (firstName !== "" && lastName !== "" && email !== "") {
+        this.sendToParent(this.state)
+    } else console.log("not completed")
+    
   }
 
   render() {
@@ -106,7 +112,7 @@ export default class KlarnaInfo extends React.Component<Props, State> {
       <Panel>
         <Form {...{
           className: "pbxxxl mbxxl",
-          onSubmit: ({ initial, current }: any) => { this.handleSubmit(current) },
+          onSubmit: ({ initial, current }: any) => { this.handleChange(current) },
           fields: {
             firstName: {
               initialValue: '',
@@ -131,15 +137,15 @@ export default class KlarnaInfo extends React.Component<Props, State> {
               <div>
                 <FlexCol>
                   <Grid>
-                    <FlexCol>{fields.firstName}</FlexCol>
-                    <FlexCol>{fields.lastName}</FlexCol>
+                    <FlexCol onChange={(e: React.ChangeEvent<HTMLInputElement>) => (e.target.value !== null && this.setState({ firstName: e.target.value }, this.handleChange))}>{fields.firstName}</FlexCol>
+                    <FlexCol onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState({lastName:e.target.value}, this.handleChange)}>{fields.lastName}</FlexCol>
                   </Grid>
                   <Grid>
-                    <FlexCol>{fields.email}</FlexCol>
+                    <FlexCol onChange={(e: React.ChangeEvent<HTMLInputElement>) => e.target.value !== null && this.setState({email: e.target.value}, this.handleChange)}>{fields.email}</FlexCol>
                   </Grid>
                   <Grid>
                     <FlexCol>
-                      <ConfirmOrderButton onClick={() => canSubmit() ? onSubmit() : null} isDisabled={!canSubmit() || !this.props.checkIfDone} />
+                      <ConfirmOrderButton checkIfDone={this.props.checkIfDone} onClick={() => this.props.checkIfDone() && canSubmit() ? onSubmit() : null} isDisabled={!canSubmit()} />
                     </FlexCol>
                   </Grid>
                 </FlexCol>
