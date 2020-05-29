@@ -15,11 +15,9 @@ import Shipping from "./CheckoutComponents/Shipping";
 import PaymentDivs from "./CheckoutComponents/PaymentDivs";
 import BankCardInfo from "./CheckoutComponents/BankCardInfo";
 import KlarnaInfo from "./CheckoutComponents/KlarnaInfo";
-import { Grid } from 'pivotal-ui/react/flex-grids'
 import SwishInfo from "./CheckoutComponents/SwishInfo";
 import { Products } from 'src/ProductItems/ProductItemss';
 import { CartContext } from './CartContext';
-import ConfirmOrderButton from './ConfirmOrderButton';
 import Receipt from "./CheckoutComponents/Receipt"
 import { SuccessAlert } from 'pivotal-ui/react/alerts'
 
@@ -85,10 +83,8 @@ export default class Checkout extends Component<{}, State> {
       success: false
     }
 
-    // this.checkPaymentChosen = this.checkPaymentChosen.bind(this);
     this.setState = this.setState.bind(this);
-    // this.orderHasBeenPlaced = this.orderHasBeenPlaced.bind(this)
-    // this.checkIfInfoFilledOut = this.checkIfInfoFilledOut.bind(this)
+
   }
 
   shouldComponentUpdate(nextProps: Props, nextState: State) {

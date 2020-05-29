@@ -1,19 +1,8 @@
 import * as React from 'react';
-// import { Input } from 'pivotal-ui/react/inputs';
 import "../Imports.css";
 import { Panel } from 'pivotal-ui/react/panels';
-import { Form, FormUnit } from 'pivotal-ui/react/forms';
 import { Grid, FlexCol } from 'pivotal-ui/react/flex-grids';
-import ConfirmOrderButton from '../ConfirmOrderButton';
 import { CartContext } from '../CartContext';
-
-import { bankCardFields } from '../fields'
-// interface Props {
-//     passStateFromBankCard: any
-//     checkIfNumber: (input: any) => boolean
-//     date: Date
-//     checkIfDone: () => boolean
-// }
 
 
 

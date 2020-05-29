@@ -10,9 +10,7 @@ interface Props {
 
 const Receipt = (props: Props) => {
     const history = useHistory();
-    // function reloadWebsite() {
-    //     window.location.reload()
-    // }
+
 
     const receiptStyle: React.CSSProperties = {
         position: "fixed",

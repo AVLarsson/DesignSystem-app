@@ -1,10 +1,7 @@
 import * as React from 'react';
-// import { Input } from 'pivotal-ui/react/inputs';
 import "../Imports.css";
 import { Grid, FlexCol } from 'pivotal-ui/react/flex-grids';
-import { Form } from 'pivotal-ui/react/forms';
 import { Panel } from 'pivotal-ui/react/panels';
-import ConfirmOrderButton from '../ConfirmOrderButton';
 import { CartContext } from '../CartContext';
 
 interface Props {

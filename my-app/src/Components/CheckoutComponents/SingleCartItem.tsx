@@ -13,7 +13,6 @@ export default class SingleCartItem extends React.Component<{ product:any, onAdd
                 <p style={this.centeringStyle}>Quantity: {this.props.product.quantity}</p>
                 <Icon onClick={() => this.props.onAdd(this.props.product)} src="add_circle" />
                 <Icon onClick={() => this.props.onMinus(this.props.product, this.props.product.id)} src="cancel" />
-                {/* <button onClick={() => this.props.onDelete(this.props.counter.id)}>Delete</button> */}
             </div>
         );
     }

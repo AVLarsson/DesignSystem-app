@@ -1,5 +1,4 @@
 import * as React from 'react';
-// eslint-disable-next-line
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import { Grid, FlexCol } from 'pivotal-ui/react/flex-grids';
