@@ -7,12 +7,9 @@ import { Panel } from 'pivotal-ui/react/panels';
 import ConfirmOrderButton from '../ConfirmOrderButton';
 import { CartContext } from '../CartContext';
 
-// interface Props {
-//   passStateFromSwish: any
-//   checkIfNumber: (input: string) => boolean
-//   checkIfDone: () => boolean
-
-// }
+interface Props {
+  fields: any
+}
 interface State {
   firstName: string
   lastName: string
@@ -20,7 +17,7 @@ interface State {
 }
 
 
-export default class SwishInfo extends React.Component<{}, State> {
+export default class SwishInfo extends React.Component<Props, State> {
   static contextType = CartContext;
   constructor(props: any) {
     super(props)
@@ -116,8 +113,9 @@ export default class SwishInfo extends React.Component<{}, State> {
         <div>
           <FlexCol>
             <Grid>
-              <FlexCol></FlexCol>
-              <FlexCol></FlexCol>
+              <FlexCol>{this.props.fields.firstName}</FlexCol>
+              <FlexCol>{this.props.fields.lastName}</FlexCol>
+              <FlexCol>{this.props.fields.phoneNumber}</FlexCol>
             </Grid>
             <Grid>
               <FlexCol></FlexCol>

@@ -7,110 +7,27 @@ import { CartContext } from '../CartContext';
 interface Props {
   fields: any
 }
-interface State {
-  firstName: string
-  lastName: string
-  email: string
-}
 
-export default class KlarnaInfo extends React.Component<Props, State> {
+export default class KlarnaInfo extends React.Component<Props> {
   static contextType = CartContext;
   constructor(props: any) {
     super(props)
-
-    this.state = {
-      firstName: "",
-      lastName: "",
-      email: ""
-    }
-
-    // this.checkIfNumber = this.checkIfNumber.bind(this)
-  }
-
-  // componentDidMount = () => {
-
-  //   let userFirstName; 
-  //   let userLastName;
-  //   let userEmail;
-
-
-
-  //   if (localStorage.firstName){
-  //       userFirstName = JSON.parse(localStorage.firstName);
-  //       this.setState({firstName:userFirstName})
-  //   }
-  //   if (localStorage.lastName){
-  //       userLastName = JSON.parse(localStorage.lastName);
-  //       this.setState({lastName:userLastName})
-  //   }
-  //   if (localStorage.email){
-  //       userEmail = JSON.parse(localStorage.email);
-  //       this.setState({email:userEmail})
-  //   }
-  // }
-  /*
-    checkIfNumber(event: any) {
-      event.persist()
-      let targetValue = event.target.value
-      const targetName = event.target.name;
-  
-      const regex = /^[a-zA-Z]+$/;
-  
-      if (targetName !== "email") {
-        for (let i = 0; i < event.target.value.length; i++) {
-          if (!targetValue[i].match(regex)) {
-            event.target.value = "";
-            targetValue = "";
-          }
-        }
-      }
-  
-  
-      if (targetName === "firstName") {
-        this.setState({ firstName: targetValue }, this.sendToParent)
-      }
-  
-      if (targetName === "lastName") {
-        this.setState({ lastName: targetValue }, this.sendToParent)
-      }
-  
-      if (targetName === "email") {
-        this.setState({ email: targetValue }, this.sendToParent)
-      }
-    }
-    */
-
-
-  sendToParent = (props: State) => {
-    console.log("Submitted, send")
-    // this.props.passStateFromKlarna(props)
-  }
-
-  handleChange = (current?: any) => {
-
-    const { firstName, lastName, email } = this.state;
-    if (firstName !== "" && lastName !== "" && email !== "") {
-      this.sendToParent(this.state)
-    } else console.log("not completed")
-
   }
 
   render() {
     return (
       <Panel>
-        <div>
-          <FlexCol>
-            <Grid>
-              <FlexCol>{Object.values(this.props.fields).firstName}</FlexCol>
-              <FlexCol></FlexCol>
-            </Grid>
-            <Grid>
-              <FlexCol></FlexCol>
-            </Grid>
-            <Grid>
-            </Grid>
-          </FlexCol>
-        </div>
+      <div>
+        <FlexCol>
+          <Grid>
+            <FlexCol>{this.props.fields.firstName}</FlexCol>
+            <FlexCol>{this.props.fields.lastName}</FlexCol>
+          </Grid>
+          <Grid>
+            <FlexCol>{this.props.fields.email}</FlexCol>
+          </Grid>
+        </FlexCol>
+      </div>
       </Panel>
 
     )

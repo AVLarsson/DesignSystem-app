@@ -6,7 +6,8 @@ import 'pivotal-ui/css/alignment';
 import 'pivotal-ui/css/positioning';
 import { Link } from 'react-router-dom';
 import { BrandButton, PrimaryButton } from 'pivotal-ui/react/buttons';
-
+import { Icon } from 'pivotal-ui/react/iconography';
+import 'pivotal-ui/css/iconography';
 import { Form } from 'pivotal-ui/react/forms';
 import ShoppingBag from "./CheckoutComponents/ShoppingBag";
 import CheckoutInfo from "./CheckoutComponents/CheckoutInfo";
@@ -14,7 +15,7 @@ import Shipping from "./CheckoutComponents/Shipping";
 import PaymentDivs from "./CheckoutComponents/PaymentDivs";
 import BankCardInfo from "./CheckoutComponents/BankCardInfo";
 import KlarnaInfo from "./CheckoutComponents/KlarnaInfo";
-import { FlexCol } from 'pivotal-ui/react/flex-grids'
+import { Grid } from 'pivotal-ui/react/flex-grids'
 import SwishInfo from "./CheckoutComponents/SwishInfo";
 import { Products } from 'src/ProductItems/ProductItemss';
 import { CartContext } from './CartContext';
@@ -36,11 +37,6 @@ interface Props {
 }
 
 interface State {
-  userInfoWritten: boolean,
-  klarnaInfoWritten: boolean,
-  swishInfoWritten: boolean,
-  bankCardInfoWritten: boolean
-
   dhlSelected: boolean
   shenkerSelected: boolean,
   postNordSelected: boolean,
@@ -48,10 +44,6 @@ interface State {
   hideBankCard: boolean
   hideSwish: boolean
   hideKlarna: boolean
-  firstName: boolean,
-  lastName: boolean,
-  email: boolean,
-  adress: boolean,
   cart: Products[],
   hideReceipt: boolean,
   price: number,
@@ -60,6 +52,8 @@ interface State {
   totalPrice: number
   date: Date
   shipment: string
+  payment: string
+  isLoading: boolean
 }
 
 export default class Checkout extends Component<{}, State> {
@@ -67,11 +61,6 @@ export default class Checkout extends Component<{}, State> {
   constructor(props: any) {
     super(props)
     this.state = {
-      userInfoWritten: false,
-      klarnaInfoWritten: false,
-      swishInfoWritten: false,
-      bankCardInfoWritten: false,
-
       dhlSelected: false,
       shenkerSelected: false,
       postNordSelected: false,
@@ -81,23 +70,25 @@ export default class Checkout extends Component<{}, State> {
       hideSwish: true,
       hideKlarna: true,
       cart: [] as any,
-      firstName: false,
-      lastName: false,
-      email: false,
-      adress: false,
       hideReceipt: true,
       price: 0,
       shippingPrice: 0,
       shippingTime: "",
       totalPrice: 0,
       shipment: "",
-      date: new Date()
+      date: new Date(),
+      payment: "",
+      isLoading: false
     }
 
-    this.checkPaymentChosen = this.checkPaymentChosen.bind(this);
+    // this.checkPaymentChosen = this.checkPaymentChosen.bind(this);
     this.setState = this.setState.bind(this);
-    this.orderHasBeenPlaced = this.orderHasBeenPlaced.bind(this)
-    this.checkIfInfoFilledOut = this.checkIfInfoFilledOut.bind(this)
+    // this.orderHasBeenPlaced = this.orderHasBeenPlaced.bind(this)
+    // this.checkIfInfoFilledOut = this.checkIfInfoFilledOut.bind(this)
+  }
+
+  shouldComponentUpdate(nextProps: Props, nextState: State) {
+    return true
   }
 
   getDeliveryDate = () => {
@@ -121,18 +112,26 @@ export default class Checkout extends Component<{}, State> {
     return {}
   }
 
+  handleSubmit() {
+    this.setState({ isLoading: true })
+    setTimeout(() => {
+      this.setState({ isLoading: false });
+    }, 20000);
+    this.context.cart = []
+  }
+
   render() {
-    const fiell = this.showFields()
-    console.log(this.showFields)
+    console.log(this.context.cart, this.state.shipment)
     return (
       <CartContext.Consumer>
         {context =>
           <div style={{ position: 'relative', height: '100vh' }}>
             <Form {...{
-              onSubmit: ({ initial, current }: any) => this.state.shipment !== "" ? alert("Successfully submitted (shipment was not empty)") : alert("No shipment was selected"),
+              resetOnSubmit: false,
+              onSubmit: ({ initial, current }: { [property: string]: string }) => this.handleSubmit(),
               fields: Object.assign({}, [checkoutInfoFields][0], [this.showFields()][0])
             }}>
-              {({ fields, onSubmit, canSubmit }: any) => {
+              {({ fields, onBlur, onSubmit, canSubmit }: any) => {
                 return (
                   <Siteframe {... {
                     headerProps: {
@@ -150,23 +149,28 @@ export default class Checkout extends Component<{}, State> {
                         <p className="txt-r h4 em-high">Total: {this.getTotal()}kr</p>
                       </Panel>
                       <Panel className="txt-c" {...{ title: 'Your Information' }}>
-                      <FlexCol>{Object.values(fields)}</FlexCol>
-                        <CheckoutInfo passStateFromInfo={this.passStateFromInfo} status={this.state} />
+                        <CheckoutInfo fields={fields} status={this.state} />
                       </Panel>
                       <Panel className="txt-c" {...{ title: 'Shipping' }}>
                         <Shipping passShipping={this.passShipping} />
                       </Panel >
                       <Panel className="txt-c" {...{ title: 'Payment' }}>
-                        {console.log(fields.bankCard)}
                         <PaymentDivs displayBankCard={this.displayBankCard} displayKlarna={this.displayKlarna} displaySwish={this.displaySwish} />
-                        {!this.state.hideBankCard ? <BankCardInfo>{fields.bankCard}</BankCardInfo> : null}
+                        <Grid justifyContent="center" style={{ maxWidth: "500px" }}>
+                          {!this.state.hideBankCard ? <BankCardInfo fields={fields} /> : null}
 
-                        {!this.state.hideKlarna ? <KlarnaInfo fields={fields} /> : null}
+                          {!this.state.hideKlarna ? <KlarnaInfo fields={fields} /> : null}
 
-                        {!this.state.hideSwish ? <SwishInfo /> : null}
-                        <PrimaryButton onClick={() => canSubmit() ? onSubmit() : console.log("no")}>hello</PrimaryButton>
-                        <ConfirmOrderButton />
+                          {!this.state.hideSwish ? <SwishInfo fields={fields} /> : null}
+                        </Grid>
+                        {this.state.isLoading ? <Icon style={{ 'fontSize': '96px' }} src="spinner-lg" /> :
+                          <PrimaryButton onClick={() =>
+                            this.context.cart.length === [] || this.context.cart.length === 0 || !this.context.cart ?
+                              alert("Your shopping cart is empty") : !canSubmit() ?
+                                alert("Please make sure everything is filled in correctly") : this.state.shipment === "" ?
+                                  alert("Please select a shipping method") : onSubmit()}>Confirm order</PrimaryButton>}
                       </Panel>
+
                     </div>
                   </Siteframe>
                 )
@@ -178,6 +182,9 @@ export default class Checkout extends Component<{}, State> {
     )
   }
 
+  handleConfirmClick = () => {
+
+  }
 
   /**
    * Calls function from CartContext that calculates shopping bag total price.
@@ -188,52 +195,6 @@ export default class Checkout extends Component<{}, State> {
     const total = cartContext.getCurrentTotal();
 
     return total;
-  }
-
-  checkIfNumber(input: any) {
-    const regex = new RegExp(/^[0-9\s]+$/i)
-    return regex.test(input)
-  }
-
-  passStateFromInfo = (props: any) => {
-    console.log(props.adress)
-
-    if (props.firstName !== "" && props.firstName != null
-      && props.lastName !== "" && props.lastName != null
-      && props.country !== "" && props.country != null
-      && props.phoneNumber !== "" && props.phoneNumber != null
-      && props.zipcode !== "" && props.zipcode != null
-      && props.email !== "" && props.email != null
-      && props.adress !== "" && props.email != null) {
-      this.setState({ userInfoWritten: true })
-      console.log("Info is done")
-    } else {
-      this.setState({ userInfoWritten: false })
-    }
-  }
-
-  checkIfEmpty(string: string) {
-    if (string !== null && string !== "" && string !== undefined) {
-      return true
-    } return false
-  }
-
-  passStateFromKlarna = ({ firstName, lastName, email }: any) => {
-    if (this.checkIfEmpty(firstName) && this.checkIfEmpty(lastName) && this.checkIfEmpty(email)) {
-      this.setState({ klarnaInfoWritten: true })
-      console.log("Klarna is done")
-    }
-  }
-
-  passStateFromSwish = ({ firstName, lastName, phoneNumber }: any) => {
-    this.setState({ swishInfoWritten: true })
-    console.log("Swish is done")
-    // this.checkIfInfoFilledOut()
-  }
-
-  passStateFromBankCard = (props: any) => {
-    this.setState({ bankCardInfoWritten: true })
-    console.log("bank done")
   }
 
   passShipping = (props: any) => {
@@ -254,62 +215,66 @@ export default class Checkout extends Component<{}, State> {
   }
 
   displayBankCard = () => {
-    this.setState({ hideBankCard: false, hideSwish: true, hideKlarna: true })
+    this.setState({ hideBankCard: false, hideSwish: true, hideKlarna: true, payment: "bankcard" })
   }
   displaySwish = () => {
-    this.setState({ hideBankCard: true, hideSwish: false, hideKlarna: true })
-    return 
+    this.setState({ hideBankCard: true, hideSwish: false, hideKlarna: true, payment: "swish" })
+    return
   }
   displayKlarna = () => {
-    this.setState({ hideBankCard: true, hideSwish: true, hideKlarna: false })
+    this.setState({ hideBankCard: true, hideSwish: true, hideKlarna: false, payment: "klarna" })
 
   }
 
-  checkIfInfoFilledOut = () => {
-    let dhl = {
-      cost: 99,
-      time: 1
-    };
-    let shenker = {
-      cost: 49,
-      time: 2
-    };
-    let postnord = {
-      cost: 0,
-      time: 3
-    };
-    console.log("Check if info")
-    // If the location is checkout, otherwise it checks on homepage as well. */
-    if (window.location.pathname.match('/checkout')) {
-      /*If a payment has been selected*/
-      if (this.state.hideBankCard === false || this.state.hideKlarna === false || this.state.hideSwish === false) {
-        // If cart is not empty
-        if (this.context.cart.length >= 1) {
-          // If the userInfo has been submited
-          if (this.state.userInfoWritten === true) {
-            /*If there is an item in the cart, and an shipping has been chosen, then we continue*/
-            this.checkShippingChosen(dhl, shenker, postnord);
-            return true;
+  /*
+  checkIfEmpty(string: string) {
+    if (string !== null && string !== "" && string !== undefined) {
+      return true
+    } return false
+  }
+*/
+  /*
+    checkIfInfoFilledOut = () => {
+      let dhl = {
+        cost: 99,
+        time: 1
+      };
+      let shenker = {
+        cost: 49,
+        time: 2
+      };
+      let postnord = {
+        cost: 0,
+        time: 3
+      };
+      console.log("Check if info")
+      // If the location is checkout, otherwise it checks on homepage as well.
+      if (window.location.pathname.match('/checkout')) {
+        // If a payment has been selected
+        if (this.state.hideBankCard === false || this.state.hideKlarna === false || this.state.hideSwish === false) {
+          // If cart is not empty
+          if (this.context.cart.length >= 1) {
+              //If there is an item in the cart, and an shipping has been chosen, then we continue
+              this.checkShippingChosen(dhl, shenker, postnord);
+              return true;
           } else {
-            alert("Please fill in your information")
+            alert("Your shopping bag is empty. Please add items to your shopping bag before checkout.");
+            return false;
           }
         } else {
-          alert("Your shopping bag is empty. Please add items to your shopping bag before checkout.");
+          alert("Please select a payment method.")
           return false;
         }
-      } else {
-        alert("Please select a payment method.")
-        return false;
-      }
-    } return false;
-  }
-
+      } return false;
+    }
+  */
   /**
    * 
    * @param dhl Everything that contains inside dhl
    * @param shenker  Everything that contains inside shenker
    * @param postnord Everything that contains inside postnord
    */
+  /*
   checkShippingChosen(dhl: shippingType, shenker: shippingType, postnord: shippingType) {
     console.log("shipping chosen")
     if (this.state.dhlSelected === true) {
@@ -361,5 +326,6 @@ export default class Checkout extends Component<{}, State> {
     cart.cart.length = 0;
     return true;
   }
+  */
 }
 
