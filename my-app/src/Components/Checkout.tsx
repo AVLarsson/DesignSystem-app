@@ -116,8 +116,18 @@ export default class Checkout extends Component<{}, State> {
     return {}
   }
 
-  handleSubmit() {
-    this.setState({ isLoading: true })
+  setLocalStorageValues(current: any) {
+    localStorage.setItem("firstNameInfo", JSON.stringify(current.firstNameInfo));
+    localStorage.setItem("lastNameInfo", JSON.stringify(current.lastNameInfo));
+    localStorage.setItem("emailInfo", JSON.stringify(current.emailInfo).replace('@', "[AT]"));
+    localStorage.setItem("phoneNumberInfo", JSON.stringify(current.phoneNumberInfo));
+    localStorage.setItem("adress", JSON.stringify(current.adress));
+    localStorage.setItem("zipcode", JSON.stringify(current.zipcode));
+    localStorage.setItem("country", JSON.stringify(current.country));
+  }
+
+  handleSubmit(current: {}) {
+    this.setState({ isLoading: true }, () => this.setLocalStorageValues(current))
     setTimeout(() => {
       this.setState({ isLoading: false, success: true });
     }, 2000);
@@ -132,11 +142,12 @@ export default class Checkout extends Component<{}, State> {
         {context =>
           <div style={{ position: 'relative', height: '100vh' }}>
             <Form {...{
-              resetOnSubmit: false,
-              onSubmit: ({ initial, current }: { [property: string]: string }) => this.handleSubmit(),
+              resetOnSubmit: true,
+              onSubmit: ({ initial, current }: { [property: string]: string }) => this.handleSubmit(current),
               fields: Object.assign({}, [checkoutInfoFields][0], [this.showFields()][0])
             }}>
               {({ fields, onBlur, onSubmit, canSubmit }: any) => {
+                { !onBlur && console.log("blur") }
                 return (
                   <Siteframe {... {
                     headerProps: {
@@ -170,11 +181,11 @@ export default class Checkout extends Component<{}, State> {
                         </Grid>
                         {this.state.isLoading && <Icon style={{ 'fontSize': '96px' }} src="spinner-lg" />}
                         {this.state.success && <SuccessAlert withIcon>Your order has been placed.</SuccessAlert>}
-                          {!this.state.success && !this.state.isLoading && <PrimaryButton onClick={() =>
-                            this.context.cart.length === [] || this.context.cart.length === 0 || !this.context.cart ?
-                              alert("Your shopping cart is empty") : !canSubmit() ?
-                                alert("Please make sure everything is filled in correctly") : this.state.shipment === "" ?
-                                  alert("Please select a shipping method") : onSubmit()}>Confirm order</PrimaryButton>}
+                        {!this.state.success && !this.state.isLoading && <PrimaryButton onClick={() =>
+                          this.context.cart.length === [] || this.context.cart.length === 0 || !this.context.cart ?
+                            alert("Your shopping cart is empty") : !canSubmit() ?
+                              alert("Please make sure everything is filled in correctly") : this.state.shipment === "" ?
+                                alert("Please select a shipping method") : onSubmit()}>Confirm order</PrimaryButton>}
                       </Panel>
 
                     </div>
@@ -233,43 +244,43 @@ export default class Checkout extends Component<{}, State> {
   }
 
 
-checkShippingChosen() {
+  checkShippingChosen() {
 
-  let dhl = {
-    cost: 99,
-    time: 1
-  };
-  let shenker = {
-    cost: 49,
-    time: 2
-  };
-  let postnord = {
-    cost: 0,
-    time: 3
-  };
+    let dhl = {
+      cost: 99,
+      time: 1
+    };
+    let shenker = {
+      cost: 49,
+      time: 2
+    };
+    let postnord = {
+      cost: 0,
+      time: 3
+    };
 
-  console.log("shipping chosen")
-  if (this.state.dhlSelected === true) {
-    console.log("DHL has been chosen")
-    this.orderHasBeenPlaced(dhl)
-    return true;
+    console.log("shipping chosen")
+    if (this.state.dhlSelected === true) {
+      console.log("DHL has been chosen")
+      this.orderHasBeenPlaced(dhl)
+      return true;
+    }
+
+    if (this.state.shenkerSelected === true) {
+      console.log("Shenker has been chosen")
+      this.orderHasBeenPlaced(shenker)
+      return true;
+    }
+
+    if (this.state.postNordSelected === true) {
+      console.log("Postnord has been chosen")
+      this.orderHasBeenPlaced(postnord)
+      return true;
+    }
+    alert("Please choose a shipping method")
+    return false;
+
   }
-
-  if (this.state.shenkerSelected === true) {
-    console.log("Shenker has been chosen")
-    this.orderHasBeenPlaced(shenker)
-    return true;
-  }
-
-  if (this.state.postNordSelected === true) {
-    console.log("Postnord has been chosen")
-    this.orderHasBeenPlaced(postnord)
-    return true;
-  }
-  alert("Please choose a shipping method")
-  return false;
-
-}
   orderHasBeenPlaced(shipping: any) {
     const cart = this.context;
     console.log("order placed")

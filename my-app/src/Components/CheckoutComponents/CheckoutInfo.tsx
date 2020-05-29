@@ -66,19 +66,19 @@ export default class CheckoutInfo extends React.Component<Props, {}> {
 
                 <FlexCol>
                     <Grid>
-                        <FlexCol fixed onChange={this.saveToLocale}>{this.props.fields.firstNameInfo}</FlexCol>
-                        <FlexCol onChange={this.saveToLocale}>{this.props.fields.lastNameInfo}</FlexCol>
+                        <FlexCol>{this.props.fields.firstNameInfo}</FlexCol>
+                        <FlexCol>{this.props.fields.lastNameInfo}</FlexCol>
                     </Grid>
                     <Grid>
-                        <FlexCol onChange={this.saveToLocale}>{this.props.fields.emailInfo}</FlexCol>
-                        <FlexCol onChange={this.saveToLocale}>{this.props.fields.phoneNumberInfo}</FlexCol>
+                        <FlexCol>{this.props.fields.emailInfo}</FlexCol>
+                        <FlexCol>{this.props.fields.phoneNumberInfo}</FlexCol>
                     </Grid>
                     <Grid>
-                        <FlexCol onChange={this.saveToLocale}>{this.props.fields.adress}</FlexCol>
-                        <FlexCol onChange={this.saveToLocale}>{this.props.fields.zipcode}</FlexCol>
+                        <FlexCol>{this.props.fields.adress}</FlexCol>
+                        <FlexCol>{this.props.fields.zipcode}</FlexCol>
                     </Grid>
                     <Grid>
-                        <FlexCol onChange={this.saveToLocale}>{this.props.fields.country}</FlexCol>
+                        <FlexCol>{this.props.fields.country}</FlexCol>
                     </Grid>
                 </FlexCol>
             </div>
