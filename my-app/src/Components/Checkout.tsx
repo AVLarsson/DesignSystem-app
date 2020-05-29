@@ -217,20 +217,17 @@ export default class Checkout extends Component<{}, State> {
   }
 
   displayPayment = (props:any) => {
-    console.log(this.props.state)
 
-
-    this.setState({ hideBankCard: false, hideSwish: true, hideKlarna: true, payment: "bankcard" })
+    if(props.selected === "bankCard") {
+      this.setState({ hideBankCard: false, hideSwish: true, hideKlarna: true, payment: "bankcard" })
+    }
+    if(props.selected === "Swish") {
+      this.setState({ hideBankCard: true, hideSwish: false, hideKlarna: true, payment: "swish" })
+    }
+    if(props.selected === "Klarna") {
+      this.setState({ hideBankCard: true, hideSwish: true, hideKlarna: false, payment: "klarna" })
+    }
   }
-  displaySwish = () => {
-    this.setState({ hideBankCard: true, hideSwish: false, hideKlarna: true, payment: "swish" })
-    return
-  }
-  displayKlarna = () => {
-    this.setState({ hideBankCard: true, hideSwish: true, hideKlarna: false, payment: "klarna" })
-
-  }
-
 
 checkShippingChosen() {
 

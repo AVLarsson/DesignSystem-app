@@ -13,7 +13,6 @@ interface State {
 export default class PaymentDivs extends React.Component<Props, State> {
     constructor(props: any) {
         super(props);
-        this.handleDivSelect = this.handleDivSelect.bind(this)
         this.state = {
           selected: ""
         }
@@ -49,28 +48,12 @@ export default class PaymentDivs extends React.Component<Props, State> {
     }
 
     SelectDiv = (event:any) => {
-        // this.props.passStateFromKlarna(event)
-
-
         this.setState({selected: event.currentTarget.id},this.sendToParent)
-        console.log(event.currentTarget.id)
     }
 
     sendToParent = () => {
         this.props.displayPayment(this.state)
       }
-
-    handleDivSelect(event:any) {
-
-
-
-        let paymentDiv = document.getElementsByClassName("paymentDiv") as HTMLCollectionOf<HTMLElement>
-
-        for (let i = 0; i < paymentDiv.length; i++) {
-            paymentDiv[i].style.backgroundColor = "lightgray"
-        }
-        event.currentTarget.style.backgroundColor = "red"
-    }
 
     shippingPaymentBox: React.CSSProperties = {
         minWidth: "120px",
