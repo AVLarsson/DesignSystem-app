@@ -171,8 +171,8 @@ export default class Checkout extends Component<{}, State> {
                         <Shipping passShipping={this.passShipping} />
                       </Panel >
                       <Panel className="txt-c" {...{ title: 'Payment' }}>
-                        <PaymentDivs displayBankCard={this.displayBankCard} displayKlarna={this.displayKlarna} displaySwish={this.displaySwish} />
-                        <Grid justifyContent="center" style={{ maxWidth: "500px" }}>
+                        <PaymentDivs displayPayment={this.displayPayment} />
+                        
                           {!this.state.hideBankCard ? <BankCardInfo fields={fields} /> : null}
 
                           {!this.state.hideKlarna ? <KlarnaInfo fields={fields} /> : null}
@@ -187,7 +187,6 @@ export default class Checkout extends Component<{}, State> {
                               alert("Please make sure everything is filled in correctly") : this.state.shipment === "" ?
                                 alert("Please select a shipping method") : onSubmit()}>Confirm order</PrimaryButton>}
                       </Panel>
-
                     </div>
                   </Siteframe>
                 )
@@ -202,6 +201,8 @@ export default class Checkout extends Component<{}, State> {
   handleConfirmClick = () => {
     this.checkShippingChosen()
   }
+
+
 
   /**
    * Calls function from CartContext that calculates shopping bag total price.
@@ -231,40 +232,40 @@ export default class Checkout extends Component<{}, State> {
 
   }
 
-  displayBankCard = () => {
-    this.setState({ hideBankCard: false, hideSwish: true, hideKlarna: true, payment: "bankcard" })
-  }
-  displaySwish = () => {
-    this.setState({ hideBankCard: true, hideSwish: false, hideKlarna: true, payment: "swish" })
-    return
-  }
-  displayKlarna = () => {
-    this.setState({ hideBankCard: true, hideSwish: true, hideKlarna: false, payment: "klarna" })
+  displayPayment = (props:any) => {
 
-  }
-
-
-  checkShippingChosen() {
-
-    let dhl = {
-      cost: 99,
-      time: 1
-    };
-    let shenker = {
-      cost: 49,
-      time: 2
-    };
-    let postnord = {
-      cost: 0,
-      time: 3
-    };
-
-    console.log("shipping chosen")
-    if (this.state.dhlSelected === true) {
-      console.log("DHL has been chosen")
-      this.orderHasBeenPlaced(dhl)
-      return true;
+    if(props.selected === "bankCard") {
+      this.setState({ hideBankCard: false, hideSwish: true, hideKlarna: true, payment: "bankcard" })
     }
+    if(props.selected === "Swish") {
+      this.setState({ hideBankCard: true, hideSwish: false, hideKlarna: true, payment: "swish" })
+    }
+    if(props.selected === "Klarna") {
+      this.setState({ hideBankCard: true, hideSwish: true, hideKlarna: false, payment: "klarna" })
+    }
+  }
+
+checkShippingChosen() {
+
+  let dhl = {
+    cost: 99,
+    time: 1
+  };
+  let shenker = {
+    cost: 49,
+    time: 2
+  };
+  let postnord = {
+    cost: 0,
+    time: 3
+  };
+
+  console.log("shipping chosen")
+  if (this.state.dhlSelected === true) {
+    console.log("DHL has been chosen")
+    this.orderHasBeenPlaced(dhl)
+    return true;
+  }
 
     if (this.state.shenkerSelected === true) {
       console.log("Shenker has been chosen")

@@ -32,7 +32,7 @@ export default class Shipping extends React.Component<Props, State> {
         <FlexCol onClick={this.handleDivSelect} id="dhl" className={`dhl shippingDiv ${selected === "dhl" ? "bg-light-teal" : "bg-light-gray"} border-rounded"`} style={this.shippingPaymentBox}>
           <div className="bg-accent-teal border-rounded type-white" style={this.shippingPaymentBoxInside}>
             DHL
-              </div>
+          </div>
           <p>24h</p>
           <p className="amountForShipping">99kr</p>
         </FlexCol>
