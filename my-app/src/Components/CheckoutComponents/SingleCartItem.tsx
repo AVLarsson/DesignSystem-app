@@ -29,6 +29,7 @@ export default class SingleCartItem extends React.Component<{ product:any, onAdd
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        marginRight: "40px"
+        marginRight: "40px",
+        maxHeight: "20rem"
       }
 };
