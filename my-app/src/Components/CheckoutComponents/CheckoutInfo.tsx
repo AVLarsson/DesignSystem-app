@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { Grid, FlexCol } from 'pivotal-ui/react/flex-grids';
+import { Panel } from 'pivotal-ui/react/panels';
 
 interface Props {
     status: any,
@@ -8,48 +9,6 @@ interface Props {
 }
 
 export default class CheckoutInfo extends React.Component<Props, {}> {
-/*
-    componentDidMount = () => {
-        let userFirstName;
-        let userLastName;
-        let userEmail;
-        let userPhoneNumber;
-        let userAdress;
-        let userZipcode;
-        let userCountry;
-
-
-        if (localStorage.firstName) {
-            userFirstName = JSON.parse(localStorage.firstName);
-            this.setState({ firstName: userFirstName }, this.sendToParent)
-        }
-        if (localStorage.lastName) {
-            userLastName = JSON.parse(localStorage.lastName);
-            this.setState({ lastName: userLastName }, this.sendToParent)
-        }
-        if (localStorage.email) {
-            userEmail = JSON.parse(localStorage.email);
-            this.setState({ email: userEmail }, this.sendToParent)
-        }
-        if (localStorage.phoneNumber) {
-            userPhoneNumber = JSON.parse(localStorage.phoneNumber);
-            this.setState({ phoneNumber: userPhoneNumber }, this.sendToParent)
-        }
-        if (localStorage.adress) {
-            userAdress = JSON.parse(localStorage.adress);
-            this.setState({ adress: userAdress }, this.sendToParent)
-        }
-        if (localStorage.zipcode) {
-            userZipcode = JSON.parse(localStorage.zipcode);
-            this.setState({ zipcode: userZipcode }, this.sendToParent)
-        }
-        if (localStorage.country) {
-            userCountry = JSON.parse(localStorage.country);
-            this.setState({ country: userCountry }, this.sendToParent)
-        }
-
-    }
-*/
 
     saveToLocale = (event: any) => {
         let targetValue = JSON.stringify(event.target.value)
@@ -62,11 +21,10 @@ export default class CheckoutInfo extends React.Component<Props, {}> {
 
     render() {
         return (
-            <div>
-
+            <Panel style={{display: "flex", justifyContent: "center", padding:"2rem"}}>
                 <FlexCol>
                     <Grid>
-                        <FlexCol fixed onChange={this.saveToLocale}>{this.props.fields.firstNameInfo}</FlexCol>
+                        <FlexCol onChange={this.saveToLocale}>{this.props.fields.firstNameInfo}</FlexCol>
                         <FlexCol onChange={this.saveToLocale}>{this.props.fields.lastNameInfo}</FlexCol>
                     </Grid>
                     <Grid>
@@ -81,7 +39,7 @@ export default class CheckoutInfo extends React.Component<Props, {}> {
                         <FlexCol onChange={this.saveToLocale}>{this.props.fields.country}</FlexCol>
                     </Grid>
                 </FlexCol>
-            </div>
+            </Panel>
         )
     }
 }

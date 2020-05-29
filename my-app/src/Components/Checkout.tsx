@@ -130,7 +130,7 @@ export default class Checkout extends Component<{}, State> {
             <Form {...{
               resetOnSubmit: false,
               onSubmit: ({ initial, current }: { [property: string]: string }) => this.handleSubmit(),
-              fields: Object.assign({}, [checkoutInfoFields][0], [this.showFields()][0])
+              fields: Object.assign({}, [checkoutInfoFields][0], [this.showFields()][0]),
             }}>
               {({ fields, onBlur, onSubmit, canSubmit }: any) => {
                 return (
@@ -157,13 +157,13 @@ export default class Checkout extends Component<{}, State> {
                       </Panel >
                       <Panel className="txt-c" {...{ title: 'Payment' }}>
                         <PaymentDivs displayBankCard={this.displayBankCard} displayKlarna={this.displayKlarna} displaySwish={this.displaySwish} />
-                        <Grid justifyContent="center" style={{ maxWidth: "500px" }}>
+                        
                           {!this.state.hideBankCard ? <BankCardInfo fields={fields} /> : null}
 
                           {!this.state.hideKlarna ? <KlarnaInfo fields={fields} /> : null}
 
                           {!this.state.hideSwish ? <SwishInfo fields={fields} /> : null}
-                        </Grid>
+
                         {this.state.isLoading ? <Icon style={{ 'fontSize': '96px' }} src="spinner-lg" /> :
                           <PrimaryButton onClick={() =>
                             this.context.cart.length === [] || this.context.cart.length === 0 || !this.context.cart ?
@@ -171,7 +171,6 @@ export default class Checkout extends Component<{}, State> {
                                 alert("Please make sure everything is filled in correctly") : this.state.shipment === "" ?
                                   alert("Please select a shipping method") : onSubmit()}>Confirm order</PrimaryButton>}
                       </Panel>
-
                     </div>
                   </Siteframe>
                 )
@@ -186,6 +185,8 @@ export default class Checkout extends Component<{}, State> {
   handleConfirmClick = () => {
     this.checkShippingChosen()
   }
+
+
 
   /**
    * Calls function from CartContext that calculates shopping bag total price.

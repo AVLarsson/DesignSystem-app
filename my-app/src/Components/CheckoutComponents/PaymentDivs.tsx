@@ -1,5 +1,6 @@
 import * as React from 'react';
 import 'pivotal-ui/css/selection';
+import { FlexCol } from 'pivotal-ui/react/flex-grids';
 
 interface Props {
     displayBankCard: () => void
@@ -23,30 +24,34 @@ export default class PaymentDivs extends React.Component<Props, {}> {
         return (
             <div>
                 <div className="pui-no-select" style={{display:"flex",flexDirection: "row", alignItems: "center", justifyContent: "center"}}>
-                  <div  onClick={() => this.props.displayBankCard()} className="paymentDiv" style={this.shippingPaymentBox}>
-                    <div style={this.shippingPaymentBoxInside}>
+                  <FlexCol className="bg-accent-teal border-rounded type-white paymentDiv" onClick={this.handleDivSelect} style={this.shippingPaymentBox}>
+                    <div className="bg-accent-teal border-rounded type-white" style={this.shippingPaymentBoxInside}>
                     Bank Card
                     </div>
                     <p>Mastercard</p>
                     <p>Visa</p>
-                </div>
-                <div  onClick={() => this.props.displaySwish()} className="paymentDiv" style={this.shippingPaymentBox}>
+                </FlexCol>
+                <FlexCol  onClick={() => this.props.displaySwish()} className="paymentDiv" style={this.shippingPaymentBox}>
                 <div style={this.shippingPaymentBoxInside}>
                     Swish
                 </div>
-                </div>
-                <div  onClick={() => this.props.displayKlarna()} className="paymentDiv" style={this.shippingPaymentBox}>
+                </FlexCol>
+                <FlexCol  onClick={() => this.props.displayKlarna()} className="paymentDiv" style={this.shippingPaymentBox}>
                 <div style={this.shippingPaymentBoxInside}>
                     Klarna
                 </div>
                 <p>Split up your payment</p>
-                </div>
+                </FlexCol>
             </div>
             </div>
         )
     }
 
     handleDivSelect(event:any) {
+
+        this.props.displayBankCard()
+
+
         let paymentDiv = document.getElementsByClassName("paymentDiv") as HTMLCollectionOf<HTMLElement>
 
         for (let i = 0; i < paymentDiv.length; i++) {
