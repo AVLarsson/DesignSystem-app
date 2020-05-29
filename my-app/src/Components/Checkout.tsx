@@ -117,6 +117,7 @@ export default class Checkout extends Component<{}, State> {
     setTimeout(() => {
       this.setState({ isLoading: false });
     }, 20000);
+    this.checkShippingChosen()
     this.context.cart = []
   }
 
@@ -183,7 +184,7 @@ export default class Checkout extends Component<{}, State> {
   }
 
   handleConfirmClick = () => {
-
+    this.checkShippingChosen()
   }
 
   /**
@@ -226,92 +227,44 @@ export default class Checkout extends Component<{}, State> {
 
   }
 
-  /*
-  checkIfEmpty(string: string) {
-    if (string !== null && string !== "" && string !== undefined) {
-      return true
-    } return false
-  }
-*/
-  /*
-    checkIfInfoFilledOut = () => {
-      let dhl = {
-        cost: 99,
-        time: 1
-      };
-      let shenker = {
-        cost: 49,
-        time: 2
-      };
-      let postnord = {
-        cost: 0,
-        time: 3
-      };
-      console.log("Check if info")
-      // If the location is checkout, otherwise it checks on homepage as well.
-      if (window.location.pathname.match('/checkout')) {
-        // If a payment has been selected
-        if (this.state.hideBankCard === false || this.state.hideKlarna === false || this.state.hideSwish === false) {
-          // If cart is not empty
-          if (this.context.cart.length >= 1) {
-              //If there is an item in the cart, and an shipping has been chosen, then we continue
-              this.checkShippingChosen(dhl, shenker, postnord);
-              return true;
-          } else {
-            alert("Your shopping bag is empty. Please add items to your shopping bag before checkout.");
-            return false;
-          }
-        } else {
-          alert("Please select a payment method.")
-          return false;
-        }
-      } return false;
-    }
-  */
-  /**
-   * 
-   * @param dhl Everything that contains inside dhl
-   * @param shenker  Everything that contains inside shenker
-   * @param postnord Everything that contains inside postnord
-   */
-  /*
-  checkShippingChosen(dhl: shippingType, shenker: shippingType, postnord: shippingType) {
-    console.log("shipping chosen")
-    if (this.state.dhlSelected === true) {
-      console.log("DHL has been chosen")
-      this.checkPaymentChosen(dhl)
-      return true;
-    }
 
-    if (this.state.shenkerSelected === true) {
-      console.log("Shenker has been chosen")
-      this.checkPaymentChosen(shenker)
-      return true;
-    }
+checkShippingChosen() {
 
-    if (this.state.postNordSelected === true) {
-      console.log("Postnord has been chosen")
-      this.checkPaymentChosen(postnord)
-      return true;
-    }
-    alert("Please choose a shipping method")
-    return false;
+  let dhl = {
+    cost: 99,
+    time: 1
+  };
+  let shenker = {
+    cost: 49,
+    time: 2
+  };
+  let postnord = {
+    cost: 0,
+    time: 3
+  };
 
+  console.log("shipping chosen")
+  if (this.state.dhlSelected === true) {
+    console.log("DHL has been chosen")
+    this.orderHasBeenPlaced(dhl)
+    return true;
   }
 
-  checkPaymentChosen = (shipping: shippingType) => {
-    console.log('Payment')
-    if (this.state.hideBankCard === false && this.state.bankCardInfoWritten) {
-      return this.orderHasBeenPlaced(shipping)
-    }
-    if (this.state.hideKlarna === false && this.state.klarnaInfoWritten) {
-      return this.orderHasBeenPlaced(shipping)
-    }
-    if (this.state.hideSwish === false && this.state.swishInfoWritten) {
-      return this.orderHasBeenPlaced(shipping)
-    } return false;
+  if (this.state.shenkerSelected === true) {
+    console.log("Shenker has been chosen")
+    this.orderHasBeenPlaced(shenker)
+    return true;
   }
 
+  if (this.state.postNordSelected === true) {
+    console.log("Postnord has been chosen")
+    this.orderHasBeenPlaced(postnord)
+    return true;
+  }
+  alert("Please choose a shipping method")
+  return false;
+
+}
   orderHasBeenPlaced(shipping: any) {
     const cart = this.context;
     console.log("order placed")
@@ -326,6 +279,5 @@ export default class Checkout extends Component<{}, State> {
     cart.cart.length = 0;
     return true;
   }
-  */
 }
 
