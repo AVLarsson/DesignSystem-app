@@ -134,6 +134,7 @@ export default class Checkout extends Component<{}, State> {
     this.checkShippingChosen()
     this.context.cart = []
   }
+  
 
   render() {
     console.log(this.context.cart, this.state.shipment)
@@ -178,7 +179,7 @@ export default class Checkout extends Component<{}, State> {
                           {!this.state.hideKlarna ? <KlarnaInfo fields={fields} /> : null}
 
                           {!this.state.hideSwish ? <SwishInfo fields={fields} /> : null}
-                        </Grid>
+
                         {this.state.isLoading && <Icon style={{ 'fontSize': '96px' }} src="spinner-lg" />}
                         {this.state.success && <SuccessAlert withIcon>Your order has been placed.</SuccessAlert>}
                         {!this.state.success && !this.state.isLoading && <PrimaryButton onClick={() =>
@@ -186,6 +187,7 @@ export default class Checkout extends Component<{}, State> {
                             alert("Your shopping cart is empty") : !canSubmit() ?
                               alert("Please make sure everything is filled in correctly") : this.state.shipment === "" ?
                                 alert("Please select a shipping method") : onSubmit()}>Confirm order</PrimaryButton>}
+                              
                       </Panel>
                     </div>
                   </Siteframe>
@@ -214,6 +216,7 @@ export default class Checkout extends Component<{}, State> {
 
     return total;
   }
+  
 
   passShipping = (props: any) => {
 
@@ -260,7 +263,6 @@ checkShippingChosen() {
     time: 3
   };
 
-  console.log("shipping chosen")
   if (this.state.dhlSelected === true) {
     console.log("DHL has been chosen")
     this.orderHasBeenPlaced(dhl)
