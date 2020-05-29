@@ -6,10 +6,7 @@ import { CartContext } from '../CartContext';
 
 
 interface Props {
-    cart: Products[],
-    // incrementProduct: (id: string) => void,
-    // minusProduct: (id: string) => void,
-    // deleteProduct: (id: string) => void,
+    cart: Products[]
 }
 
 

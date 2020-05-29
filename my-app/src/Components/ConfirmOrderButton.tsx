@@ -9,9 +9,6 @@ import { Divider } from 'pivotal-ui/react/dividers';
 import { SuccessAlert } from 'pivotal-ui/react/alerts'
 
 interface ConfirmOrderButtonProps {
-//     isDisabled?: boolean
-    // onClick: () => void
-     // success: boolean
           checkIfDone: () => boolean
  }
 
@@ -76,13 +73,6 @@ class ConfirmOrderButton extends React.Component<{}, ConfirmOrderButtonState> {
         if (this.animationTimer) {
             this.clearLoadingTimer();
         }
-        
-        // this.props.onClick()
-        // this.animationTimer = setTimeout(() => {
-        //     this.setState({ isLoading: false });
-        //     this.animationTimer = 0;
-        // }, 2000);
-
     };
 
     /**
