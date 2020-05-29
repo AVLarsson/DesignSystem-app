@@ -29,118 +29,19 @@ export default class SwishInfo extends React.Component<Props, State> {
 
   }
 
-  //   componentDidMount = () => {
-
-  //     let userFirstName; 
-  //     let userLastName;
-  //     let userPhoneNumber;
-
-
-  //     if (localStorage.firstName){
-  //         userFirstName = JSON.parse(localStorage.firstName);
-  //         this.setState({firstName:userFirstName})
-  //     }
-  //     if (localStorage.lastName){
-  //         userLastName = JSON.parse(localStorage.lastName);
-  //         this.setState({lastName:userLastName})
-  //     }
-  //     if (localStorage.phoneNumber){
-  //         userPhoneNumber = JSON.parse(localStorage.phoneNumber);
-  //         this.setState({phoneNumber:userPhoneNumber})
-  //     }
-  // }
-
-  /*
-    checkIfNumber(event: any) {
-      event.persist()
-      let targetValue = event.target.value
-      let targetId = event.target.id;
-      const targetName = event.target.name;
-      const regex = /^[a-zA-Z]+$/;
-  
-  
-      if (targetId === "userPhoneNumberSwish") {
-  
-        for (let i = 0; i < event.target.value.length; i++) {
-          if (targetValue[i].match(regex)) {
-            event.target.value = "";
-          }
-        }
-      }
-      else {
-        for (let i = 0; i < event.target.value.length; i++) {
-          if (!targetValue[i].match(regex)) {
-            event.target.value = "";
-          }
-        }
-      }
-  
-  
-      if (targetName === "firstName") {
-        this.setState({ firstName: targetValue }, this.sendToParent)
-      }
-  
-      if (targetName === "lastName") {
-        this.setState({ lastName: targetValue }, this.sendToParent)
-      }
-  
-      if (targetName === "phoneNumber") {
-        this.setState({ phoneNumber: targetValue }, this.sendToParent)
-      }
-    }
-    */
-
-  sendToParent = (props: State) => {
-    // this.props.passStateFromSwish(props)
-  }
-
-  handleSubmit = ({ firstName, lastName, phoneNumber }: State) => {
-    this.sendToParent({ firstName, lastName, phoneNumber })
-  }
-
-  handleChange = (current?: any) => {
-
-    const { firstName, lastName, phoneNumber } = this.state;
-    if (firstName !== "" && lastName !== "" && phoneNumber !== "") {
-      this.sendToParent(this.state)
-    } else console.log("not completed")
-
-  }
-
   render() {
     return (
-      <Panel>
-        <div>
-          <FlexCol>
-            <Grid>
-              <FlexCol>{this.props.fields.firstName}</FlexCol>
-              <FlexCol>{this.props.fields.lastName}</FlexCol>
-              <FlexCol>{this.props.fields.phoneNumber}</FlexCol>
-            </Grid>
-            <Grid>
-              <FlexCol></FlexCol>
-            </Grid>
-            <Grid>
-            </Grid>
-          </FlexCol>
-        </div>
-      </Panel >
+      <Panel style={{display: "flex", justifyContent: "center", padding:"2rem"}}>
+        <FlexCol>
+          <Grid>
+            <FlexCol>{this.props.fields.firstName}</FlexCol>
+            <FlexCol>{this.props.fields.lastName}</FlexCol>
+          </Grid>
+          <Grid>
+            <FlexCol>{this.props.fields.phoneNumber}</FlexCol>
+          </Grid>
+        </FlexCol>
+      </Panel>
     )
-  }
-
-  centerStyle: React.CSSProperties = {
-    display: "flex",
-    justifyContent: "center",
-    paddingTop: "20px"
-  }
-  gridContainer: React.CSSProperties = {
-    display: "grid",
-    gridTemplateColumns: "auto auto",
-    gridColumnGap: "50px",
-    gridRowGap: "20px",
-    justifyContent: "center",
-  }
-  gridItem: React.CSSProperties = {
-    fontSize: "16px"
   }
 }

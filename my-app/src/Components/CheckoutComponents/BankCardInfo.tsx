@@ -32,40 +32,22 @@ export default class BankCardInfo extends React.Component<Props> {
 
     render() {
         return (
-            <Panel>
-                <div>
-                    <FlexCol>
-                        <Grid>
-                            <FlexCol>{this.props.fields.firstName}</FlexCol>
-                            <FlexCol>{this.props.fields.lastName}</FlexCol>
-                        </Grid>
-                        <Grid>
-                            <FlexCol >{this.props.fields.bankNumber}</FlexCol>
-                            <FlexCol>{this.props.fields.cvc}</FlexCol>
-                        </Grid>
-                        <Grid>
-                            <FlexCol>{this.props.fields.month}</FlexCol>
-                            <FlexCol>{this.props.fields.year}</FlexCol>
-                        </Grid>
-                    </FlexCol>
-                </div>
+            <Panel style={{display: "flex", justifyContent: "center", padding:"2rem"}}>
+                <FlexCol>
+                    <Grid>
+                        <FlexCol>{this.props.fields.firstName}</FlexCol>
+                        <FlexCol>{this.props.fields.lastName}</FlexCol>
+                    </Grid>
+                    <Grid>
+                        <FlexCol >{this.props.fields.bankNumber}</FlexCol>
+                        <FlexCol>{this.props.fields.cvc}</FlexCol>
+                    </Grid>
+                    <Grid>
+                        <FlexCol>{this.props.fields.month}</FlexCol>
+                        <FlexCol>{this.props.fields.year}</FlexCol>
+                    </Grid>
+                </FlexCol>
             </Panel>
         )
-    }
-    centerStyle: React.CSSProperties = {
-        display: "flex",
-        justifyContent: "center",
-        paddingTop: "20px"
-    }
-
-    gridContainer: React.CSSProperties = {
-        display: "grid",
-        gridTemplateColumns: "auto auto",
-        gridColumnGap: "50px",
-        gridRowGap: "20px",
-        justifyContent: "center",
-    }
-    gridItem: React.CSSProperties = {
-        fontSize: "16px"
     }
 }

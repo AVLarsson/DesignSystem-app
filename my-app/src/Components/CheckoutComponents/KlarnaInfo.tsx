@@ -16,8 +16,7 @@ export default class KlarnaInfo extends React.Component<Props> {
 
   render() {
     return (
-      <Panel>
-      <div>
+      <Panel style={{display: "flex", justifyContent: "center", padding:"2rem"}}>
         <FlexCol>
           <Grid>
             <FlexCol>{this.props.fields.firstName}</FlexCol>
@@ -27,9 +26,7 @@ export default class KlarnaInfo extends React.Component<Props> {
             <FlexCol>{this.props.fields.email}</FlexCol>
           </Grid>
         </FlexCol>
-      </div>
       </Panel>
-
     )
   }
 }

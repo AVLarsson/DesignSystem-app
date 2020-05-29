@@ -25,12 +25,14 @@ export const bankCardFields = {
         label: 'CVC',
     },
     month: {
-        help: 'Month',
+        label: 'Month',
+        help: "Two Numbers",
         initialValue: '',
         validator: (currentValue: any) => !checkIfNumber(currentValue) ? 'Please enter a number' : currentValue > 12 ? 'Please enter a valid month' : null,
     },
     year: {
-        help: 'Year',
+        label: 'Year',
+        help: "Four Numbers",
         initialValue: '',
         className: "txt-b",
         validator: (currentValue: any) => !checkIfNumber(currentValue) ? 'Please enter a number' : currentValue < date.getFullYear() || currentValue > 9999 ? 'Your card has expired' : null,
