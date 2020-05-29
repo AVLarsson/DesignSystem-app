@@ -1,57 +1,63 @@
 import * as React from 'react';
 import 'pivotal-ui/css/selection';
+import { FlexCol } from 'pivotal-ui/react/flex-grids';
 
-export default class PaymentDivs extends React.Component <{displayBankCard: () => void, displaySwish: () => void, displayKlarna: () => void}> {
+interface Props {
+    displayPayment: any
+}
 
-      componentDidMount() {
-          let paymentDiv = document.getElementsByClassName("paymentDiv")
+interface State {
+    selected: string
+  }
 
-          for (let i = 0; i < paymentDiv.length; i++) {
-              paymentDiv[i].addEventListener("click", this.handleDivSelect)
-              
-          }
+export default class PaymentDivs extends React.Component<Props, State> {
+    constructor(props: any) {
+        super(props);
+        this.state = {
+          selected: ""
+        }
       }
 
 
     render() {
+        const { selected } = this.state;
         return (
             <div>
-                <div className="pui-no-select" style={{display:"flex",flexDirection: "row", alignItems: "center", justifyContent: "center"}}>
-                  <div  onClick={() => this.props.displayBankCard()} className="paymentDiv" style={this.shippingPaymentBox}>
-                    <div style={this.shippingPaymentBoxInside}>
+                <div className="pui-no-select" style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
+                  <FlexCol onClick={this.SelectDiv} id="bankCard" className={`bankCard shippingDiv ${selected === "bankCard" ? "bg-light-teal" : "bg-light-gray"} border-rounded"`} style={this.shippingPaymentBox}>
+                    <div className="bg-accent-teal border-rounded type-white" style={this.shippingPaymentBoxInside}>
                     Bank Card
                     </div>
                     <p>Mastercard</p>
                     <p>Visa</p>
-                </div>
-                <div  onClick={() => this.props.displaySwish()} className="paymentDiv" style={this.shippingPaymentBox}>
-                <div style={this.shippingPaymentBoxInside}>
+                </FlexCol>
+                <FlexCol  onClick={this.SelectDiv} id="Swish" className={`Swish shippingDiv ${selected === "Swish" ? "bg-light-teal" : "bg-light-gray"} border-rounded"`} style={this.shippingPaymentBox}>
+                <div className="bg-accent-teal border-rounded type-white" style={this.shippingPaymentBoxInside}>
                     Swish
                 </div>
-                </div>
-                <div  onClick={() => this.props.displayKlarna()} className="paymentDiv" style={this.shippingPaymentBox}>
-                <div style={this.shippingPaymentBoxInside}>
+                </FlexCol>
+                <FlexCol  onClick={this.SelectDiv} id="Klarna" className={`Klarna shippingDiv ${selected === "Klarna" ? "bg-light-teal" : "bg-light-gray"} border-rounded"`} style={this.shippingPaymentBox}>
+                <div className="bg-accent-teal border-rounded type-white" style={this.shippingPaymentBoxInside}>
                     Klarna
                 </div>
                 <p>Split up your payment</p>
-                </div>
+                </FlexCol>
             </div>
             </div>
         )
     }
 
-    handleDivSelect(event:any) {
-        let paymentDiv = document.getElementsByClassName("paymentDiv") as HTMLCollectionOf<HTMLElement>
-
-        for (let i = 0; i < paymentDiv.length; i++) {
-            paymentDiv[i].style.backgroundColor = "lightgray"
-        }
-        event.currentTarget.style.backgroundColor = "red"
+    SelectDiv = (event:any) => {
+        this.setState({selected: event.currentTarget.id},this.sendToParent)
     }
 
+    sendToParent = () => {
+        this.props.displayPayment(this.state)
+      }
 
     shippingPaymentBox: React.CSSProperties = {
-        width: "150px",
+        minWidth: "120px",
+        maxWidth: "200px",
         height: "150px",
         backgroundColor: "lightgray",
         display: "flex",
@@ -59,23 +65,16 @@ export default class PaymentDivs extends React.Component <{displayBankCard: () =
         justifyContent: "center",
         flexDirection: "column",
         margin: "10px",
-
-        border: "2px solid black",
-        borderRadius: "16px",
-        fontStyle: "italic",
+    
         fontSize: "16px",
-        fontWeight: "bold",
+        fontWeight: "bold"
       }
       shippingPaymentBoxInside: React.CSSProperties = {
         width: "100px",
         height: "50px",
-        backgroundColor: "red",
         margin: "0",
         display: "flex",
         alignItems: "center",
-        justifyContent: "center",
-
-        border: "2px solid black",
-        borderRadius: "16px",
+        justifyContent: "center"
       }
-}
+    }

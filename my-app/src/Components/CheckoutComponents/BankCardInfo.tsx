@@ -1,99 +1,53 @@
 import * as React from 'react';
-import {Input} from 'pivotal-ui/react/inputs';
+// import { Input } from 'pivotal-ui/react/inputs';
 import "../Imports.css";
+import { Panel } from 'pivotal-ui/react/panels';
+import { Form, FormUnit } from 'pivotal-ui/react/forms';
+import { Grid, FlexCol } from 'pivotal-ui/react/flex-grids';
+import ConfirmOrderButton from '../ConfirmOrderButton';
+import { CartContext } from '../CartContext';
 
-export default class BankCardInfo extends React.Component {
+import { bankCardFields } from '../fields'
+// interface Props {
+//     passStateFromBankCard: any
+//     checkIfNumber: (input: any) => boolean
+//     date: Date
+//     checkIfDone: () => boolean
+// }
 
-  componentDidMount = () => {
-    let userFirstName = (document.getElementById("userFirstNameBank") as unknown as HTMLInputElement);
-    let userLastName = (document.getElementById("userLastNameBank") as unknown as HTMLInputElement);
 
-    
-    if (localStorage.firstName){
-        userFirstName.value = JSON.parse(localStorage.firstName);
+
+interface Props {
+    fields: any
+  }
+
+export default class BankCardInfo extends React.Component<Props> {
+    static contextType = CartContext;
+    constructor(props: any) {
+        super(props)
+
     }
-    if (localStorage.lastName){
-        userLastName.value = JSON.parse(localStorage.lastName);
-    }
-}
-
-checkIfNumber(event:any) {
-
-    let targetValue = event.target.value
-    let targetId = event.target.id;
-    const regex=/^[a-zA-Z]+$/;
-
-
-    if (targetId === "userCardNumber" || targetId === "userCvc"  || targetId === "userMonth" || targetId === "userYear"  ) {
-    
-        for (let i = 0; i < event.target.value.length; i++) {
-            if (targetValue[i].match(regex))
-            {
-                event.target.value = "";
-                targetValue = "";
-            }
-        }
-    }
-    else {
-        for (let i = 0; i < event.target.value.length; i++) {
-            if (!targetValue[i].match(regex))
-            {
-                event.target.value = "";
-                targetValue = "";
-            }
-        }
-    }
-
-}
 
 
 
     render() {
-      return (
-        <div>
-        <form style={this.gridContainer} action="">
-            <div style={this.gridItem}>
-                <label htmlFor="userFirstNameBank">First Name</label>
-                <Input id="userFirstNameBank" onChange={this.checkIfNumber} />
-            </div>
-            <div style={this.gridItem}>
-                <label htmlFor="userLastNameBank">Last Name</label>
-                <Input id="userLastNameBank" onChange={this.checkIfNumber}/>
-            </div>
-            <div style={this.gridItem}>
-                <label htmlFor="userCardNumber">Card Number</label>
-                <Input id="userCardNumber"  onChange={this.checkIfNumber}/>
-            </div>
-            <div style={this.gridItem}>
-                <label htmlFor="userCvc">CVC</label>
-                <Input id="userCvc" onChange={this.checkIfNumber}/>
-            </div>
-            <div style={this.gridItem}>
-                <label htmlFor="userMonth">Month</label>
-                <Input id="userMonth" onChange={this.checkIfNumber}/>
-            </div>
-            <div style={this.gridItem}>
-                <label htmlFor="userYear">Year</label>
-                <Input id="userYear" onChange={this.checkIfNumber}/>
-            </div>
-        </form>
-    </div>
-    )
+        return (
+            <Panel style={{display: "flex", justifyContent: "center", padding:"2rem"}}>
+                <FlexCol>
+                    <Grid>
+                        <FlexCol>{this.props.fields.firstName}</FlexCol>
+                        <FlexCol>{this.props.fields.lastName}</FlexCol>
+                    </Grid>
+                    <Grid>
+                        <FlexCol >{this.props.fields.bankNumber}</FlexCol>
+                        <FlexCol>{this.props.fields.cvc}</FlexCol>
+                    </Grid>
+                    <Grid>
+                        <FlexCol>{this.props.fields.month}</FlexCol>
+                        <FlexCol>{this.props.fields.year}</FlexCol>
+                    </Grid>
+                </FlexCol>
+            </Panel>
+        )
     }
-    centerStyle: React.CSSProperties = {
-      display: "flex",
-      justifyContent: "center",
-      paddingTop: "20px"
-    }
-
-    gridContainer: React.CSSProperties = {
-      display: "grid",
-      gridTemplateColumns: "auto auto",
-      gridColumnGap: "50px",
-      gridRowGap: "20px",
-      justifyContent: "center",
-  }
-  gridItem: React.CSSProperties = {
-      fontSize: "16px"
-  }
 }
