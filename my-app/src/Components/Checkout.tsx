@@ -21,6 +21,8 @@ import { Products } from 'src/ProductItems/ProductItemss';
 import { CartContext } from './CartContext';
 import ConfirmOrderButton from './ConfirmOrderButton';
 import Receipt from "./CheckoutComponents/Receipt"
+import { SuccessAlert } from 'pivotal-ui/react/alerts'
+
 
 import { bankCardFields, klarnaFields, swishFields, checkoutInfoFields } from './fields';
 
@@ -54,6 +56,7 @@ interface State {
   shipment: string
   payment: string
   isLoading: boolean
+  success: boolean
 }
 
 export default class Checkout extends Component<{}, State> {
@@ -78,7 +81,8 @@ export default class Checkout extends Component<{}, State> {
       shipment: "",
       date: new Date(),
       payment: "",
-      isLoading: false
+      isLoading: false,
+      success: false
     }
 
     // this.checkPaymentChosen = this.checkPaymentChosen.bind(this);
@@ -115,8 +119,8 @@ export default class Checkout extends Component<{}, State> {
   handleSubmit() {
     this.setState({ isLoading: true })
     setTimeout(() => {
-      this.setState({ isLoading: false });
-    }, 20000);
+      this.setState({ isLoading: false, success: true });
+    }, 2000);
     this.checkShippingChosen()
     this.context.cart = []
   }
@@ -164,8 +168,9 @@ export default class Checkout extends Component<{}, State> {
 
                           {!this.state.hideSwish ? <SwishInfo fields={fields} /> : null}
                         </Grid>
-                        {this.state.isLoading ? <Icon style={{ 'fontSize': '96px' }} src="spinner-lg" /> :
-                          <PrimaryButton onClick={() =>
+                        {this.state.isLoading && <Icon style={{ 'fontSize': '96px' }} src="spinner-lg" />}
+                        {this.state.success && <SuccessAlert withIcon>Your order has been placed.</SuccessAlert>}
+                          {!this.state.success && !this.state.isLoading && <PrimaryButton onClick={() =>
                             this.context.cart.length === [] || this.context.cart.length === 0 || !this.context.cart ?
                               alert("Your shopping cart is empty") : !canSubmit() ?
                                 alert("Please make sure everything is filled in correctly") : this.state.shipment === "" ?
