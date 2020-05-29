@@ -156,7 +156,7 @@ export default class Checkout extends Component<{}, State> {
                         <Shipping passShipping={this.passShipping} />
                       </Panel >
                       <Panel className="txt-c" {...{ title: 'Payment' }}>
-                        <PaymentDivs displayBankCard={this.displayBankCard} displayKlarna={this.displayKlarna} displaySwish={this.displaySwish} />
+                        <PaymentDivs displayPayment={this.displayPayment} />
                         
                           {!this.state.hideBankCard ? <BankCardInfo fields={fields} /> : null}
 
@@ -216,7 +216,10 @@ export default class Checkout extends Component<{}, State> {
 
   }
 
-  displayBankCard = () => {
+  displayPayment = (props:any) => {
+    console.log(this.props.state)
+
+
     this.setState({ hideBankCard: false, hideSwish: true, hideKlarna: true, payment: "bankcard" })
   }
   displaySwish = () => {
