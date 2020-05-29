@@ -35,12 +35,15 @@ export default class PaymentDivs extends React.Component<Props, State> {
                 <div className="bg-accent-teal border-rounded type-white" style={this.shippingPaymentBoxInside}>
                     Swish
                 </div>
+                <p>Pay with</p>
+                <p> your phone</p>
                 </FlexCol>
                 <FlexCol  onClick={this.SelectDiv} id="Klarna" className={`Klarna shippingDiv ${selected === "Klarna" ? "bg-light-teal" : "bg-light-gray"} border-rounded"`} style={this.shippingPaymentBox}>
                 <div className="bg-accent-teal border-rounded type-white" style={this.shippingPaymentBoxInside}>
                     Klarna
                 </div>
-                <p>Split up your payment</p>
+                <p>Split up</p>
+                <p> your payment</p>
                 </FlexCol>
             </div>
             </div>
