@@ -36,7 +36,7 @@ const Receipt = (props: Props) => {
             <p>-----------------------------------------</p>
             <h3>{`The products costs ${props.status.price}`}kr</h3>
             <h3>{`The shipping costs ${props.status.shippingPrice}kr`}</h3>
-            <h3>{`The shipping will take ${props.status.shippingTime} working days`}</h3>
+            <h3>{`The shipping will take ${props.status.shippingTime} day(s)`}</h3>
             <h3>{`Est. delivery: ${props.deliveryDate()}`}</h3>
             <h3>{`Total price is ${props.status.totalPrice} kr`}</h3>
             <BrandButton onClick={() => history.push("/")}>Ok, take me to the start page!</BrandButton>
