@@ -137,9 +137,8 @@ export default class Checkout extends Component<{}, State> {
                   <Siteframe {... {
                     headerProps: {
                       className: 'bg-light-gray paxl',
-                      companyName:
-                        <span style={{ color: 'black', fontSize: "30px", fontStyle: "italic" }}>RetroShop</span>,
-                      productName: <div><Link to="/"><BrandButton>Go to frontPage</BrandButton></Link></div>,
+                      companyName: <span className="type-black">RetroShop</span>,
+                      productName: <Link to="/"><BrandButton className="no-un">Go to frontPage</BrandButton></Link>,
                     }
                   }}>
                     <div className='bg-light-green paxl scroll' style={{ height: '100%', overflow: "scroll" }}>
@@ -162,7 +161,7 @@ export default class Checkout extends Component<{}, State> {
                         <PaymentDivs displayBankCard={this.displayBankCard} displayKlarna={this.displayKlarna} displaySwish={this.displaySwish} />
                         {!this.state.hideBankCard ? <BankCardInfo>{fields.bankCard}</BankCardInfo> : null}
 
-                        {!this.state.hideKlarna ? <KlarnaInfo /> : null}
+                        {!this.state.hideKlarna ? <KlarnaInfo fields={fields} /> : null}
 
                         {!this.state.hideSwish ? <SwishInfo /> : null}
                         <PrimaryButton onClick={() => canSubmit() ? onSubmit() : console.log("no")}>hello</PrimaryButton>

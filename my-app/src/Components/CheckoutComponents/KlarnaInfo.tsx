@@ -4,18 +4,16 @@ import { Grid, FlexCol } from 'pivotal-ui/react/flex-grids';
 import { Panel } from 'pivotal-ui/react/panels';
 import { CartContext } from '../CartContext';
 
-// interface Props {
-//   passStateFromKlarna: (props: any) => void
-//   checkIfDone: () => boolean
-// }
-
+interface Props {
+  fields: any
+}
 interface State {
   firstName: string
   lastName: string
   email: string
 }
 
-export default class KlarnaInfo extends React.Component<{}, State> {
+export default class KlarnaInfo extends React.Component<Props, State> {
   static contextType = CartContext;
   constructor(props: any) {
     super(props)
@@ -103,7 +101,7 @@ export default class KlarnaInfo extends React.Component<{}, State> {
         <div>
           <FlexCol>
             <Grid>
-              <FlexCol>{this.props.children}</FlexCol>
+              <FlexCol>{Object.values(this.props.fields).firstName}</FlexCol>
               <FlexCol></FlexCol>
             </Grid>
             <Grid>
